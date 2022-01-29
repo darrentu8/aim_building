@@ -76,6 +76,10 @@ export default {
       // this.$refs.menu.funlist()
       this.$refs.menu.openMenu();
     },
+    // 開啟聊天
+    openChat () {
+      device.openChat();
+    },
     // 點擊收藏
     onCollect () {
       device.collect(this.shopinfo.isCollect)

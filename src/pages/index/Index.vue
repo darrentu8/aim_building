@@ -26,11 +26,11 @@
           .white-bg
             ul.link-box.d-flex
               li
-                a(href="javascript:;")
+                router-link(:to="{name: 'BusinessCard'}")
                   img(src="../../assets/img/businessCardItem-icon-user.png", alt)
                   p 交換名片
               li
-                a(href="javascript:;")
+                a(@click="openChat()")
                   img(src="../../assets/img/businessCardItem-icon-chat.png", alt)
                   p 開啟聊天
               li
