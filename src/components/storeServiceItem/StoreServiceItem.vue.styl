@@ -1,0 +1,80 @@
+.store-service-item-box
+  .banner-img
+    position: relative;
+    padding-top 50%;
+    width 100%
+    img
+      position: absolute;
+      left: 0;
+      top: 0;
+      width 100%
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+  .page-body
+    background-color: #fff;
+    padding: 6vw 3.12vw 3.8vw;
+  .store-service
+    &-content
+      margin-bottom: 6.01vw;
+    &-head
+      margin-bottom: 2.01vw;
+      p
+        color: #AEAEAE;
+    &-title
+      font-size: 1.7rem;
+      color: #EB7979;
+      font-weight: bold;
+  .price
+    &-box
+      padding 0;
+      .white-bg-head
+        margin-bottom: 4vw;
+      .btn-box
+        margin-top: 10%;
+        text-align: center;
+        .btn
+          width: 90%;
+          background-color: #EB7979;
+          color:#fff;
+          font-size:1.13rem;
+          border-radius: 4vw;
+          padding: 2vw;
+    &-list
+      display:flex;
+      align-items: center;
+      flex-wrap: wrap;
+    &-item
+      text-align:center;
+      padding: 0.8vw;
+      width:calc(100% / 3 - 1vw);
+      margin-right: 1.34vw;
+      color: #fff;
+      border-radius:2.7vw;
+      .num
+        font-weight: bold;
+        font-size:1.5rem;
+      &:nth-child(1)
+        background-color:#FF9B9B;
+      &:nth-child(2)
+        background-color:#FFBA91;
+      &:nth-child(3)
+        background-color:#92DAFA;
+        margin-right: 0;
+  @media(max-width:600px)
+    .store-service
+      &-title
+        font-size: 1.5rem;
+    .price
+      &-item
+        .num
+          font-size:1.3rem;
+  @media(max-width:480px)
+    .store-service
+      &-title
+        font-size: 1.1rem;
+    .price
+      &-item
+        .num
+          font-size:0.9rem;
+          

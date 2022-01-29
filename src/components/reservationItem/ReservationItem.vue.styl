@@ -1,0 +1,88 @@
+.reservation-item-box
+  .page-body
+    background-color: #fff;
+    .calender-box
+      margin-bottom:3.34vw;
+  .reservation
+    &-body
+      padding: 2.27vw 1.74vw;
+      background-repeat: repeat-y;
+      background-size:100% 100%;
+      background-position:center top;
+    &-box
+      &.price-box
+        background-color: transparent;
+        margin-top: 6vw;
+        padding: 0 1.34vw;
+      &-head
+        margin-bottom: 4vw;
+        .title
+          margin-bottom: 1.34vw;
+    &-date
+      display:flex;
+      flex-wrap:wrap;
+      width: 100%;
+      li
+        width:calc(100% / 3 - 12px);
+        margin-right: 2.27vw;
+        margin-bottom: 2.27vw;
+        color: #EB7979;
+        font-weight: bold;
+        border-radius:4.68vw;
+        border:1px solid #EB7979;
+        text-align: center;
+        padding: 1.34vw;
+        cursor: pointer;
+        &:nth-child(3n+3)
+          margin-right: 0;
+        &.active
+          background-color: #EB7979;
+          color:#fff;
+  .price
+    &-box
+      .btn-box
+        margin-top: 10%;
+        text-align: center;
+        .btn
+          width: 90%;
+          background-color: #EB7979;
+          color:#fff;
+          font-size:1.13rem;
+          border-radius: 4vw;
+          padding: 2vw;
+    &-list
+      display:flex;
+      align-items: center;
+      flex-wrap: wrap;
+    &-item
+      text-align:center;
+      padding: 0.8vw;
+      width:calc(100% / 3 - 1vw);
+      margin-right: 1.34vw;
+      color: #fff;
+      border-radius:2.7vw;
+      .num
+        font-weight: bold;
+        font-size:1.5rem;
+      &:nth-child(1)
+        background-color:#FF9B9B;
+      &:nth-child(2)
+        background-color:#FFBA91;
+      &:nth-child(3)
+        background-color:#92DAFA;
+        margin-right: 0;
+  @media(max-width:600px)
+    .price
+      &-item
+        .num
+          font-size:1.3rem;
+  @media(max-width:480px)
+    .price
+      &-item
+        .num
+          font-size:1.1rem;
+          
+
+
+        
+        

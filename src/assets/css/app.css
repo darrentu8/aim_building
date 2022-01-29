@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+body {
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+  user-select: none;
+  line-height:1.4;
+  color: #39393A;
+  font-size: 16px;
+}
+.btn{
+  font-size: 16px;
+}
+a, a:hover, a:focus, a:active{
+  text-decoration: none !important;
+}
+p{
+  margin-bottom: 0 !important;
+}
+ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.btn-primary:not(:disabled):not(.disabled):active, 
+.btn-primary:not(:disabled):not(.disabled).active, 
+.show > .btn-primary.dropdown-toggle{
+  background: transparent;
+}
+/* .cube-popup-mask{
+  background-color: #ff786e !important;
+}
+.cube-popup-mask::after{
+  content:"";
+  display:block;
+  background-image: url("../../assets/img/icon-close.png");
+  width: 59px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 25px;
+  top: 50px;
+} */
+.cube-image-preview .cube-popup-mask{
+  opacity: 0.95 !important;
+}
+/* 頁面通用 */
+.page-title{
+  flex:1;
+  text-align:center;
+  font-size:1.32rem;
+  color:#EB7979;
+  font-weight:bold;
+}
+.white-bg{
+  background-color: rgba(255,255,255,.7);
+  border-radius:2.3vw;
+  padding: 3.34vw 3.12vw;
+  margin-bottom:3.34vw;
+}
+.white-bg .title{
+  font-size:1.32rem;
+  color:#EB7979;
+  margin-bottom: 3px;
+  font-weight:bold;
+}
+.img-list-box{
+  display:flex;
+  flex-wrap:wrap;
+  width: 100%;
+}
+.img-list-box .img-item{
+  width: 50%;
+  display:flex;
+  align-items:center;
+  margin-bottom: 2vw;
+}
+.img-list-box .img{
+  position: relative;
+  width:9.34vw;
+  height: 9.34vw;
+  border:1px solid #979797;
+  border-radius:1.6vw;
+  overflow: hidden;
+  margin-right: 1.34vw;
+}
+.img-list-box .img img{
+  position:absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  object-fit: cover;
+  object-position:50% 50%;
+}
+.img-list-box .info-title{
+  color:#EB7979;
+  font-weight:bold;
+  margin-bottom: 5px;
+}  
+.store-service-box .basePageBack .sorollView{
+  top: 0 !important; 
+}
+.store-service-box .header .menu-btn{
+  display: none;
+} 
+.store-service-box .header .page-title{
+  text-align: left;
+  color:#fff;
+  padding-left: 4%;
+}  
+.store-service-box .header .page-back-btn > img{
+  display: none;
+}
+/* 日曆 */
+.reservation-item-box .vdp-datepicker__calendar{
+  width: 100%;
+  border: none !important;
+}
+.vdp-datepicker__calendar header .prev:not(.disabled):hover, 
+.vdp-datepicker__calendar header .next:not(.disabled):hover, 
+.vdp-datepicker__calendar header .up:not(.disabled):hover{
+  background: transparent !important;
+}
+.vdp-datepicker__calendar header{
+  line-height: 6.67vw !important;
+  display: flex !important;
+  justify-content: center;
+}
+.vdp-datepicker__calendar header .day__month_btn{
+  width: 135px !important;
+  color: #939393;
+}
+.vdp-datepicker__calendar header span{
+  float: inherit !important;
+}
+.vdp-datepicker__calendar header .prev:after,
+.vdp-datepicker__calendar header .next:after{
+  width: 2vw;
+  height: 2.8vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: inherit !important;
+  border: none !important;
+  top: 28% !important;
+  left: calc(50% - 7.5px) !important;
+}
+.vdp-datepicker__calendar header .prev:after{
+  background-image: url(../../assets/img/page-left.png);
+  margin-right: 0 !important;
+}
+.vdp-datepicker__calendar header .next:after{
+  background-image: url(../../assets/img/page-right.png);
+  margin-left: 0 !important;
+}
+.reservation-item-box .vdp-datepicker__calendar .disabled,
+.reservation-item-box .cell.weekend.disabled{
+  color: #ccc !important;
+}
+.vdp-datepicker__calendar .cell{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cabin', sans-serif;
+}
+.vdp-datepicker__calendar .selected,
+.reservation-item-box .cell.weekend.selected{
+  background-color: transparent !important;
+  position: relative;
+  color: #fff !important;
+}
+.vdp-datepicker__calendar .selected::after{
+  content: '';
+  display: block;
+  width: 4.54vw;
+  height: 4.54vw;
+  border-radius: 50%;
+  background-color: #EB7979;
+  margin: -5.6vw auto 0;
+}
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover, 
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover{
+  border: none !important;
+}
+.vdp-datepicker__calendar .cell.day-header:hover,
+.reservation-item-box .day-header{
+  color: #8C8F93;
+  font-size: 1.13rem!important
+}
+/* 預約 */
+.reservation-item-box .day-header:nth-child(6){
+  border-right: none !important;
+}
+.reservation-item-box .vdp-datepicker__calendar .day{
+  font-size: 1.13rem !important;
+  height: 6.67vw !important;
+  line-height: 6.67vw !important;
+}
+.reservation-box .basePageBack .content-box{
+  padding: 0 !important;
+}
+@media(max-width:600px){
+  body, .btn, .form-control,p{
+    font-size: 15px !important;
+  }
+  .page-title, 
+  .white-bg .title{
+    font-size:1.1rem;
+  }
+  .vdp-datepicker__calendar .cell.day-header:hover,
+  .reservation-item-box .day-header,
+  .reservation-item-box .vdp-datepicker__calendar .day{
+    font-size: 0.9rem !important;
+  }
+}
+@media(max-width: 480px){
+  body, .btn, .form-control,p{
+    font-size: 12px !important;
+  }
+  .page-title,
+  .white-bg .title{
+    font-size:0.9rem;
+  }
+  .page-title{
+    position: relative;
+    top: 2px;
+  }
+  .vdp-datepicker__calendar header .prev:after,
+  .vdp-datepicker__calendar header .next:after{
+    width: 3vw;
+    height: 3vw;
+  }
+  .vdp-datepicker__calendar header{
+    line-height: 9.67vw !important;
+  }
+  .vdp-datepicker__calendar .cell.day-header:hover,
+  .reservation-item-box .day-header,
+  .reservation-item-box .vdp-datepicker__calendar .day{
+    font-size: 0.7rem !important;
+  }
+  .reservation-item-box .vdp-datepicker__calendar .cell{
+    height: 7.4vw !important;
+    line-height: 6.4vw !important;
+  }
+  .vdp-datepicker__calendar .selected::after {
+    width: 5.4vw;
+    height: 5.4vw;
+    margin: -6vw auto 0;
+  }
+}

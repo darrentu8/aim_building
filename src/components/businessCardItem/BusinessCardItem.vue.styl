@@ -1,0 +1,116 @@
+.business-card-item-box
+  .page-body
+    padding:2.27vw 1.74vw;
+  .profile-box
+    .img  
+      width: 16vw;
+      height: 16vw;
+      margin 0 auto 8px;
+      overflow:hidden;
+      border-radius: 6vw;
+      position: relative
+      img
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+    .name
+      font-size:1.5rem;
+      margin-bottom 0;
+      font-weight:bold;
+      color:#EB7979;
+    .txt
+      font-size:1.3rem;
+      color:#939393;
+      font-weight:bold;
+      margin-bottom 0
+  .link-box
+    display:flex;
+    text-align:center;
+    margin: 5vw 0;
+    a
+      &:hover
+        text-decoration: none;
+    li
+      flex:1;
+    img
+      height: 7vw;
+    p
+      color: #EB7979;
+      font-weight: bold;
+  .job-info
+    margin-bottom: 4vw;
+    li
+      display:flex;
+      justify-content: space-between;
+      margin 4px 0
+  .map-iframe
+    margin-top: 2.7vw;
+    border-radius: 2.7vw;
+    overflow: hidden;
+    position: relative;
+    padding-top: 30%;
+    &::after
+      content:"";
+      display: block;
+      width:calc(100% - 280px)
+      height 100%
+      position:absolute;
+      right: 0;
+      top 0
+      z-index: 10;
+    &::before
+      content:"";
+      display: block;
+      width 100%;
+      height calc(100% - 58px);
+      position:absolute;
+      left: 0;
+      bottom 0
+      z-index: 10;
+    .map-cover
+      &::before,
+      &::after
+        content:"";
+        position: absolute;
+        display: block;
+      &::before
+        width:100%;
+        height:10px;
+      &::after
+        height 100%
+        width 10px
+    iframe
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+  .friends
+    &-list
+      margin-top: 2.7vw;
+      padding: 0 0.8vw;
+      li
+        width: calc(100% / 3 - 2.3vw);
+        margin-right: 3.34vw;
+        border-radius:3.34vw;
+        overflow:hidden;
+        position: relative;
+        padding-top: 29.9%;
+        &:nth-child(3n+3)
+          margin-right: 0;
+        img
+          position:absolute;
+          left: 0;
+          top: 0;
+          height: 103%;
+          object-fit: cover;
+          object-position:50% 50%;
+  @media(max-width:735px)
+    .map-iframe
+      &::after
+        width:calc(100% - 110px)
+      &::before
+        height calc(100% - 37px);

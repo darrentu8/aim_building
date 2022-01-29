@@ -1,0 +1,91 @@
+.menu-dialog
+  .menu-mask
+    background-color:rgba(#ffefef, .5);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 20;
+  .menu
+    padding:7.1vw 3.1vw;
+    height: 100%;
+    width:290px;
+    max-width:100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background-color: #ffffff;
+    background-image url(../../assets/img/menu-bg.png);
+    background-repeat:no-repeat;
+    background-position:center bottom;
+    background-size:100% auto;
+    left: 0;
+    button,.btn-primary:not(:disabled):not(.disabled):active, 
+    .btn-primary:not(:disabled):not(.disabled).active, 
+    .show > .btn-primary.dropdown-toggle
+      background:transparent;
+      padding: 0;
+      border:0;
+      &:focus, &:hover, &:active
+        box-shadow:none !important;
+        outline:0;
+        background:transparent;
+        padding: 0;
+        border:0;
+    &-close
+      text-align: right;
+      position:absolute;
+      right: -3.34vw;
+      img
+        width 2vw;
+    &-head
+      font-size:13px;
+      margin-bottom: 3.05vw;
+      padding-top: 8.51vw;
+      b
+        font-size:1.3rem;
+      p
+        color:#fda5a5;
+        &:nth-child(1)
+          margin-right: 3.23vw;
+      .name
+        font-size:1.32rem;
+        margin-bottom: 2.73vw;
+        color: #eb7979;
+        font-weight: bold;
+    &-list
+      height: 70vh;
+      overflow: auto;
+      &-item
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li
+          margin-bottom: 5.78vw;
+          cursor: pointer;
+        a
+          color: #2d589c;
+          &:hover
+            text-decoration:none
+  @media(max-width:600px)
+    .menu
+      font-size: 15px;
+      padding:45px 15px;
+      &-head
+        b
+          font-size:1rem;
+        .name
+          font-size:1.1rem;
+  @media(max-width:480px)
+    .menu
+      width:270px;
+      font-size: 12px;
+      &-close
+        right -20px
+        img
+          width:9px;
+      &-head
+        font-size: 12px;
+        .name
+          font-size:0.9rem;
