@@ -24,12 +24,10 @@
               p 預約時間
           li
             a(v-if="shopinfo.isCollect")
-              img(src="../../assets/img/businessCardItem-icon-heart.png", alt)
-              //  未關注 
-              //  <img src="../../assets/img/businessCardItem-icon-heart-none.png" alt=""> 
+              img(src="../../assets/img/businessCardItem-icon-heart-none.png", alt)
               p 按讚關注
             a(v-else)
-              img(style="margin-left:8px;" src="../../assets/img/businessCardItem-icon-heart-none.png", alt)
+              img(style="margin-left:8px;" src="../../assets/img/businessCardItem-icon-heart.png", alt)
               p 已關注
         .white-bg-head
           h2.title 個人介紹
