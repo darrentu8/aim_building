@@ -6,7 +6,7 @@
       <div slot="back-btn">
          <img src="../../assets/img/icon-back-white.png"/>
       </div>
-      <div slot="page-title">Alice lu 模特兒店</div>
+      <div slot="page-title">{{good.shopName}} {{good.business}}</div>
       <div slot="content">
         <StoreServiceItem />
       </div>
@@ -15,13 +15,22 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   import StoreService from './StoreService.vue.js';
   export default {
-    ...StoreService
+    ...StoreService,
+    computed: {
+      ...mapState(['good'])
+    },
+    mounted () {
+      console.log('good', this.good)
+    },
+    methods: {
+    }
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style scoped lang='stylus" rel="stylesheet/stylus">
   @import "StoreService.vue.styl";
 </style>
 

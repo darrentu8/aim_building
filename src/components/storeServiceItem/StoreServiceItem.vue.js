@@ -1,4 +1,5 @@
 import Datepicker from 'vuejs-datepicker';
+import { mapState } from 'vuex';
 import { zh } from 'vuejs-datepicker/dist/locale'
 import moment from 'moment';
 export default {
@@ -14,6 +15,9 @@ export default {
         backgroundImage: 'url(' + require('@/assets/img/reservation-bg.png') + ')'
       }
     };
+  },
+  computed: {
+    ...mapState(['good'])
   },
   components: {
     Datepicker
