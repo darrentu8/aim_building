@@ -11,6 +11,7 @@ import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+
 export default {
   name: 'Index',
   extends: AppBase,
@@ -18,11 +19,7 @@ export default {
   },
   data () {
     return {
-      shopinfo: {
-        type: Object,
-        default: {},
-        required: true
-      },
+      data: {},
       bgclass: {
         backgroundImage: 'url(' + require('@/assets/img/reservation-bg.png') + ')'
       },
@@ -57,20 +54,20 @@ export default {
     VueSlickCarousel
   },
   computed: {
-    isbusinessinfo: {
+    isbusinessinfoData: {
       get () {
-        return this.shopinfo.isbusinessinfo.slice(5);
+        return this.data.isbusinessinfo.slice(5);
       },
       set (value) {
-        return this.shopinfo.isbusinessinfo.slice(5);
+        this.data.isbusinessinfo = value;
       }
     }
   },
   // 添加 註冊 消息 210809
   async created () {
     jglib.setOnMessage(this.onMessage.bind(this));
-    if (this.shopinfo.shopid == null || this.shopinfo.shopid === undefined) {
-      this.shopinfo = jgdata.getShopData();
+    if (this.data.shopid == null || this.data.shopid === undefined) {
+      this.data = jgdata.getShopData();
     }
     this.$nextTick(() => {
       console.log('in')
@@ -87,9 +84,9 @@ export default {
   methods: {
     setGood (good) {
       this.$store.commit('setGood', {
-        shopName: this.shopinfo.shopName,
+        shopName: this.data.shopName,
         name: good.name,
-        business: this.shopinfo.business,
+        business: this.data.business,
         price: good.price,
         image: good.image,
         info: good.info
@@ -105,9 +102,9 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      console.log('this.shopinfo', this.shopinfo);
-      console.log('this.shopinfo.isCollect', this.shopinfo.isCollect);
-      device.collect(this.shopinfo.isCollect = !this.shopinfo.isCollect);
+      console.log('this.data', this.data);
+      console.log('this.data.isCollect', this.data.isCollect);
+      device.collect(this.data.isCollect = !this.data.isCollect);
     },
     // 接收消息 數據 210809
     async onMessage (msg) {
@@ -117,8 +114,9 @@ export default {
             // 這句要添加 不要刪除掉
             this.setPageConfig();
             // 初始數據 數據更新
-            this.shopinfo = jgdata.getShopData();
-            console.log(this.shopinfo);
+            this.data = jgdata.getShopInfo();
+            this.$store.commit('setShopData', this.data);
+            console.log('ShopData', this.data);
             // let templateData = data['templateData']; // 些模板的數據
             // // console.log(templateData);
             // // 當前主頁數據

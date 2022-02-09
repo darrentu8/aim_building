@@ -9,9 +9,9 @@
         .white-bg.reservation-box
           .reservation-box-head
             h2.title 選擇服務項目
-            p 網拍、業配、外景拍攝、廣告
+            //- p 網拍、業配、外景拍攝、廣告
           .reservation-box-body.img-list-box
-            .reservation-item.img-item(:class="{ 'active': reservation.active }" v-for="(reservation,i) in reservationList" @click="selectReservation(reservation,i)")
+            .reservation-item.img-item(:class="{ 'active': reservation.active }" v-for="(reservation,i) in data.menu" :key="reservation.key" @click="selectReservation(reservation,i)")
               .img
                 img(:src="reservation.link", alt)
               .info

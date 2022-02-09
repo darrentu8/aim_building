@@ -12,7 +12,7 @@
         </div>
         <div class="menu-head">
           <div class="info">
-            <div class="name">Alice lu 模特兒店</div>
+            <div class="name">{{data.shopName}} {{data.business}}</div>
             <div class="user-count d-flex">
               <p>被關注人數<b>102</b></p>
               <p>本月已預約人數<b>10</b></p>

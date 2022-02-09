@@ -36,19 +36,20 @@ class JGData {
     if (this.shopData === null) {
       return {}
     }
-    return {
-      shopid: this.shopData.shopid,
-      shopName: this.shopData.shopName,
-      logo: this.shopData.logo,
-      address: this.shopData.address,
-      describ: this.shopData.describ,
-      shopTime: this.shopData.shopTime,
-      bgImage: this.shopData.bgImage,
-      browseImage: this.shopData.browseImage,
-      city: this.shopData.chr_city,
-      isCollect: this.shopData.isCollect,
-      phone: this.shopData.phone
-    };
+    return this.shopData;
+    // return {
+    //   shopid: this.shopData.shopid,
+    //   shopName: this.shopData.shopName,
+    //   logo: this.shopData.logo,
+    //   address: this.shopData.address,
+    //   describ: this.shopData.describ,
+    //   shopTime: this.shopData.shopTime,
+    //   bgImage: this.shopData.bgImage,
+    //   browseImage: this.shopData.browseImage,
+    //   city: this.shopData.chr_city,
+    //   isCollect: this.shopData.isCollect,
+    //   phone: this.shopData.phone
+    // };
   }
   // 商品
   getGoods (callBack = null) {

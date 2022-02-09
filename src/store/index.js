@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    data: {},
     good: {
       shopName: '',
       name: '',
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setShopData (state, val) {
+      state.data = val;
+    },
     setGood (state, val) {
       state.good = val;
     }

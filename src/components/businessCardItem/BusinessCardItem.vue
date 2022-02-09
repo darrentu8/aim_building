@@ -6,9 +6,9 @@
       .white-bg.profile-box
         .profile-info.text-center
           .img
-            img(src="../../assets/img/businessCardItem-proflie-defult.png", alt)
-          h2.name Alice lu
-          p.txt 模特兒
+            img(:src="data.logo", alt)
+          h2.name {{data.shopName}}
+          p.txt {{data.business}}
         ul.link-box.d-flex
           li
             router-link(:to="{name: 'BusinessCard'}")
@@ -23,67 +23,44 @@
               img(src="../../assets/img/businessCardItem-icon-time.png", alt)
               p 預約時間
           li
-            a(v-if="shopinfo.isCollect")
+            a(v-if="data.isCollect" @click="onCollect")
               img(src="../../assets/img/businessCardItem-icon-heart-none.png", alt)
               p 按讚關注
-            a(v-else)
+            a(v-else @click="onCollect")
               img(style="margin-left:8px;" src="../../assets/img/businessCardItem-icon-heart.png", alt)
               p 已關注
         .white-bg-head
           h2.title 個人介紹
-          p
-            | 是位台美混血全方位模特兒
-            br
-            | 平面：LunaˋJP PomadeˋGo GymˋUber
-            br
-            | 廣告：7-11ˋHTCˋMazdaˋElectrolux
+          p {{data.describe}}
 
       .white-bg
         .white-bg-head
           h2.title 職業內容介紹
-          p 模特兒
+          p {{data.business}}
         ul.job-info
           li
             span.job-title 服務時間
-            span 08:00-19:00
+            span {{isbusinessinfoData}}
           li
             span.job-title 職涯年齡
-            span 三年
+            span 三年 {{data.business}}
           li
             span.job-title 服務內容
             span 網拍、業配、外景拍攝、廣告
         .img-list-box
-          .img-item
+          .img-item(v-for="good in data.goods.menu" :key="good.key")
             .img
-              img(src="../../assets/img/reservation-img1.png", alt)
+              img(:src="good.image", alt)
             .info
-              .info-title 網拍
-              p 1200元
-          .img-item
-            .img
-              img(src="../../assets/img/reservation-img2.png", alt)
-            .info
-              .info-title 網拍
-              p 1200元
-          .img-item
-            .img
-              img(src="../../assets/img/reservation-img3.png", alt)
-            .info
-              .info-title 網拍
-              p 1200元
-          .img-item
-            .img
-              img(src="../../assets/img/reservation-img4.png", alt)
-            .info
-              .info-title 網拍
-              p 1200元
+              .info-title {{good.name}}
+              p {{good.price}}元
       .white-bg.map-box
         .white-bg-head
           h2.title.
             
             職業服務地點
             
-          p 高雄市前鎮區新光路61號 / 到府服務
+          p {{data.address}} / 到府服務
           .map-iframe
             .map-cover
             iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.1671008805292!2d120.29955451496016!3d22.610234385163366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e037c25c5b457%3A0x1eae13f288f3b891!2zODA26auY6ZuE5biC5YmN6Y6u5Y2A5paw5YWJ6LevNjHomZ8!5e0!3m2!1szh-TW!2stw!4v1630720625488!5m2!1szh-TW!2stw", style="border:0;", allowfullscreen, loading="lazy")

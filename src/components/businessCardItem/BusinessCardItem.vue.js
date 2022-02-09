@@ -1,5 +1,6 @@
 
 import {device} from '../../lib/Index'
+import { mapState } from 'vuex'
 export default {
   name: 'Index',
   props: {
@@ -12,6 +13,9 @@ export default {
         required: true
       }
     }
+  },
+  computed: {
+    ...mapState(['data'])
   },
   components: {
   },

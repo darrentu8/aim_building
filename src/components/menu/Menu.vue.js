@@ -1,7 +1,11 @@
 
 import {device, jgdata} from '../../lib/Index'
+import { mapState } from 'vuex';
 
 export default {
+  computed: {
+    ...mapState(['data'])
+  },
   props: {
     /* data: {
       type: Array,

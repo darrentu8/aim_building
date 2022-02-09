@@ -4,6 +4,8 @@ import moment from 'moment';
 import Vue from 'vue';
 import { Toast } from 'mint-ui';
 import device from '../../lib/device';
+import { mapState } from 'vuex';
+
 export default {
   data () {
     return {
@@ -63,7 +65,8 @@ export default {
         }
       });
       return total;
-    }
+    },
+    ...mapState(['data'])
   },
   methods: {
     reservat () {
