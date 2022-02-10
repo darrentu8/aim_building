@@ -30,7 +30,7 @@
                   img(src="../../assets/img/businessCardItem-icon-user.png", alt)
                   p 交換名片
               li
-                a(@click="openChat()")
+                a(@click="openChat")
                   img(src="../../assets/img/businessCardItem-icon-chat.png", alt)
                   p 開啟聊天
               li
@@ -57,7 +57,7 @@
                 span 三年 {{data.business}}
               li
                 span.job-title 服務內容
-                span 網拍、業配、外景拍攝、廣告
+                span {{data.describe}}
           .white-bg.map-box
             .white-bg-head
               h2.title 職業服務地點

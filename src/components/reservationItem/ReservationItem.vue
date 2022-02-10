@@ -11,11 +11,11 @@
             h2.title 選擇服務項目
             //- p 網拍、業配、外景拍攝、廣告
           .reservation-box-body.img-list-box
-            .reservation-item.img-item(:class="{ 'active': reservation.active }" v-for="(reservation,i) in data.menu" :key="reservation.key" @click="selectReservation(reservation,i)")
+            .reservation-item.img-item(:class="{ 'active': reservation.active }" v-for="(reservation,i) in data.goods.menu" :key="reservation.key" @click="selectReservation(reservation,i)")
               .img
-                img(:src="reservation.link", alt)
+                img(:src="reservation.image", alt)
               .info
-                .info-title {{reservation.title}}
+                .info-title {{reservation.name}}
                 p {{reservation.price}}元
         //  end reservation-box 
         .white-bg.reservation-box

@@ -15,6 +15,14 @@ export default {
     }
   },
   computed: {
+    isbusinessinfoData: {
+      get () {
+        return this.data.isbusinessinfo.slice(5);
+      },
+      set (value) {
+        this.data.isbusinessinfo = value;
+      }
+    },
     ...mapState(['data'])
   },
   components: {
@@ -26,7 +34,7 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      device.collect(this.shopinfo.isCollect)
+      device.collect(this.data.isCollect);
     }
   }
 }

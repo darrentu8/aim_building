@@ -102,9 +102,7 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      console.log('this.data', this.data);
-      console.log('this.data.isCollect', this.data.isCollect);
-      device.collect(this.data.isCollect = !this.data.isCollect);
+      device.collect(this.data.isCollect);
     },
     // 接收消息 數據 210809
     async onMessage (msg) {

@@ -46,7 +46,7 @@
             span 三年 {{data.business}}
           li
             span.job-title 服務內容
-            span 網拍、業配、外景拍攝、廣告
+            span {{data.describe}}
         .img-list-box
           .img-item(v-for="good in data.goods.menu" :key="good.key")
             .img

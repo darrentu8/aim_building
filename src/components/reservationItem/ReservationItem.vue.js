@@ -50,7 +50,7 @@ export default {
           totalTime += 1;
         }
       });
-      this.reservationList.forEach(ele => {
+      this.data.goods.menu.forEach(ele => {
         if (ele.active === true) {
           total += Number(ele.price + this.hourPrice * totalTime)
         }
