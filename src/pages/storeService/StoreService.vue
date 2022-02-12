@@ -6,9 +6,9 @@
       <div slot="back-btn">
          <img src="../../assets/img/icon-back-white.png"/>
       </div>
-      <div slot="page-title">{{good.shopName}} {{good.business}}</div>
+      <div slot="page-title">{{data.shopName}} {{data.business}}</div>
       <div slot="content">
-        <StoreServiceItem />
+        <StoreServiceItem :res="res" />
       </div>
     </BasePageBack>
   </div>
@@ -20,17 +20,16 @@
   export default {
     ...StoreService,
     computed: {
-      ...mapState(['good'])
+      ...mapState(['data', 'res'])
     },
     mounted () {
-      console.log('good', this.good)
     },
     methods: {
     }
   }
 </script>
 
-<style scoped lang='stylus" rel="stylesheet/stylus">
+<style scoped lang='stylus' rel="stylesheet/stylus">
   @import "StoreService.vue.styl";
 </style>
 

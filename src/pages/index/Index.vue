@@ -18,10 +18,10 @@
             p.txt {{data.business}}
           .follow-info
             .follow-info-item
-              span.num 102
+              span.num {{data.attention}}
               p 被關注人數
             .follow-info-item
-              span.num 10
+              span.num {{data.orderQuantity}}
               p 本月已預約人數
           .white-bg
             ul.link-box.d-flex
@@ -47,17 +47,22 @@
           .white-bg
             .white-bg-head
               h2.title 職業內容介紹
-              p {{data.business}}
+              //- p {{data.describe}}
             ul.job-info
               li
-                span.job-title 服務時間
-                span {{isbusinessinfoData}}
-              li
-                span.job-title 職涯年齡
-                span 三年 {{data.business}}
-              li
-                span.job-title 服務內容
+                span.job-title 簡介
                 span {{data.describe}}
+              //- li(v-for="(time,i) in shopTimeView" :key="i")
+              //-   span.job-title 服務時間
+              //-   span {{time.time}}
+              li(v-for="vo in businesstime" @click="showTimeList()") 服務時間
+                span 星期{{vo.week}} {{vo.time}}
+              li(v-for="job in jobData" :key="job.id")
+                span.job-title {{job.title}}
+                span {{job.content}}
+              //- li
+              //-   span.job-title 服務內容
+              //-   span {{data.describe}}
           .white-bg.map-box
             .white-bg-head
               h2.title 職業服務地點
@@ -68,17 +73,25 @@
           .white-bg.service-box
             .white-bg-head
               h2.title 服務內容(價格)
-              p {{data.business}}
+              //- p {{data.business}}
             .service-list
-              .service-item(v-for="good in data.goods.menu" :key="good.key")
-                router-link(:to="{name: 'StoreService'}" @click.native="setGood(good)")
+              .service-item(v-for="(res) in data.reservationService" :key="res.key")
+                router-link(:to="{name: 'StoreService', params:{ content: data.shopName }}" @click.native="setRes(res)")
                   .service-info
                     .service-txt
-                      h3.service-title {{good.name}}
-                      p {{good.info}}
+                      h3.service-title {{res.name}}
+                      p {{res.info}}
                     .service-img
-                      img(:src="good.image", alt)
-                  .price 時薪 {{good.price}} 元
+                      img(:src="res.image", alt)
+                  .price(v-if="res.content[0].time[0].price != undefined") 時薪價格 {{res.content[0].time[0].price}} 元 / 剩餘銷售數量 {{res.copies}}
+                  //- .price 剩餘銷售數量 {{res.copies}} / 已售出 {{res.sell}}
+                  //- .service-info
+                  //-   .service-txt
+                  //-     h3.service-title {{res.name}}
+                  //-     p {{res.info}}
+                  //-   .service-img
+                  //-     img(:src="res.image", alt)
+                  //- .price 時薪 {{res.price}} 元
               //- .service-item
               //-   router-link(:to="{name: 'StoreService'}")
               //-     .service-info

@@ -9,17 +9,11 @@ import { mapState } from 'vuex';
 export default {
   data () {
     return {
-      hourPrice: 800,
-      timeList: [
-        {time: '08-09', value: '08-09', active: false},
-        {time: '09-10', value: '09-10', active: false},
-        {time: '10-11', value: '10-11', active: false},
-        {time: '12-13', value: '12-13', active: false},
-        {time: '13-14', value: '13-14', active: false},
-        {time: '15-16', value: '15-16', active: false},
-        {time: '16-17', value: '16-17', active: false},
-        {time: '17-18', value: '17-18', active: false}
-      ],
+      totalTime: 0,
+      timeObj: '',
+      totalPrice: 0,
+      selectResIndex: 0,
+      timeList: [],
       reservationList: [
         {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img1.png'), active: false},
         {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img2.png'), active: false},
@@ -42,35 +36,50 @@ export default {
     Datepicker
   },
   computed: {
-    totalPrice () {
+    totalBuyPrice () {
+      this.totalPrice = 0;
       var totalTime = 0;
       var total = 0;
-      this.timeList.forEach(ele => {
+      var timeObj = this.data.reservationService[this.selectResIndex].content[0].time;
+      var timePrice = this.data.reservationService[this.selectResIndex].content[0].time[0].price;
+      timeObj.forEach(ele => {
         if (ele.active === true) {
           totalTime += 1;
         }
       });
-      this.data.goods.menu.forEach(ele => {
-        if (ele.active === true) {
-          total += Number(ele.price + this.hourPrice * totalTime)
-        }
-      })
+      total += Number(timePrice * totalTime);
+      this.totalPrice = total;
       return total;
     },
-    totalTime () {
-      var total = 0;
-      this.timeList.forEach(ele => {
+    totalBuyTime () {
+      var totalTime = 0;
+      var timeObj = this.data.reservationService[this.selectResIndex].content[0].time;
+      timeObj.forEach(ele => {
         if (ele.active === true) {
-          total += 1
+          totalTime += 1
         }
       });
-      return total;
+      this.totalTime = totalTime;
+      return totalTime;
     },
-    ...mapState(['data'])
+    ...mapState(['data', 'res'])
+  },
+  mounted () {
+    this.data.reservationService.forEach((item) => {
+      item.active = false;
+    })
+    this.$store.commit('setRes', this.data.reservationService);
   },
   methods: {
     reservat () {
-      if (this.totalPrice === 0) {
+      var selectRes = 0;
+      var ResObj = this.data.reservationService;
+      ResObj.forEach(ele => {
+        if (ele.active === true) {
+          selectRes += 1
+        }
+      });
+      if (this.totalPrice === 0 || selectRes === 0) {
         Toast({
           message: '請選擇服務項目!',
           position: 'middle',
@@ -78,13 +87,26 @@ export default {
         });
         return false;
       } else {
-        console.log(this.totalPrice);
-        device.payMoney(this.totalPrice);
+        // console.log(this.totalPrice);
+        // device.payMoney(this.totalPrice);
+        let params = {};
+        params['shopid'] = window.headers.shopid; // 商家
+        params['puid'] = window.headers.shopid;
+        params['selected'] = this.data.reservationService[this.selectResIndex].name;
+        params['lens'] = {
+          length: this.totalTime,
+          maxPrice: this.totalPrice };
+        console.log('params', params)
+        device.goodsPost(params)
       }
     },
-    selectReservation (item) {
+    selectReservation (item, i) {
+      this.data.reservationService.forEach((item) => {
+        item.active = false;
+      })
+      this.selectResIndex = i;
+      Vue.set(item, 'active', false);
       if (item.active) {
-        Vue.set(item, 'active', false);
       } else {
         Vue.set(item, 'active', true);
       }

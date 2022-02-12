@@ -19,8 +19,8 @@ export default new Vuex.Store({
     setShopData (state, val) {
       state.data = val;
     },
-    setGood (state, val) {
-      state.good = val;
+    setRes (state, val) {
+      state.res = val;
     }
   },
   getters: {},

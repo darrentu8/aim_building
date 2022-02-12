@@ -9,6 +9,7 @@ import BasePageBack from '../../components/basepageback/BasePageBack'
 import AppBase from '../../lib/base/AppBase'
 import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+import {getChineseWeek} from '../../lib/function';
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
@@ -20,9 +21,12 @@ export default {
   data () {
     return {
       data: {},
+      businesstime: [],
+      res: {},
       bgclass: {
         backgroundImage: 'url(' + require('@/assets/img/reservation-bg.png') + ')'
       },
+      shopinfo: {},
       pageData: [],
       settings: {
         dots: false,
@@ -54,12 +58,20 @@ export default {
     VueSlickCarousel
   },
   computed: {
-    isbusinessinfoData: {
+    jobData: {
       get () {
-        return this.data.isbusinessinfo.slice(5);
+        return JSON.parse(this.data.job);
       },
       set (value) {
-        this.data.isbusinessinfo = value;
+        this.data.job = value;
+      }
+    },
+    shopTimeView: {
+      get () {
+        return JSON.parse(this.data.shopTime);
+      },
+      set (value) {
+        this.data.shopTime = value;
       }
     }
   },
@@ -81,16 +93,97 @@ export default {
       }
     })
   },
+  async mounted () {
+    this.setShopTime(this.data)
+  },
   methods: {
-    setGood (good) {
-      this.$store.commit('setGood', {
-        shopName: this.data.shopName,
-        name: good.name,
-        business: this.data.business,
-        price: good.price,
-        image: good.image,
-        info: good.info
-      });
+    // 明細時間
+    showTimeList () {
+      let timeData = [];
+      let shopTime = this.shopinfo.shopTime
+      if (typeof shopTime === 'undefined') {
+        return null
+      }
+      if (shopTime === null || shopTime === '') {
+        return null
+      }
+      try {
+        shopTime = JSON.parse(shopTime);
+        for (let i = 0; i < shopTime.length; i++) {
+          const item = shopTime[i];
+          if (item.state === 1) {
+            timeData.push({
+              content: '星期' + getChineseWeek(i) + ' ' + item.time,
+              align: 'left'
+            })
+          }
+        }
+      } catch (e) {
+      }
+
+      this.$createActionSheet({
+        title: '營業時間',
+        /* pickerStyle: true, */
+        cancelTxt: '關閉',
+        data: timeData
+      }).show()
+    },
+    // 时间处理
+    setShopTime (shopinfo = null) {
+      if (shopinfo === null || typeof shopinfo === 'undefined') {
+        return null
+      }
+      this.shopinfo = shopinfo;
+      let shopTime = this.shopinfo.shopTime
+      if (typeof shopTime === 'undefined') {
+        return null
+      }
+      if (shopTime === null || shopTime === '') {
+        return null
+      }
+      this.businesstime = []
+      let now = new Date();
+      let day = now.getDay();
+      let nowtime = '';
+        // console.log(day);
+      try {
+        shopTime = JSON.parse(shopTime)
+        let bol = false;
+        for (let n = 0; n < shopTime.length; n++) {
+          const item = shopTime[n];
+          if (n === day) {
+            nowtime = item.time
+          }
+          if (item.state === 1) {
+            bol = false
+            for (let i = 0; i < this.businesstime.length; i++) {
+              if (this.businesstime[i].time === item.time) {
+                this.businesstime[i].week = this.businesstime[i].week + getChineseWeek(n)
+                bol = true
+                break
+              }
+            }
+            if (bol === false) {
+              this.businesstime.push({
+                time: item.time,
+                week: getChineseWeek(n)
+              })
+            }
+          }
+          if (this.businesstime.length > 1) {
+            this.businesstime = [];
+            this.businesstime.push({
+              time: nowtime,
+              week: getChineseWeek(day - 1)
+            })
+          }
+        }
+      } catch (e) {
+
+      }
+    },
+    setRes (res, i) {
+      this.$store.commit('setRes', res);
     },
     onclickMenu () {
       // this.$refs.menu.funlist()
@@ -112,6 +205,7 @@ export default {
             // 這句要添加 不要刪除掉
             this.setPageConfig();
             // 初始數據 數據更新
+            this.$store.commit('setShopData', {});
             this.data = jgdata.getShopInfo();
             this.$store.commit('setShopData', this.data);
             console.log('ShopData', this.data);

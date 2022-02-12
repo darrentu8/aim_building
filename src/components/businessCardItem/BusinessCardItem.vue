@@ -31,29 +31,29 @@
               p 已關注
         .white-bg-head
           h2.title 個人介紹
-          p {{data.describe}}
+          p {{data.content}}
 
       .white-bg
         .white-bg-head
           h2.title 職業內容介紹
-          p {{data.business}}
+          //- p {{data.describe}}
         ul.job-info
           li
-            span.job-title 服務時間
-            span {{isbusinessinfoData}}
-          li
-            span.job-title 職涯年齡
-            span 三年 {{data.business}}
-          li
-            span.job-title 服務內容
+            span.job-title 簡介
             span {{data.describe}}
+          li(v-for="vo in businesstime" @click="showTimeList()") 服務時間
+            span 星期{{vo.week}} {{vo.time}}
+          li(v-for="job in jobData" :key="job.id")
+            span.job-title {{job.title}}
+            span {{job.content}}
         .img-list-box
-          .img-item(v-for="good in data.goods.menu" :key="good.key")
+          .img-item(v-for="(res,i) in data.reservationService" :key="res.key")
             .img
-              img(:src="good.image", alt)
+              img(:src="res.image", alt)
             .info
-              .info-title {{good.name}}
-              p {{good.price}}元
+              .info-title {{res.name}}
+              p(v-if="res") {{res.content[0].time[0].price}} 元
+              p(v-else) 200 元
       .white-bg.map-box
         .white-bg-head
           h2.title.
@@ -67,17 +67,11 @@
       .white-bg.friends-box
         .white-bg-head
           h2.title 已結交朋友介紹
-          p 目前好友數 261人
+          p 目前好友數 {{data.partnershop.length}} 人
           ul.friends-list.d-flex.flex-wrap
-            li
-              a(href="javascript:;")
-                img(src="../../assets/img/businessCard-img1.png", alt)
-            li
-              a(href="javascript:;")
-                img(src="../../assets/img/businessCard-img2.png", alt)
-            li
-              a(href="javascript:;")
-                img(src="../../assets/img/businessCard-img3.png", alt)
+            li(v-for="(partner,i) in data.partnershop" :key="partner.key")
+              a(:href="partner.url")
+                img(:src="partner.logo", alt)
     //  end page-body 
 </template>
 

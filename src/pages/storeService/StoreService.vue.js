@@ -1,6 +1,7 @@
 import BasePageBack from '../../components/basepageback/BasePageBack'
 import StoreServiceItem from '../../components/storeServiceItem/StoreServiceItem.vue'
 import AppBase from '../../lib/base/AppBase'
+import { mapState } from 'vuex';
 
 export default {
   name: 'StoreService',
@@ -12,23 +13,20 @@ export default {
       // },
     };
   },
-  props: {
-    data: {
-      type: String
-    }
-  },
+  // props: {
+  //   data: {
+  //     type: String
+  //   }
+  // },
   computed: {
-    // goodData () {
-    //   return JSON.parse(this.data);
-    // }
+    ...mapState(['data', 'res'])
   },
   components: {
     BasePageBack,
     StoreServiceItem
   },
   mounted () {
-    console.log('data', this.data);
-    console.log('goodData', this.goodData);
+    // console.log('res', this.data.reservationService);
   },
   methods: {
     /* pageback () {
