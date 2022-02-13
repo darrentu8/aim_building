@@ -79,8 +79,8 @@ ul{
 }
 .img-list-box .img{
   position: relative;
-  width:9.34vw;
-  height: 9.34vw;
+  width:61px;
+  height: 61px;
   border:1px solid #979797;
   border-radius:1.6vw;
   overflow: hidden;

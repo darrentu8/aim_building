@@ -55,8 +55,11 @@
               //- li(v-for="(time,i) in shopTimeView" :key="i")
               //-   span.job-title 服務時間
               //-   span {{time.time}}
-              li(v-for="vo in businesstime" @click="showTimeList()") 服務時間
-                span 星期{{vo.week}} {{vo.time}}
+              li
+                div(style="width:100%;display:flex;")
+                  .col-6(style="padding:0;") 服務時間
+                  .col-6.text-right(style="padding:0;")
+                    p(v-for="(vo, i) in shopTimeView" :key="i") {{vo}}
               li(v-for="job in jobData" :key="job.id")
                 span.job-title {{job.title}}
                 span {{job.content}}

@@ -17,31 +17,21 @@
                 | 本月已預約人數
                 b  {{data.orderQuantity}}
         .menu-list
-          //
-             <div v-for="vo in funData"
-                           class="menu-list-item"
-                           @click="onClickMenuItem(vo)"
-                      >
-                        <li><button type="button" class="btn btn-primary">
-                          {{vo.text}}
-                        </button>
-                        </li>
-                      </div> 
-          ul.menu-list-item
+          ul.menu-list-item(v-for="(vo, i) in funData" :key="i")
             li
-              a(@click="onClickMenuItem(goMain)").
+              a(@click="onClickMenuItem(vo)") {{vo.text}}
+
+          //- ul.menu-list-item
+          //-   li
+          //-     a(@click="onClickMenuItem(goMain)").
                 
-                {{goMain.text}}
+          //-       {{goMain.text}}
                 
-            li
-              router-link(:to="{name: \'Reservation\'}").
+          //-   li
+          //-     router-link(:to="{name: \'Reservation\'}") 預約時間
                 
-                預約時間
-                
-            li
-              router-link(:to="{name: \'BusinessCard\'}").
-                
-                查看個人名片
+          //-   li
+          //-     router-link(:to="{name: \'BusinessCard\'}") 查看個人名片
                 
             //- li
             //-   a(href="#").

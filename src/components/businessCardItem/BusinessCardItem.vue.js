@@ -25,13 +25,19 @@ export default {
         this.data.job = value;
       }
     },
-    isbusinessinfoData: {
-      get () {
-        return this.data.isbusinessinfo.slice(5);
-      },
-      set (value) {
-        this.data.isbusinessinfo = value;
+    shopTimeView () {
+      let timeData = [];
+      let shopTime = this.data.shopTime;
+      shopTime = JSON.parse(shopTime);
+      for (let i = 0; i < shopTime.length; i++) {
+        const item = shopTime[i];
+        if (item.state === 1) {
+          timeData.push(
+            '星期' + getChineseWeek(i) + ' ' + item.time
+          )
+        }
       }
+      return timeData;
     },
     ...mapState(['data'])
   },
@@ -41,6 +47,9 @@ export default {
     this.setShopTime(this.data)
   },
   methods: {
+    scanQR () {
+      device.scanQR();
+    },
     // 明細時間
     showTimeList () {
       let timeData = [];

@@ -21,6 +21,7 @@ export default {
   data () {
     return {
       data: {},
+      timeData: [],
       businesstime: [],
       res: {},
       bgclass: {
@@ -66,13 +67,19 @@ export default {
         this.data.job = value;
       }
     },
-    shopTimeView: {
-      get () {
-        return JSON.parse(this.data.shopTime);
-      },
-      set (value) {
-        this.data.shopTime = value;
+    shopTimeView () {
+      let timeData = [];
+      let shopTime = this.data.shopTime;
+      shopTime = JSON.parse(shopTime);
+      for (let i = 0; i < shopTime.length; i++) {
+        const item = shopTime[i];
+        if (item.state === 1) {
+          timeData.push(
+            '星期' + getChineseWeek(i) + ' ' + item.time
+          )
+        }
       }
+      return timeData;
     }
   },
   // 添加 註冊 消息 210809
@@ -100,7 +107,7 @@ export default {
     // 明細時間
     showTimeList () {
       let timeData = [];
-      let shopTime = this.shopinfo.shopTime
+      let shopTime = this.data.shopTime
       if (typeof shopTime === 'undefined') {
         return null
       }
@@ -116,11 +123,13 @@ export default {
               content: '星期' + getChineseWeek(i) + ' ' + item.time,
               align: 'left'
             })
+            this.timeData.push(
+              '星期' + getChineseWeek(i) + ' ' + item.time
+            )
           }
         }
       } catch (e) {
       }
-
       this.$createActionSheet({
         title: '營業時間',
         /* pickerStyle: true, */
@@ -129,12 +138,11 @@ export default {
       }).show()
     },
     // 时间处理
-    setShopTime (shopinfo = null) {
-      if (shopinfo === null || typeof shopinfo === 'undefined') {
+    setShopTime (data = null) {
+      if (data === null || typeof data === 'undefined') {
         return null
       }
-      this.shopinfo = shopinfo;
-      let shopTime = this.shopinfo.shopTime
+      let shopTime = this.data.shopTime
       if (typeof shopTime === 'undefined') {
         return null
       }
@@ -174,7 +182,7 @@ export default {
             this.businesstime = [];
             this.businesstime.push({
               time: nowtime,
-              week: getChineseWeek(day - 1)
+              week: getChineseWeek(day)
             })
           }
         }
