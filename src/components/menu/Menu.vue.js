@@ -33,8 +33,8 @@ export default {
       let rel = []
       const menuList = this.data.itemFun;
       rel.push({
-        parameter: '/',
-        text: this.$Lang('index-menu-app-index', '回首頁')
+        parameter: 'index',
+        text: this.$Lang('index-menu-index', '回主頁')
       })
       rel.push({
         parameter: 'Reservation',
@@ -79,8 +79,8 @@ export default {
       }
       // console.log('menuList', menuList)
       rel.push({
-        parameter: 'index',
-        text: this.$Lang('index-menu-index', '回主頁')
+        parameter: '/',
+        text: this.$Lang('index-menu-app-index', '回首頁')
       })
 
       this.showcoupon = this.data.coupon.length > 0 ||
@@ -181,7 +181,7 @@ export default {
           break
         // 預約
         case 'scan':
-          device.openPage(item.parameter, item.text)
+          device.scanQR();
           break
         // 儲值
         case 'storedvalue':

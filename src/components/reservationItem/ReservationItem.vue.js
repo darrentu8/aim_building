@@ -71,12 +71,84 @@ export default {
     this.$store.commit('setRes', this.data.reservationService);
   },
   methods: {
+    // setData (goods) {
+    //   if (typeof goods.key === 'undefined') {
+    //     return;
+    //   }
+    //   this.cartData = jglib.getCartList();// getLocalJsonData(constant.CARTDATA)
+    //   this.remark = goods.selectRemark;
+    //   this.value = goods.badge > 0 ? goods.badge : 1;
+    //   this.goods = goods;
+    //   // console.log(goods); // this.cartData, goods, 'setData',
+    //   this.extend = {};
+    //   try {
+    //     this.extend = JSON.parse(goods.extend)
+    //   } catch (e) {
+    //   }
+    //   this.extend = this.extend === null ? {} : this.extend;
+    //   // 購物車屬性
+    //   const { selected } = this.cartData;
+    //   for (let i = 0; i < selected.length; i++) {
+    //     if (selected[i].key === goods.key) {
+    //       // 如果屬性改變 會有問題 200903
+    //       this.extend.attribute = selected[i].attribute
+    //     }
+    //   }
+    //   this.countprice();
+    // },
+    // async onAddCart () {
+    //   let goods = this.goods
+    //   goods.attribute = this.extend.attribute;
+    //   // goods.extend = null;
+    //   goods.selectRemark = this.remark;
+    //   goods.selectPrice = this.price;
+    //   let lens = this.cartData.lens || {maxPrice: 0, length: 0};
+    //   // lens = {maxPrice: 0, length: 0};
+    //   // console.log(lens,this.cartData.lens)
+    //   let num = typeof lens[goods.key] !== 'undefined' ? lens[goods.key] : 0;
+    //   // console.log(num)
+    //   lens[goods.key] = this.value;
+    //   const value = this.value - num;
+    //   lens['maxPrice'] = lens['maxPrice'] + parseFloat(this.price) * value;
+    //   lens['length'] = lens['length'] + value;
+    //   // lens['length'] = this.value - num;
+    //   let selected = this.cartData.selected || [];
+    //   // selected = [];
+    //   //  console.log('asdfsdf 111', this.cartData.selected)
+    //   let bol = false;
+    //   for (let i = 0; i < selected.length; i++) {
+    //     if (selected[i].key === goods.key) {
+    //       if (this.value === 0) {
+    //         selected.splice(i, 1)
+    //       } else {
+    //         selected[i] = goods;
+    //       }
+    //       bol = true;
+    //       break;
+    //     }
+    //   }
+    //   if (!bol && this.value > 0) {
+    //     selected.push(goods)
+    //   }
+
+    //   let cartItem = {
+    //     selected: selected, // goods,
+    //     lens: lens
+    //   }
+    //   // console.log('cartItem', cartItem)
+    //   this.goods.badge = this.value;
+    //   saveLocalJsonData(constant.CARTDATA, cartItem)
+    //   this.$emit('succeedCart', cartItem)
+    //   this.showAddcart = false;
+    // },
     reservat () {
       var selectRes = 0;
+      var selectGoods = [];
       var ResObj = this.data.reservationService;
       ResObj.forEach(ele => {
         if (ele.active === true) {
-          selectRes += 1
+          selectRes += 1;
+          selectGoods.push(ele);
         }
       });
       if (this.totalPrice === 0 || selectRes === 0) {
@@ -87,12 +159,10 @@ export default {
         });
         return false;
       } else {
-        // console.log(this.totalPrice);
-        // device.payMoney(this.totalPrice);
         let params = {};
         params['shopid'] = window.headers.shopid; // 商家
         params['puid'] = window.headers.shopid;
-        params['selected'] = this.data.reservationService[this.selectResIndex].name;
+        params['selected'] = selectGoods;
         params['lens'] = {
           length: this.totalTime,
           maxPrice: this.totalPrice };

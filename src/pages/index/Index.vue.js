@@ -58,6 +58,11 @@ export default {
     Menu,
     VueSlickCarousel
   },
+  watch: {
+    scrollToY () {
+      this.rebuildScroll()
+    }
+  },
   computed: {
     jobData: {
       get () {

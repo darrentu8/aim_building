@@ -49,7 +49,7 @@ export default {
       this.$refs.menu.openMenu();
     },
     back () {
-      this.$router.back()
+      this.$router.back();
     }
   }
 }
