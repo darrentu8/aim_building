@@ -58,11 +58,6 @@ export default {
     Menu,
     VueSlickCarousel
   },
-  watch: {
-    scrollToY () {
-      this.rebuildScroll()
-    }
-  },
   computed: {
     jobData: {
       get () {
@@ -71,21 +66,21 @@ export default {
       set (value) {
         this.data.job = value;
       }
-    },
-    shopTimeView () {
-      let timeData = [];
-      let shopTime = this.data.shopTime;
-      shopTime = JSON.parse(shopTime);
-      for (let i = 0; i < shopTime.length; i++) {
-        const item = shopTime[i];
-        if (item.state === 1) {
-          timeData.push(
-            '星期' + getChineseWeek(i) + ' ' + item.time
-          )
-        }
-      }
-      return timeData;
     }
+    // shopTimeView () {
+    //   let timeData = [];
+    //   let shopTime = this.data.shopTime;
+    //   shopTime = JSON.parse(shopTime);
+    //   for (let i = 0; i < shopTime.length; i++) {
+    //     const item = shopTime[i];
+    //     if (item.state === 1) {
+    //       timeData.push(
+    //         '星期' + getChineseWeek(i) + ' ' + item.time
+    //       )
+    //     }
+    //   }
+    //   return timeData;
+    // }
   },
   // 添加 註冊 消息 210809
   async created () {
@@ -157,39 +152,65 @@ export default {
       this.businesstime = []
       let now = new Date();
       let day = now.getDay();
-      let nowtime = '';
+      // let nowtime = '';
         // console.log(day);
       try {
         shopTime = JSON.parse(shopTime)
-        let bol = false;
+        console.log(shopTime);
+        // let bol = false;
         for (let n = 0; n < shopTime.length; n++) {
           const item = shopTime[n];
-          if (n === day) {
-            nowtime = item.time
-          }
-          if (item.state === 1) {
-            bol = false
-            for (let i = 0; i < this.businesstime.length; i++) {
-              if (this.businesstime[i].time === item.time) {
-                this.businesstime[i].week = this.businesstime[i].week + getChineseWeek(n)
-                bol = true
-                break
-              }
-            }
-            if (bol === false) {
+          if (n === day - 1) {
+            // nowtime = item.time
+            if (item.state === 1) {
               this.businesstime.push({
                 time: item.time,
-                week: getChineseWeek(n)
+                week: '星期' + getChineseWeek(n)
+              })
+            } else {
+              this.businesstime.push({
+                time: '休假',
+                week: '星期' + getChineseWeek(n)
               })
             }
           }
-          if (this.businesstime.length > 1) {
-            this.businesstime = [];
-            this.businesstime.push({
-              time: nowtime,
-              week: getChineseWeek(day)
-            })
+          if (n === day) {
+            if (item.state === 1) {
+              this.businesstime.push({
+                time: item.time,
+                week: '星期' + getChineseWeek(n)
+              })
+            } else {
+              this.businesstime.push({
+                time: '休假',
+                week: '星期' + getChineseWeek(n)
+              })
+            }
           }
+          // if (item.state === 1) {
+          //   bol = false
+          //   for (let i = 0; i < this.businesstime.length; i++) {
+          //     if (this.businesstime[i].time === item.time) {
+          //       this.businesstime[i].week = this.businesstime[i].week + getChineseWeek(n)
+          //       bol = true
+          //       break
+          //     }
+          //   }
+          //   if (bol === false) {
+          //     this.businesstime.push({
+          //       time: item.time,
+          //       week: getChineseWeek(n)
+          //     })
+          //   }
+          // }
+          // if (this.businesstime.length > 1) {
+          //   this.businesstime = [];
+          //   this.businesstime.push({
+          //     time: nowtime,
+          //     week: getChineseWeek(day)
+          //   })
+          // }
+          console.log(this.businesstime);
         }
       } catch (e) {
 

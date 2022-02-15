@@ -29,19 +29,5 @@ export default new Router({
       name: 'BusinessCard',
       component: BusinessCard
     }
-  ],
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return {
-        savedPosition,
-        behavior: 'smooth'
-      };
-    } else {
-      return {
-        x: 0,
-        y: 0,
-        behavior: 'smooth'
-      };
-    }
-  }
+  ]
 });
