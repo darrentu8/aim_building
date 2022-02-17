@@ -4,7 +4,7 @@
     //  end page-head 
     .page-body
       .calender-box
-        datepicker(:inline="true", :language="zh", :value="new Date()", :disableddates="disabledDates", v-model="dateSelect")
+        datepicker(:inline="true", :language="zh", required, :value="new Date()", :disabledDates="disabledDates", v-model="dateSelect")
       .reservation-body(:style="bgclass")
         .white-bg.reservation-box
           .reservation-box-head

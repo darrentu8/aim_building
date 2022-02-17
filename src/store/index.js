@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     data: {},
+    disabledDates: {},
     good: {
       shopName: '',
       name: '',
@@ -18,6 +19,9 @@ export default new Vuex.Store({
   mutations: {
     setShopData (state, val) {
       state.data = val;
+    },
+    setRangeDate (state, val) {
+      state.disabledDates = val;
     },
     setRes (state, val) {
       state.res = val;

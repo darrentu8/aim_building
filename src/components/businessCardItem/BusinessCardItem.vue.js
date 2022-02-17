@@ -47,8 +47,11 @@ export default {
     this.setShopTime(this.data)
   },
   methods: {
+    openShop (id) {
+      device._doSendMessage('openshop', {shopid: id});
+    },
     scanQR () {
-      device.scanQR();
+      device._doSendMessage('scanBusinessCard', {shopid: window.Headers.shopid});
     },
     // 明細時間
     showTimeList () {

@@ -9,6 +9,7 @@ import { mapState } from 'vuex';
 export default {
   data () {
     return {
+      disabled: true,
       totalTime: 0,
       timeObj: '',
       totalPrice: 0,
@@ -22,9 +23,6 @@ export default {
       ],
       selectTime: [],
       zh: zh,
-      disabledDates: {
-        to: new Date(Date.now() - 8640000)
-      },
       dateSelect: new Date(),
       weekedShow: '',
       bgclass: {
@@ -62,7 +60,7 @@ export default {
       this.totalTime = totalTime;
       return totalTime;
     },
-    ...mapState(['data', 'res'])
+    ...mapState(['data', 'res', 'disabledDates'])
   },
   mounted () {
     this.data.reservationService.forEach((item) => {
@@ -196,6 +194,20 @@ export default {
       } else {
         Vue.set(item, 'active', true);
       }
+      let SD = new Date(this.data.reservationService[i].content[0].sdate);
+      let SYY = SD.getFullYear();
+      let SMM = SD.getMonth() + 1;
+      let SDD = SD.getDate();
+      // let SDate = SYY + ',' + SMM + ',' + SDD;
+      let ED = new Date(this.data.reservationService[i].content[0].edate);
+      let EYY = ED.getFullYear();
+      let EMM = ED.getMonth() + 1;
+      let EDD = ED.getDate();
+      // let EDate = EYY + ',' + EMM + ',' + EDD;
+      this.$store.commit('setRangeDate', {
+        from: new Date(SYY + ',' + SMM + ',' + SDD),
+        to: new Date(EYY + ',' + EMM + ',' + EDD)
+      });
     },
     selectTimes (item) {
       if (item.active) {

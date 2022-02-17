@@ -76,8 +76,7 @@
           p 目前好友數 {{data.partnershop.length}} 人
           ul.friends-list.d-flex.flex-wrap
             li(v-for="(partner,i) in data.partnershop" :key="partner.key")
-              //- a(:href="partner.url")
-              a(href="javascript:;")
+              a(@click="openShop(partner.is)")
                 img(:src="partner.logo", alt)
     //  end page-body 
 </template>
