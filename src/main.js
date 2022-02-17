@@ -97,16 +97,17 @@ function GetImage (name, userid = 'admin',
 
 /**
  * 获取自定义图标
- * @return {Import}
+ * @return {string}
  */
 function GetUIIcon (name, def = '',
-                      width = '100',
-                      height = '100') {
-  let lname = GetLang(name);
+                    width = '100',
+                    height = '100') {
+  let lname = jglib.getIcon(name);
   if (lname === '') {
     return require(`@/assets/img/${def}`);
   }
-  return `${constant.SERVER}/Aimandofo/getImage/filename/${lname}/userid/admin/width/${width}/height/${height}`
+  lname = GetImage(lname, 'admin', width, height);
+  return lname;
 }
 // 错误提示
 Vue.prototype.$erroNotice = ToastErro;

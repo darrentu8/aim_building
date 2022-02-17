@@ -22,7 +22,7 @@
               p 被關注人數
             .follow-info-item
               span.num {{data.orderQuantity}}
-              p 本月已預約人數
+              p {{$Lang('index-orderQuantity','本月已預約人數test')}}
           .white-bg
             ul.link-box.d-flex
               li
@@ -39,11 +39,11 @@
                   p 預約時間
               li
                 a(v-if="data.isCollect" @click="onCollect")
-                  img(src="../../assets/img/businessCardItem-icon-heart-none.png", alt)
-                  p 按讚關注
+                  img(:src="$UIIcon('icon-collect','businessCardItem-icon-heart-none.png')", alt)
+                  p {{$Lang('index-icon-collect','按讚關注')}}
                 a(v-else @click="onCollect")
-                  img(style="margin-left:8px;" src="../../assets/img/businessCardItem-icon-heart.png", alt)
-                  p 已關注
+                  img(style="margin-left:8px;" :src="$UIIcon('icon-collect-select','businessCardItem-icon-heart.png')" , alt)
+                  p {{$Lang('index-collect-select','已關注')}}
           .white-bg
             .white-bg-head
               h2.title 職業內容介紹

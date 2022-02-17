@@ -95,7 +95,7 @@ class JGLib {
       msgkey: '4kf62se5sbu7b04jevlnhf56n5',
       'os-type': 'android',
       shopid: Config.testshop, // 'uuu',
-      template: 'profession',
+      template: 'salon',
      // userid: Config.testshop,
       verApp: '1.0.86',
       width: '432',
@@ -221,7 +221,7 @@ class JGLib {
         }
       }
     }
-
+    // console.log(flang)
     if (this.shopData === null) {
       return;
     }
@@ -233,8 +233,16 @@ class JGLib {
     }
     let uiparam = {};
     uiparam = data.funstordata.json_uiparam;
+    // console.log(uiparam);
     try {
+      if (uiparam === null) {
+        return;
+      }
       uiparam = JSON.parse(uiparam);
+      // 图标
+      if (typeof uiparam.icon !== 'undefined') {
+        this.icon = uiparam.icon;
+      }
       // console.log(uiparam, 'lang');
       if (typeof uiparam === 'undefined' ||
         typeof uiparam['lang'] === 'undefined' ||
@@ -249,6 +257,7 @@ class JGLib {
       this.lang = mergeJson(this.lang, uiparam);
     } catch (e) {
 
+     // console.log(e,'dddd');
     }
     // console.log(this.lang)
   }
@@ -266,6 +275,21 @@ class JGLib {
     }
 
     return this.lang[name] === '' ? def : this.lang[name];
+  }
+  getIcon (name, def = '') {
+    if (this.icon === null) {
+      this._initLang();
+      if (this.icon === null) {
+        return def
+      }
+    }
+    if (typeof this.icon === 'undefined') {
+      return def
+    }
+    if (typeof this.icon[name] === 'undefined') {
+      return def
+    }
+    return this.icon[name] === '' ? def : this.icon[name];
   }
 }
 

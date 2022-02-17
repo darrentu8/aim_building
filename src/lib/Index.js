@@ -8,7 +8,8 @@ import {
   saveLocalJsonData,
   formatJSON,
   getChineseWeek,
-  getDatefmt
+  getDatefmt,
+  backPage
 } from './function'
 
 export {
@@ -20,5 +21,6 @@ export {
   saveLocalJsonData,
   formatJSON,
   getChineseWeek,
-  getDatefmt
+  getDatefmt,
+  backPage
 }

@@ -145,12 +145,26 @@ export default {
       var selectRes = 0;
       var selectGoods = [];
       var ResObj = this.data.reservationService;
+      let lens = {};
+
       ResObj.forEach(ele => {
         if (ele.active === true) {
+          let tmpData = {...ele};
+          tmpData['key'] = ele.key; // 商品id,
+          tmpData['menuname'] = ele.name; // 商品名稱,
+          tmpData['price'] = '';// 原價格,
+          tmpData['selectPrice'] = '';// 購買價格,沒有折扣跟原價一樣 ,
+          let remark = '時間：選擇時間 明細時間段 ';
+          tmpData['remark'] = remark; // 備註說明
+          lens[ele.key] = 1; // 對應 key 商品數量
+
           selectRes += 1;
-          selectGoods.push(ele);
+          selectGoods.push(tmpData);
+          // selectGoods.push(ele);
         }
       });
+      lens.length = selectRes;
+      lens.maxPrice = this.totalPrice;
       if (this.totalPrice === 0 || selectRes === 0) {
         Toast({
           message: '請選擇服務項目!',
@@ -163,11 +177,13 @@ export default {
         params['shopid'] = window.headers.shopid; // 商家
         params['puid'] = window.headers.shopid;
         params['selected'] = selectGoods;
-        params['lens'] = {
+        params['lens'] = lens;
+        /* params['lens'] = {
           length: this.totalTime,
-          maxPrice: this.totalPrice };
+          maxPrice: this.totalPrice }; */
         console.log('params', params)
         device.goodsPost(params)
+        // device._doSendMessage ('openshop', {shopid:window.headers.shopid})
       }
     },
     selectReservation (item, i) {

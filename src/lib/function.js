@@ -51,7 +51,6 @@ export function getLocalData (name) {
 export function saveLocalJsonData (name, data) {
   return saveLocalData(name, JSON.stringify(data))
 }
-
 export function getLocalJsonData (name) {
   const data = getLocalData(name)
   return JSON.parse(data);
@@ -75,7 +74,6 @@ export function getDatefmt (fmt, sdate = null) {
   for (let k in o) { if (new RegExp('(' + k + ')').test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length))); }
   return fmt;
 }
-
 // json格式化
 export function formatJSON (txt, compress, isJson = true) {
   const indentChar = '    ';
@@ -174,4 +172,16 @@ export function mergeJson (target) {
     }
   }
   return target;
+}
+// 返回 上页
+export function backPage (that = null) {
+  if (that === null) {
+    that = this;
+  }
+  if (window.history.length <= 1) {
+    that.$router.push({path: '/'}).catch()
+    return false
+  } else {
+    that.$router.go(-1)
+  }
 }

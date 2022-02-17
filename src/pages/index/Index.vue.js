@@ -61,6 +61,9 @@ export default {
   computed: {
     jobData: {
       get () {
+        if (typeof this.data.job === 'undefined') {
+          return [];
+        }
         return JSON.parse(this.data.job);
       },
       set (value) {
@@ -85,11 +88,11 @@ export default {
   // 添加 註冊 消息 210809
   async created () {
     jglib.setOnMessage(this.onMessage.bind(this));
-    if (this.data.shopid == null || this.data.shopid === undefined) {
+    if (this.data.shopid === null || this.data.shopid === undefined) {
       this.data = jgdata.getShopData();
     }
     this.$nextTick(() => {
-      console.log('in')
+      // console.log('in')
       window.onscroll = function () {
         let headerMain = document.getElementById('header-box');
         if (window.pageYOffset >= 30) {
@@ -129,6 +132,7 @@ export default {
           }
         }
       } catch (e) {
+        // console.log(e,'dasdfas')
       }
       this.$createActionSheet({
         title: '營業時間',
@@ -156,7 +160,7 @@ export default {
         // console.log(day);
       try {
         shopTime = JSON.parse(shopTime)
-        console.log(shopTime);
+        // console.log(shopTime);
         // let bol = false;
         for (let n = 0; n < shopTime.length; n++) {
           const item = shopTime[n];
@@ -210,7 +214,7 @@ export default {
           //     week: getChineseWeek(day)
           //   })
           // }
-          console.log(this.businesstime);
+         // console.log(this.businesstime);
         }
       } catch (e) {
 
@@ -242,7 +246,9 @@ export default {
             this.$store.commit('setShopData', {});
             this.data = jgdata.getShopInfo();
             this.$store.commit('setShopData', this.data);
-            console.log('ShopData', this.data);
+            // console.log('ShopData', this.data);
+            // eslint-disable-next-line no-unused-vars
+            let itemfun = this.data['itemfun'];
             // let templateData = data['templateData']; // 些模板的數據
             // // console.log(templateData);
             // // 當前主頁數據

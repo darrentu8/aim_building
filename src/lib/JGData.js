@@ -19,9 +19,9 @@ class JGData {
       this.shopData = null;
       return null;
     }
-    if (this.shopData !== null) {
+    /* if (this.shopData !== null) {
       return this.shopData;
-    }
+    } */
     try {
       this.shopData = getLocalJsonData(constant.SHOPDATA);
      // this.shopData = JSON.parse(data)
@@ -37,19 +37,21 @@ class JGData {
       return {}
     }
     return this.shopData;
-    // return {
-    //   shopid: this.shopData.shopid,
-    //   shopName: this.shopData.shopName,
-    //   logo: this.shopData.logo,
-    //   address: this.shopData.address,
-    //   describ: this.shopData.describ,
-    //   shopTime: this.shopData.shopTime,
-    //   bgImage: this.shopData.bgImage,
-    //   browseImage: this.shopData.browseImage,
-    //   city: this.shopData.chr_city,
-    //   isCollect: this.shopData.isCollect,
-    //   phone: this.shopData.phone
-    // };
+    // console.log(this.shopData);
+    /* return {
+      shopid: this.shopData.shopid,
+      shopName: this.shopData.shopName,
+      logo: this.shopData.logo,
+      address: this.shopData.address,
+      describ: this.shopData.describ,
+      shopTime: this.shopData.shopTime,
+      bgImage: this.shopData.bgImage,
+      browseImage: this.shopData.browseImage,
+      city: this.shopData.chr_city,
+      isCollect: this.shopData.isCollect,
+      phone: this.shopData.phone,
+      imagemp4: this.shopData.imagemp4
+    }; */
   }
   // 商品
   getGoods (callBack = null) {
@@ -70,7 +72,6 @@ class JGData {
 
   // 功能
   getFunList () {
-    this.shopData = null;
     this.getShopData();
     if (this.shopData === null) {
       return {}
