@@ -20,34 +20,10 @@
           ul.menu-list-item(v-for="(vo, i) in funData" :key="i")
             li
               a(@click="onClickMenuItem(vo)") {{vo.text}}
-
-          //- ul.menu-list-item
-          //-   li
-          //-     a(@click="onClickMenuItem(goMain)").
-                
-          //-       {{goMain.text}}
-                
-          //-   li
-          //-     router-link(:to="{name: \'Reservation\'}") 預約時間
-                
-          //-   li
-          //-     router-link(:to="{name: \'BusinessCard\'}") 查看個人名片
-                
-            //- li
-            //-   a(href="#").
-                
-            //-     職業介紹
-                
-            //- li
-            //-   a(href="#").
-                
-            //-     服務內容
-                
+        .menu-btm
+          ul
             li
-              a(@click="onClickMenuItem(goHome)").
-                
-                {{goHome.text}}
-                
+              p.version ver : {{data.uiInfo.version}}
 </template>
 
 <script>

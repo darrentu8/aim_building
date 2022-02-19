@@ -36,14 +36,14 @@ export default {
         parameter: 'index',
         text: this.$Lang('index-menu-index', '回主頁')
       })
-      rel.push({
-        parameter: 'Reservation',
-        text: '預約時間'
-      })
-      rel.push({
-        parameter: 'BusinessCard',
-        text: '查看個人名片'
-      })
+      // rel.push({
+      //   parameter: 'Reservation',
+      //   text: '預約時間'
+      // })
+      // rel.push({
+      //   parameter: 'BusinessCard',
+      //   text: '查看個人名片'
+      // })
       const param = [
         'storefront',
         'reservation',
@@ -101,11 +101,6 @@ export default {
         })
       }
       // console.log('rel', rel);
-      rel.forEach(ele => {
-        if (ele.parameter === 'reservation') {
-          ele.title = '預約時間';
-        }
-      });
       this.funData = rel;
     },
     onClickMenuItem (item) {
@@ -123,21 +118,15 @@ export default {
             query: {title: item.text}
           })
           break;
-        case 'Reservation':
-          this.$router.push({
-            name: 'Reservation'
-          })
-          break;
-        case 'BusinessCard':
-          this.$router.push({
-            name: 'BusinessCard'
-          })
-          break;
         // 預約
-        case 'reservation':
+        case 'scan':
           this.$router.push({
             name: 'Reservation'
           })
+          break;
+        // 座位
+        case 'reservation':
+          device.openPage(item.parameter, item.text)
           break;
         // 換名片
         case 'exchangecards':
@@ -154,11 +143,11 @@ export default {
         case 'storefront':
           // page = 'ShopInfo'
           device.openPage(item.parameter, item.text)
-          break;
+          break
         // 找聊天
         case 'chat':
           device.openChat();
-          break;
+          break
         // 商品
         case 'menubrowse' :
           // this.$router.push({
@@ -179,10 +168,6 @@ export default {
         case 'teamwork':
           device.openPage(item.parameter, item.text)
           break
-        // 預約
-        case 'scan':
-          device.scanQR();
-          break
         // 儲值
         case 'storedvalue':
           device.openPage(item.parameter, item.text)
@@ -202,7 +187,7 @@ export default {
         // 十步設施
         case 'facilities':
           device.openPage(item.parameter, item.text)
-          break;
+          break
         // 訂單
         case 'order':
           device.openPage(item.parameter, item.text)
@@ -218,7 +203,7 @@ export default {
         // 後臺管理
         case 'bgmanage':
           device.openPage(item.parameter, item.text)
-          return;
+          return
 
         default:
           return

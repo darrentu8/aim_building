@@ -69,21 +69,39 @@ export default {
       set (value) {
         this.data.job = value;
       }
+    },
+    shopTimeView () {
+      let timeData = [];
+      let shopTime = JSON.parse(this.data.shopTime);
+      console.log('shopTime', shopTime)
+      let now = new Date();
+      let day = now.getDay();
+      shopTime.forEach((item, n) => {
+        // 顯示今明
+        if (n === day || n === day - 1) {
+          if (item.state === 1) {
+            if (item.time === '00:00-00:00') {
+              timeData.push({
+                time: '全日',
+                week: '星期' + getChineseWeek(n)
+              })
+            } else {
+              timeData.push({
+                time: item.time,
+                week: '星期' + getChineseWeek(n)
+              })
+            }
+          } else {
+            timeData.push({
+              time: '休假',
+              week: '星期' + getChineseWeek(n)
+            })
+          }
+        }
+      })
+      console.log('timeData', timeData)
+      return timeData;
     }
-    // shopTimeView () {
-    //   let timeData = [];
-    //   let shopTime = this.data.shopTime;
-    //   shopTime = JSON.parse(shopTime);
-    //   for (let i = 0; i < shopTime.length; i++) {
-    //     const item = shopTime[i];
-    //     if (item.state === 1) {
-    //       timeData.push(
-    //         '星期' + getChineseWeek(i) + ' ' + item.time
-    //       )
-    //     }
-    //   }
-    //   return timeData;
-    // }
   },
   // 添加 註冊 消息 210809
   async created () {
@@ -103,113 +121,43 @@ export default {
       }
     })
   },
-  async mounted () {
-    this.setShopTime(this.data)
+  mounted () {
   },
   methods: {
     // 明細時間
-    showTimeList () {
-      let timeData = [];
-      let shopTime = this.data.shopTime
-      if (typeof shopTime === 'undefined') {
-        return null
-      }
-      if (shopTime === null || shopTime === '') {
-        return null
-      }
-      try {
-        shopTime = JSON.parse(shopTime);
-        for (let i = 0; i < shopTime.length; i++) {
-          const item = shopTime[i];
-          if (item.state === 1) {
-            timeData.push({
-              content: '星期' + getChineseWeek(i) + ' ' + item.time,
-              align: 'left'
-            })
-            this.timeData.push(
-              '星期' + getChineseWeek(i) + ' ' + item.time
-            )
-          }
-        }
-      } catch (e) {
-        // console.log(e,'dasdfas')
-      }
-      this.$createActionSheet({
-        title: '營業時間',
-        /* pickerStyle: true, */
-        cancelTxt: '關閉',
-        data: timeData
-      }).show()
-    },
-    // 时间处理
-    setShopTime (data = null) {
-      if (data === null || typeof data === 'undefined') {
-        return null
-      }
-      let shopTime = this.data.shopTime
-      if (typeof shopTime === 'undefined') {
-        return null
-      }
-      if (shopTime === null || shopTime === '') {
-        return null
-      }
-      this.businesstime = []
-      let now = new Date();
-      let day = now.getDay();
-      try {
-        shopTime = JSON.parse(shopTime)
-        for (let n = 0; n < shopTime.length; n++) {
-          const item = shopTime[n];
-          // 只有顯示今明
-          if (n === day || n === day - 1) {
-            if (item.state === 1) {
-              if (item.time === '00:00-00:00') {
-                this.businesstime.push({
-                  time: '全日',
-                  week: '星期' + getChineseWeek(n)
-                })
-              } else {
-                this.businesstime.push({
-                  time: item.time,
-                  week: '星期' + getChineseWeek(n)
-                })
-              }
-            } else {
-              this.businesstime.push({
-                time: '休假',
-                week: '星期' + getChineseWeek(n)
-              })
-            }
-          }
-          // if (item.state === 1) {
-          //   bol = false
-          //   for (let i = 0; i < this.businesstime.length; i++) {
-          //     if (this.businesstime[i].time === item.time) {
-          //       this.businesstime[i].week = this.businesstime[i].week + getChineseWeek(n)
-          //       bol = true
-          //       break
-          //     }
-          //   }
-          //   if (bol === false) {
-          //     this.businesstime.push({
-          //       time: item.time,
-          //       week: getChineseWeek(n)
-          //     })
-          //   }
-          // }
-          // if (this.businesstime.length > 1) {
-          //   this.businesstime = [];
-          //   this.businesstime.push({
-          //     time: nowtime,
-          //     week: getChineseWeek(day)
-          //   })
-          // }
-         // console.log(this.businesstime);
-        }
-      } catch (e) {
-
-      }
-    },
+    // showTimeList () {
+    //   let timeData = [];
+    //   let shopTime = this.data.shopTime
+    //   if (typeof shopTime === 'undefined') {
+    //     return null
+    //   }
+    //   if (shopTime === null || shopTime === '') {
+    //     return null
+    //   }
+    //   try {
+    //     shopTime = JSON.parse(shopTime);
+    //     for (let i = 0; i < shopTime.length; i++) {
+    //       const item = shopTime[i];
+    //       if (item.state === 1) {
+    //         timeData.push({
+    //           content: '星期' + getChineseWeek(i) + ' ' + item.time,
+    //           align: 'left'
+    //         })
+    //         this.timeData.push(
+    //           '星期' + getChineseWeek(i) + ' ' + item.time
+    //         )
+    //       }
+    //     }
+    //   } catch (e) {
+    //     // console.log(e,'dasdfas')
+    //   }
+    //   this.$createActionSheet({
+    //     title: '營業時間',
+    //     /* pickerStyle: true, */
+    //     cancelTxt: '關閉',
+    //     data: timeData
+    //   }).show()
+    // },
     setRes (res, i) {
       this.$store.commit('setRes', res);
     },

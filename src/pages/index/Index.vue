@@ -52,14 +52,11 @@
               li
                 span.job-title 簡介
                 span {{data.describe}}
-              //- li(v-for="(time,i) in shopTimeView" :key="i")
-              //-   span.job-title 服務時間
-              //-   span {{time.time}}
               li
                 div(style="width:100%;display:flex;")
                   .col-6(style="padding:0;") 服務時間
                   .col-6.text-right(style="padding:0;")
-                    p(v-for="(vo, i) in businesstime" :key="i") {{vo.week}} {{vo.time}}
+                    p(v-for="(vo, i) in shopTimeView" :key="i") {{vo.week}} {{vo.time}}
               li(v-for="job in jobData" :key="job.id")
                 span.job-title {{job.title}}
                 span {{job.content}}

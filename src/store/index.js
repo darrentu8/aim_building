@@ -19,11 +19,6 @@ export default new Vuex.Store({
     setShopData (state, val) {
       state.data = val;
     },
-    // setRangeDate (state, val) {
-    //   console.log('val', val)
-    //   state.disabledDates.to = val.to;
-    //   state.disabledDates.from = val.from;
-    // },
     setRes (state, val) {
       state.res = val;
     }
