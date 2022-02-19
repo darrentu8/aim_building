@@ -156,34 +156,24 @@ export default {
       this.businesstime = []
       let now = new Date();
       let day = now.getDay();
-      // let nowtime = '';
-        // console.log(day);
       try {
         shopTime = JSON.parse(shopTime)
-        // console.log(shopTime);
-        // let bol = false;
         for (let n = 0; n < shopTime.length; n++) {
           const item = shopTime[n];
-          if (n === day - 1) {
-            // nowtime = item.time
+          // 只有顯示今明
+          if (n === day || n === day - 1) {
             if (item.state === 1) {
-              this.businesstime.push({
-                time: item.time,
-                week: '星期' + getChineseWeek(n)
-              })
-            } else {
-              this.businesstime.push({
-                time: '休假',
-                week: '星期' + getChineseWeek(n)
-              })
-            }
-          }
-          if (n === day) {
-            if (item.state === 1) {
-              this.businesstime.push({
-                time: item.time,
-                week: '星期' + getChineseWeek(n)
-              })
+              if (item.time === '00:00-00:00') {
+                this.businesstime.push({
+                  time: '全日',
+                  week: '星期' + getChineseWeek(n)
+                })
+              } else {
+                this.businesstime.push({
+                  time: item.time,
+                  week: '星期' + getChineseWeek(n)
+                })
+              }
             } else {
               this.businesstime.push({
                 time: '休假',

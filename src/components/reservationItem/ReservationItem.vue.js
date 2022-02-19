@@ -9,6 +9,12 @@ import { mapState } from 'vuex';
 export default {
   data () {
     return {
+      from: new Date(),
+      to: new Date(),
+      disabledDates: {
+        to: null,
+        from: null
+      },
       disabled: true,
       totalTime: 0,
       timeObj: '',
@@ -60,7 +66,7 @@ export default {
       this.totalTime = totalTime;
       return totalTime;
     },
-    ...mapState(['data', 'res', 'disabledDates'])
+    ...mapState(['data', 'res'])
   },
   mounted () {
     this.data.reservationService.forEach((item) => {
@@ -69,6 +75,10 @@ export default {
     this.$store.commit('setRes', this.data.reservationService);
   },
   methods: {
+    // setRangeDate (SD, ED) {
+    //   this.disabledDates.from = SD;
+    //   this.disabledDates.to = ED;
+    // },
     // setData (goods) {
     //   if (typeof goods.key === 'undefined') {
     //     return;
@@ -142,26 +152,42 @@ export default {
     reservat () {
       var selectRes = 0;
       var selectGoods = [];
+      var selectTime = [];
       var ResObj = this.data.reservationService;
       let lens = {};
-
+      // 轉換日期顯示
+      var selectDate = this.dateSelect;
+      let SYY = selectDate.getFullYear();
+      let SMM = selectDate.getMonth() + 1;
+      let SDD = selectDate.getDate();
+      let SDate = SYY + '-' + SMM + '-' + SDD;
+      // 時段
+      ResObj.forEach((ele) => {
+        ele.content[0].time.forEach((ele2) => {
+          if (ele.active === true) {
+            if (ele2.active === true) {
+              selectTime.push(ele2.time)
+            }
+          }
+        })
+      });
+      console.log('ResObj', ResObj);
       ResObj.forEach(ele => {
         if (ele.active === true) {
-          let tmpData = {...ele};
-          tmpData['key'] = ele.key; // 商品id,
-          tmpData['menuname'] = ele.name; // 商品名稱,
-          tmpData['price'] = '';// 原價格,
-          tmpData['selectPrice'] = '';// 購買價格,沒有折扣跟原價一樣 ,
-          let remark = '時間：選擇時間 明細時間段 ';
-          tmpData['remark'] = remark; // 備註說明
+          let remark = '時間：' + SDate + ' / ' + '時段：' + selectTime;
+          selectGoods.push({
+            key: ele.key, // 商品id,
+            menuname: ele.name, // 商品名稱,
+            price: ele.content[0].time[0].price, // 原價格,
+            selectPrice: ele.content[0].time[0].price, // 購買價格,沒有折扣跟原價一樣 ,
+            remark: remark // 備註說明
+          });
           lens[ele.key] = 1; // 對應 key 商品數量
-
           selectRes += 1;
-          selectGoods.push(tmpData);
           // selectGoods.push(ele);
         }
       });
-      lens.length = selectRes;
+      lens.length = selectTime.length;
       lens.maxPrice = this.totalPrice;
       if (this.totalPrice === 0 || selectRes === 0) {
         Toast({
@@ -195,19 +221,15 @@ export default {
         Vue.set(item, 'active', true);
       }
       let SD = new Date(this.data.reservationService[i].content[0].sdate);
-      let SYY = SD.getFullYear();
-      let SMM = SD.getMonth() + 1;
-      let SDD = SD.getDate();
-      // let SDate = SYY + ',' + SMM + ',' + SDD;
       let ED = new Date(this.data.reservationService[i].content[0].edate);
-      let EYY = ED.getFullYear();
-      let EMM = ED.getMonth() + 1;
-      let EDD = ED.getDate();
-      // let EDate = EYY + ',' + EMM + ',' + EDD;
-      this.$store.commit('setRangeDate', {
-        from: new Date(SYY + ',' + SMM + ',' + SDD),
-        to: new Date(EYY + ',' + EMM + ',' + EDD)
-      });
+      this.disabledDates.to = SD;
+      this.disabledDates.from = ED;
+      if (this.dateSelect > this.disabledDates.to) {
+        this.dateSelect = this.disabledDates.to;
+      }
+      if (this.dateSelect < this.disabledDates.from) {
+        this.dateSelect = this.disabledDates.to;
+      }
     },
     selectTimes (item) {
       if (item.active) {

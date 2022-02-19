@@ -32,9 +32,15 @@ export default {
       for (let i = 0; i < shopTime.length; i++) {
         const item = shopTime[i];
         if (item.state === 1) {
-          timeData.push(
-            '星期' + getChineseWeek(i) + ' ' + item.time
-          )
+          if (item.time === '00:00-00:00') {
+            timeData.push(
+              '星期' + getChineseWeek(i) + ' ' + '全日'
+            )
+          } else {
+            timeData.push(
+              '星期' + getChineseWeek(i) + ' ' + item.time
+            )
+          }
         }
       }
       return timeData;
@@ -47,11 +53,13 @@ export default {
     this.setShopTime(this.data)
   },
   methods: {
-    openShop (id) {
-      device._doSendMessage('openshop', {shopid: id});
+    openShop (shopid) {
+      console.log('shopid', shopid);
+      device._doSendMessage('openShop', {shopid: shopid});
     },
     scanQR () {
-      device._doSendMessage('scanBusinessCard', {shopid: window.Headers.shopid});
+      console.log('window.headers.shopid', window.headers.shopid)
+      device._doSendMessage('scanBusinessCard', {shopid: window.headers.shopid});
     },
     // 明細時間
     showTimeList () {
@@ -68,10 +76,17 @@ export default {
         for (let i = 0; i < shopTime.length; i++) {
           const item = shopTime[i];
           if (item.state === 1) {
-            timeData.push({
-              content: '星期' + getChineseWeek(i) + ' ' + item.time,
-              align: 'left'
-            })
+            if (item.time === '00:00-00:00') {
+              timeData.push({
+                content: '星期' + getChineseWeek(i) + ' ' + '全日',
+                align: 'left'
+              })
+            } else {
+              timeData.push({
+                content: '星期' + getChineseWeek(i) + ' ' + item.time,
+                align: 'left'
+              })
+            }
           }
         }
       } catch (e) {
