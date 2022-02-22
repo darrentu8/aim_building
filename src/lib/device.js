@@ -1,7 +1,6 @@
 import {jgdata} from './Index'
-
 /**
- * 与 webView 交互
+ * 与 app 交互
  */
 
 class Device {
@@ -97,7 +96,6 @@ class Device {
     }
     this._doSendMessage('openpage', json)
   }
-
   // 刷新數據
   refresh () {
     if (typeof window.headers.shopid === 'undefined' ||
@@ -107,7 +105,6 @@ class Device {
     this._doSendMessage('refresh',
       {shopid: window.headers.shopid})
   }
-
   // 收藏
   collect (isCollect = false) {
     let json = {};
@@ -115,23 +112,27 @@ class Device {
     json.isCollect = isCollect;
     this._doSendMessage('collectShop', json)
   }
-
   // 商品提交
-  goodsPost () {
+  goodsPost (params = null) {
     let json = {};
     if (typeof window.headers.shopid === 'undefined' ||
         window.headers.shopid === '') {
       return
     }
+    // 参数不为空时 直接提交
+    if (params !== null && typeof params !== 'undefined') {
+      this._doSendMessage('goodsPost', params);
+      return;
+    }
     const {selected, lens} = jgdata.getCartList();
     if (typeof selected === 'undefined' || selected === null) {
-      return
+      return;
     }
 
-    json['shopid'] = window.headers.shopid // 商家
-    json['puid'] = window.headers.shopid
-    json['selected'] = selected
-    json['lens'] = lens
+    json['shopid'] = window.headers.shopid; // 商家
+    json['puid'] = window.headers.shopid;
+    json['selected'] = selected;
+    json['lens'] = lens;
     this._doSendMessage('goodsPost', json)
   }
   // 狀態欄樣子
@@ -140,6 +141,6 @@ class Device {
   }
 }
 
-const device = new Device()
+const device = new Device();
 
 export default device

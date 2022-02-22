@@ -177,10 +177,10 @@ export default {
           let remark = '時間：' + SDate + ' / ' + '時段：' + selectTime;
           selectGoods.push({
             key: ele.key, // 商品id,
-            menuname: ele.name, // 商品名稱,
+            name: ele.name, // 商品名稱,
             price: ele.content[0].time[0].price, // 原價格,
             selectPrice: ele.content[0].time[0].price, // 購買價格,沒有折扣跟原價一樣 ,
-            remark: remark // 備註說明
+            selectRemark: remark // 備註說明
           });
           lens[ele.key] = 1; // 對應 key 商品數量
           selectRes += 1;
