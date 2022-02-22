@@ -4,7 +4,8 @@
     <BasePageBack  ref="BasePageBack" >
       <div slot="page-title">預約時間</div>
       <div slot="content">
-        <ReservationItem />
+        <ReservationItem v-if="data"/>
+        <h4 class="text-center mt-5" v-else>無預約項目</h4>
       </div>
     </BasePageBack>
   </div>

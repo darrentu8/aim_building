@@ -1,10 +1,11 @@
 // 主页
 <!--suppress JSUnresolvedVariable -->
 <template lang="pug">
-  .index-box(:style="bgclass")
+  .index-box(v-if="data" :style="bgclass")
     header.header.page-header#header-box
       .d-flex.align-items-center
-        .page-title {{data.shopName}} {{data.business}}店
+        .page-title(v-if="data.shopName") {{data.shopName}} {{data.business}}店
+        .page-title(v-else) -
         .ml-auto
           button.btn.btn-primary(type="button", @click="onclickMenu")
             img.menu-btn(src="../../assets/img/icon-menu.png")
@@ -14,14 +15,18 @@
           .profile-box.text-center
             .img
               img(:src="data.logo", alt)
-            h2.name {{data.shopName}}
-            p.txt {{data.business}}
+            h2.name(v-if="data.shopName") {{data.shopName}}
+            h2.name(v-else) -
+            p.txt(v-if="data.business") {{data.business}}
+            p.txt(v-else) -
           .follow-info
             .follow-info-item
-              span.num {{data.attention}}
+              span.num(v-if="data.attention") {{data.attention}}
+              span.num(v-else)  -
               p 被關注人數
             .follow-info-item
-              span.num {{data.orderQuantity}}
+              span.num(v-if="data.orderQuantity") {{data.orderQuantity}}
+              span.num(v-else)  -
               p {{$Lang('index-orderQuantity','本月已預約人數test')}}
           .white-bg
             ul.link-box.d-flex
@@ -120,6 +125,9 @@
               //-         img(src="../../assets/img/reservation-img4.png", alt)
               //-     .price 時薪 800 元
     Menu(ref="menu")
+
+  .index-box(v-else :style="bgclass")
+    p.text-center.mt-5 無數據
 </template>
 <script>
   import index from './Index.vue.js';

@@ -2,25 +2,28 @@
 .menu-dialog
   .menu-mask(v-show="visibilityMenu", @click="visibilityMenu=false")
     .menu(ref="menu", v-show="visibilityMenu")
-      .menu-content
+      .menu-content(v-if="data")
         .menu-close(@click="closeMenu")
           button.btn.btn-primary(type="button")
             img(src="../../assets/img/icon-close.png")
         .menu-head
           .info
-            .name {{data.shopName}} {{data.business}}
+            .name(v-if="data.shopName && data.business") {{data.shopName}} {{data.business}}
+            .name(v-else)  -
             .user-count.d-flex
               p
                 | 被關注人數
-                b  {{data.attention}}
+                b(v-if="data.attention")  {{data.attention}}
+                b(v-else)  -
               p
                 | 本月已預約人數
-                b  {{data.orderQuantity}}
-        .menu-list
+                b(v-if="data.orderQuantity")  {{data.orderQuantity}}
+                b(v-else)  -
+        .menu-listt(v-if="funData")
           ul.menu-list-item(v-for="(vo, i) in funData" :key="i")
             li
               a(@click="onClickMenuItem(vo)") {{vo.text}}
-        .menu-btm
+        .menu-btm(v-if="data.uiInfo.version")
           ul
             li
               p.version ver : {{data.uiInfo.version}}
