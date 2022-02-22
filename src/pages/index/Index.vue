@@ -38,7 +38,7 @@
                   img(src="../../assets/img/businessCardItem-icon-time.png", alt)
                   p 預約時間
               li
-                a(v-if="data.isCollect" @click="onCollect")
+                a(v-if="!data.isCollect" @click="onCollect")
                   img(:src="$UIIcon('icon-collect','businessCardItem-icon-heart-none.png')", alt)
                   p {{$Lang('index-icon-collect','按讚關注')}}
                 a(v-else @click="onCollect")

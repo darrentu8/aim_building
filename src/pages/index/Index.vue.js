@@ -171,7 +171,7 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      device.collect(this.data.isCollect);
+      device.collect(!this.data.isCollect);
     },
     // 接收消息 數據 210809
     async onMessage (msg) {
