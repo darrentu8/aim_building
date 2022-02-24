@@ -23,7 +23,7 @@ export default {
       data: {},
       timeData: [],
       businesstime: [],
-      res: {},
+      res: [],
       bgclass: {
         backgroundImage: 'url(' + require('@/assets/img/reservation-bg.png') + ')'
       },

@@ -2,11 +2,12 @@
 import Datepicker from 'vuejs-datepicker';
 import { zh } from 'vuejs-datepicker/dist/locale'
 import moment from 'moment';
+import { mapState } from 'vuex';
 
 export default {
   data () {
     return {
-      resData: {
+      resTemp: {
         content: [{
           time: [
             {
@@ -34,9 +35,9 @@ export default {
     };
   },
   created () {
-    this.getResData();
   },
   computed: {
+    ...mapState(['data', 'res'])
   },
   components: {
     Datepicker
@@ -44,11 +45,6 @@ export default {
   mounted () {
   },
   methods: {
-    getResData () {
-      if (this.$store.state.res) {
-        Object.assign(this.resData, this.$store.state.res);
-      }
-    },
     formateDate (date) {
       console.log(this.weekedShow)
       return moment(date).format('YYYY / MM / DD');

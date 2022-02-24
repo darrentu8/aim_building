@@ -42,16 +42,13 @@ export default {
   computed: {
     totalBuyPrice () {
       this.totalPrice = 0;
-      var totalTime = 0;
       var total = 0;
       var timeObj = this.data.reservationService[this.selectResIndex].content[0].time;
-      var timePrice = this.data.reservationService[this.selectResIndex].content[0].time[0].price;
       timeObj.forEach(ele => {
         if (ele.active === true) {
-          totalTime += 1;
+          total += ele.price;
         }
       });
-      total += Number(timePrice * totalTime);
       this.totalPrice = total;
       return total;
     },
@@ -69,10 +66,10 @@ export default {
     ...mapState(['data', 'res'])
   },
   mounted () {
-    this.data.reservationService.forEach((item) => {
-      item.active = false;
-    })
-    this.$store.commit('setRes', this.data.reservationService);
+    // this.data.reservationService.forEach((item) => {
+    //   item.active = false;
+    // })
+    // this.$store.commit('setRes', this.data.reservationService);
   },
   methods: {
     // setRangeDate (SD, ED) {
@@ -150,43 +147,96 @@ export default {
     //   this.showAddcart = false;
     // },
     reservat () {
-      var selectRes = 0;
-      var selectGoods = [];
-      var selectTime = [];
-      var ResObj = this.data.reservationService;
+      let selectRes = 0;
+      let selectGoods = [];
+      let selectTime = [];
+      let ResObj = this.data.reservationService;
       let lens = {};
       // 轉換日期顯示
-      var selectDate = this.dateSelect;
+      let selectDate = this.dateSelect;
       let SYY = selectDate.getFullYear();
       let SMM = selectDate.getMonth() + 1;
       let SDD = selectDate.getDate();
       let SDate = SYY + '-' + SMM + '-' + SDD;
+
+      let selectItem = null;
+      // console.log(ResObj);
+      for (let index in ResObj) {
+        let ele = ResObj[index];
+        if (ele.active === true) {
+          selectItem = ele;
+          break;
+        }
+      }
+      // console.log(selectItem);
+      if (selectItem === null) {
+        Toast({
+          message: '請選擇服務項目!',
+          position: 'middle',
+          duration: 5000
+        });
+        return false;
+      }
       // 時段
-      ResObj.forEach((ele) => {
+      let orderTime = []; // 预约時段
+      let price = 0;
+      selectItem.content[0].time.forEach((ele2) => {
+        if (ele2.active === true) {
+          selectTime.push(ele2.time);
+          orderTime.push(ele2);
+          price += ele2.price;
+        }
+      });
+
+      let remark = `時間：${SDate} / 時段：${selectTime}`;
+      let item = {
+        key: selectItem.key, // 商品id,
+        name: selectItem.name, // 商品名稱,
+        price: price, // 原價格,
+        selectPrice: price, // 購買價格,沒有折扣跟原價一樣 ,
+        selectRemark: remark, // 備註說明
+        orderTime: {
+          time: orderTime,
+          date: SDate
+        }
+      };
+
+      selectGoods.push(item);
+      lens[selectItem.key] = 1; // 對應 key 商品數量
+      selectRes += 1;
+
+      /* ResObj.forEach((ele) => {
         ele.content[0].time.forEach((ele2) => {
           if (ele.active === true) {
             if (ele2.active === true) {
               selectTime.push(ele2.time)
+              orderTime.push(ele2);
             }
           }
         })
       });
-      console.log('ResObj', ResObj);
+      console.log('ResObj', ResObj, orderTime);
       ResObj.forEach(ele => {
         if (ele.active === true) {
           let remark = '時間：' + SDate + ' / ' + '時段：' + selectTime;
-          selectGoods.push({
+          let item = {
             key: ele.key, // 商品id,
             name: ele.name, // 商品名稱,
             price: ele.content[0].time[0].price, // 原價格,
             selectPrice: ele.content[0].time[0].price, // 購買價格,沒有折扣跟原價一樣 ,
-            selectRemark: remark // 備註說明
-          });
+            selectRemark: remark, // 備註說明
+            orderTime: []
+          };
+
+          item.orderTime.push(ele.content[0].time[0]);
+
+          selectGoods.push(item);
           lens[ele.key] = 1; // 對應 key 商品數量
           selectRes += 1;
           // selectGoods.push(ele);
         }
-      });
+      }); */
+
       lens.length = selectTime.length;
       lens.maxPrice = this.totalPrice;
       if (this.totalPrice === 0 || selectRes === 0) {
@@ -196,27 +246,23 @@ export default {
           duration: 5000
         });
         return false;
-      } else {
-        let params = {};
-        params['shopid'] = window.headers.shopid; // 商家
-        params['puid'] = window.headers.shopid;
-        params['selected'] = selectGoods;
-        params['lens'] = lens;
-        /* params['lens'] = {
-          length: this.totalTime,
-          maxPrice: this.totalPrice }; */
-        console.log('params', params)
-        device.goodsPost(params)
-        // device._doSendMessage ('openshop', {shopid:window.headers.shopid})
       }
+
+      let params = {};
+      params['shopid'] = window.headers.shopid; // 商家
+      params['puid'] = window.headers.shopid;
+      params['selected'] = selectGoods;
+      params['lens'] = lens;
+      console.log('params', params);
+      device.goodsPost(params)
     },
     selectReservation (item, i) {
       this.data.reservationService.forEach((item) => {
         item.active = false;
       })
       this.selectResIndex = i;
-      Vue.set(item, 'active', false);
       if (item.active) {
+        Vue.set(item, 'active', false);
       } else {
         Vue.set(item, 'active', true);
       }

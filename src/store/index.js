@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     data: {},
+    res: [],
     good: {
       shopName: '',
       name: '',
@@ -20,6 +21,10 @@ export default new Vuex.Store({
       state.data = val;
     },
     setRes (state, val) {
+      state.res = [];
+      state.res.push(val);
+    },
+    sameRes (state, val) {
       state.res = val;
     }
   },
