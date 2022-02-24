@@ -1,7 +1,7 @@
 // 主页
 <!--suppress JSUnresolvedVariable -->
 <template lang="pug">
-  .index-box(v-if="data" :style="bgclass")
+  .index-box(:style="bgclass")
     header.header.page-header#header-box
       .d-flex.align-items-center
         .page-title(v-if="data.shopName") {{data.shopName}} {{data.business}}店
@@ -22,31 +22,46 @@
           .follow-info
             .follow-info-item
               span.num(v-if="data.attention") {{data.attention}}
-              span.num(v-else)  -
+              span.num(v-else)  0
               p 被關注人數
             .follow-info-item
               span.num(v-if="data.orderQuantity") {{data.orderQuantity}}
-              span.num(v-else)  -
-              p {{$Lang('index-orderQuantity','本月已預約人數test')}}
+              span.num(v-else)  0
+              p {{$Lang('index-orderQuantity','本月已預約人數')}}
           .white-bg
             ul.link-box.d-flex
-              li
+              li(v-if="exchangecards")
                 router-link(:to="{name: 'BusinessCard'}")
-                  img(src="../../assets/img/businessCardItem-icon-user.png", alt)
-                  p 交換名片
-              li
+                  img(:src="exchangecards.icon", alt)
+                  p {{exchangecards.text}}
+
+              li(v-if="chat")
                 a(@click="openChat")
-                  img(src="../../assets/img/businessCardItem-icon-chat.png", alt)
-                  p 開啟聊天
-              li
+                  img(:src="chat.icon", alt)
+                  p {{chat.text}}
+
+              li(v-if="scan")
                 router-link(:to="{name: 'Reservation'}")
-                  img(src="../../assets/img/businessCardItem-icon-time.png", alt)
-                  p 預約時間
+                  img(:src="scan.icon", alt)
+                  p {{scan.text}}
+
+              //- li
+              //-   router-link(:to="{name: 'BusinessCard'}")
+              //-     img(src="../../assets/img/businessCardItem-icon-user.png", alt)
+              //-     p 交換名片
+              //- li
+              //-   a(@click="openChat")
+              //-     img(src="../../assets/img/businessCardItem-icon-chat.png", alt)
+              //-     p 開啟聊天
+              //- li
+              //-   router-link(:to="{name: 'Reservation'}")
+              //-     img(src="../../assets/img/businessCardItem-icon-time.png", alt)
+              //-     p 預約時間
               li
-                a(v-if="!data.isCollect" @click="onCollect")
+                a(v-if="collect == true" @click="onCollect")
                   img(:src="$UIIcon('icon-collect','businessCardItem-icon-heart-none.png')", alt)
                   p {{$Lang('index-icon-collect','按讚關注')}}
-                a(v-else @click="onCollect")
+                a(v-if="collect == false" @click="onCollect")
                   img(style="margin-left:8px;" :src="$UIIcon('icon-collect-select','businessCardItem-icon-heart.png')" , alt)
                   p {{$Lang('index-collect-select','已關注')}}
           .white-bg
@@ -125,9 +140,6 @@
               //-         img(src="../../assets/img/reservation-img4.png", alt)
               //-     .price 時薪 800 元
     Menu(ref="menu")
-
-  .index-box(v-else :style="bgclass")
-    p.text-center.mt-5 無數據
 </template>
 <script>
   import index from './Index.vue.js';

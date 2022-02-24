@@ -59,6 +59,47 @@ export default {
     VueSlickCarousel
   },
   computed: {
+    exchangecards () {
+      var data = this.data.itemFun;
+      if (data !== undefined) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].parameter === 'exchangecards') {
+            return data[i];
+          }
+        }
+        return null;
+      }
+    },
+    chat () {
+      var data = this.data.itemFun;
+      if (data !== undefined) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].parameter === 'chat') {
+            return data[i];
+          }
+        }
+        return null;
+      }
+    },
+    scan () {
+      var data = this.data.itemFun;
+      if (data !== undefined) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].parameter === 'scan') {
+            return data[i];
+          }
+        }
+        return null;
+      }
+    },
+    collect: {
+      get () {
+        return this.data.isCollect;
+      },
+      set (value) {
+        this.data.isCollect = value;
+      }
+    },
     jobData: {
       get () {
         if (typeof this.data.job === 'undefined') {
@@ -108,6 +149,7 @@ export default {
     jglib.setOnMessage(this.onMessage.bind(this));
     if (this.data.shopid === null || this.data.shopid === undefined) {
       this.data = jgdata.getShopData();
+      console.log(this.data)
     }
     this.$nextTick(() => {
       // console.log('in')
@@ -124,40 +166,6 @@ export default {
   mounted () {
   },
   methods: {
-    // 明細時間
-    // showTimeList () {
-    //   let timeData = [];
-    //   let shopTime = this.data.shopTime
-    //   if (typeof shopTime === 'undefined') {
-    //     return null
-    //   }
-    //   if (shopTime === null || shopTime === '') {
-    //     return null
-    //   }
-    //   try {
-    //     shopTime = JSON.parse(shopTime);
-    //     for (let i = 0; i < shopTime.length; i++) {
-    //       const item = shopTime[i];
-    //       if (item.state === 1) {
-    //         timeData.push({
-    //           content: '星期' + getChineseWeek(i) + ' ' + item.time,
-    //           align: 'left'
-    //         })
-    //         this.timeData.push(
-    //           '星期' + getChineseWeek(i) + ' ' + item.time
-    //         )
-    //       }
-    //     }
-    //   } catch (e) {
-    //     // console.log(e,'dasdfas')
-    //   }
-    //   this.$createActionSheet({
-    //     title: '營業時間',
-    //     /* pickerStyle: true, */
-    //     cancelTxt: '關閉',
-    //     data: timeData
-    //   }).show()
-    // },
     setRes (res, i) {
       this.$store.commit('setRes', res);
     },
@@ -171,7 +179,7 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      device.collect(!this.data.isCollect);
+      device.collect(this.data.isCollect);
     },
     // 接收消息 數據 210809
     async onMessage (msg) {
@@ -186,7 +194,7 @@ export default {
             this.$store.commit('setShopData', this.data);
             // console.log('ShopData', this.data);
             // eslint-disable-next-line no-unused-vars
-            let itemfun = this.data['itemfun'];
+            let itemfun = this.data['itemFun'];
             // let templateData = data['templateData']; // 些模板的數據
             // // console.log(templateData);
             // // 當前主頁數據

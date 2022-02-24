@@ -10,11 +10,10 @@
           h2.name {{data.shopName}}
           p.txt {{data.business}}
         ul.link-box.d-flex
-          li
-            //- router-link(:to="{name: 'BusinessCard'}")
+          li(v-if="exchangecards")
             a(@click="scanQR()")
-              img(src="../../assets/img/businessCardItem-icon-user.png", alt)
-              p 掃碼名片
+              img(:src="exchangecards.icon", alt)
+              p {{exchangecards.text}}
         .white-bg-head
           h2.title 個人介紹
           p(v-if="data.content") {{data.content}}

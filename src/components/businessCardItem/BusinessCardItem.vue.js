@@ -17,6 +17,17 @@ export default {
     }
   },
   computed: {
+    exchangecards () {
+      var data = this.data.itemFun;
+      if (data !== undefined) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].parameter === 'exchangecards') {
+            return data[i];
+          }
+        }
+        return null;
+      }
+    },
     jobData: {
       get () {
         return JSON.parse(this.data.job);

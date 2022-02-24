@@ -12,42 +12,22 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index,
-      meta: {
-        keepAlive: true // 需要缓存
-      }
+      component: Index
     },
     {
       path: '/Reservation',
       name: 'Reservation',
-      component: Reservation,
-      meta: {
-        keepAlive: true // 需要缓存
-      }
+      component: Reservation
     },
     {
       path: '/StoreService',
       name: 'StoreService',
-      component: StoreService,
-      meta: {
-        keepAlive: true // 需要缓存
-      }
+      component: StoreService
     },
     {
       path: '/BusinessCard',
       name: 'BusinessCard',
-      component: BusinessCard,
-      meta: {
-        keepAlive: true // 需要缓存
-      }
+      component: BusinessCard
     }
-  ],
-  mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
-  }
+  ]
 });
