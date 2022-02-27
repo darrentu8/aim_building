@@ -20,6 +20,7 @@ export default {
   },
   data () {
     return {
+      collect: false,
       data: {},
       timeData: [],
       businesstime: [],
@@ -92,13 +93,8 @@ export default {
         return null;
       }
     },
-    collect: {
-      get () {
-        return this.data.isCollect;
-      },
-      set (value) {
-        this.data.isCollect = value;
-      }
+    ckeckCollect () {
+      return this.collect;
     },
     jobData: {
       get () {
@@ -179,7 +175,8 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      device.collect(this.data.isCollect);
+      device.collect(this.collect);
+      this.collect = !this.collect;
     },
     // 接收消息 數據 210809
     async onMessage (msg) {

@@ -14,11 +14,11 @@
               p
                 | 被關注人數
                 b(v-if="data.attention")  {{data.attention}}
-                b(v-else)  -
+                b(v-else)  0
               p
                 | 本月已預約人數
                 b(v-if="data.orderQuantity")  {{data.orderQuantity}}
-                b(v-else)  -
+                b(v-else)  0
         .menu-listt(v-if="funData")
           ul.menu-list-item(v-for="(vo, i) in funData" :key="i")
             li

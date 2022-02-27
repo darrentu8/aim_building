@@ -58,15 +58,15 @@
               //-     img(src="../../assets/img/businessCardItem-icon-time.png", alt)
               //-     p 預約時間
               li
-                a(v-if="collect == true" @click="onCollect")
+                a(v-if="collect === false" @click="onCollect")
                   img(:src="$UIIcon('icon-collect','businessCardItem-icon-heart-none.png')", alt)
                   p {{$Lang('index-icon-collect','按讚關注')}}
-                a(v-if="collect == false" @click="onCollect")
+                a(v-if="collect === true" @click="onCollect")
                   img(style="margin-left:8px;" :src="$UIIcon('icon-collect-select','businessCardItem-icon-heart.png')" , alt)
                   p {{$Lang('index-collect-select','已關注')}}
           .white-bg
             .white-bg-head
-              h2.title 職業內容介紹
+              h2.title {{$Lang('index-title-job','職業內容介紹')}}
               //- p {{data.describe}}
             ul.job-info
               li
@@ -85,14 +85,14 @@
               //-   span {{data.describe}}
           .white-bg.map-box
             .white-bg-head
-              h2.title 職業服務地點
-              p {{data.address}} / 到府服務
+              h2.title {{$Lang('index-title-locat','職業服務地點')}}
+              p {{data.address}} / {{$Lang('index-title-service-way','到府服務')}}
               .map-iframe
                 .map-cover
                 iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.1671008805292!2d120.29955451496016!3d22.610234385163366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e037c25c5b457%3A0x1eae13f288f3b891!2zODA26auY6ZuE5biC5YmN6Y6u5Y2A5paw5YWJ6LevNjHomZ8!5e0!3m2!1szh-TW!2stw!4v1630720625488!5m2!1szh-TW!2stw", style="border:0;", ref="iframe")
           .white-bg.service-box
             .white-bg-head
-              h2.title 服務內容(價格)
+              h2.title {{$Lang('index-title-goods','服務內容(價格)')}}
               //- p {{data.business}}
             .service-list
               .service-item(v-for="(res) in data.reservationService" :key="res.key")

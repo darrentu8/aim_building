@@ -1,3 +1,11 @@
 {
-
+  "cart-title": "购物车",
+  "index-orderQuantity": "本月已预约人数",
+  "index-bussiness-card": "交换名片",
+  "index-open-chat": "开启聊天",
+  "index-reservation-time": "预约时间",
+  "index-title-job": "职业内容介绍",
+  "index-title-locat": "职业服务地点",
+  "index-title-service-way": "到府服务",
+  "index-title-goods": "服务内容(价格)"
 }

@@ -24,15 +24,15 @@
             p 請選擇可預約時段
           .reservation-box-body
             ul.reservation-date
-              li(:class="{ 'active': timeSlot.active }" type="button" v-for="(timeSlot,i) in data.reservationService[this.selectResIndex].content[0].time" @click="selectTimes(timeSlot,i)") {{timeSlot.time}}
+              li(:class="{ 'active': timeSlot.active }" type="button" v-for="(timeSlot,i) in data.reservationService[this.selectResIndex].content[0].time" @click="selectTimes(timeSlot,i)") {{timeSlot.time}} / {{timeSlot.price}}元
         //  end reservation-box 
         .white-bg.reservation-box.price-box
           .reservation-box-head
             h2.title 總共預約費用
           .price-list
-            .price-item
-              span.num {{data.reservationService[this.selectResIndex].content[0].time[0].price}}
-              p 時薪費用
+            //- .price-item
+            //-   span.num {{data.reservationService[this.selectResIndex].content[0].time[0].price}}
+            //-   p 時薪費用
             .price-item
               span.num {{totalBuyTime}}
               p 預約時段

@@ -1,3 +1,11 @@
 {
-  "cart-title": "購物車"
+  "cart-title": "shopping cart",
+  "index-orderQuantity": "Number of reservations made this month",
+  "index-bussiness-card": "exchange business cards",
+  "index-open-chat": "start chat",
+  "index-reservation-time": "Appointment",
+  "index-title-job": "Occupational content introduction",
+  "index-title-locat": "Career Services Location",
+  "index-title-service-way": "On-site service",
+  "index-title-goods": "Service content (price)"
 }
