@@ -113,29 +113,31 @@ export default {
       console.log('shopTime', shopTime)
       let now = new Date();
       let day = now.getDay();
-      shopTime.forEach((item, n) => {
-        // 顯示今明
-        if (n === day || n === day - 1) {
-          if (item.state === 1) {
-            if (item.time === '00:00-00:00') {
-              timeData.push({
-                time: '全日',
-                week: '星期' + getChineseWeek(n)
-              })
+      if (shopTime !== null) {
+        shopTime.forEach((item, n) => {
+          // 顯示今明
+          if (n === day || n === day - 1) {
+            if (item.state === 1) {
+              if (item.time === '00:00-00:00') {
+                timeData.push({
+                  time: '全日',
+                  week: '星期' + getChineseWeek(n)
+                })
+              } else {
+                timeData.push({
+                  time: item.time,
+                  week: '星期' + getChineseWeek(n)
+                })
+              }
             } else {
               timeData.push({
-                time: item.time,
+                time: '休假',
                 week: '星期' + getChineseWeek(n)
               })
             }
-          } else {
-            timeData.push({
-              time: '休假',
-              week: '星期' + getChineseWeek(n)
-            })
           }
-        }
-      })
+        })
+      }
       console.log('timeData', timeData)
       return timeData;
     }

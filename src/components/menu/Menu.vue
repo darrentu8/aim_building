@@ -19,7 +19,7 @@
                 | 本月已預約人數
                 b(v-if="data.orderQuantity")  {{data.orderQuantity}}
                 b(v-else)  0
-        .menu-listt(v-if="funData")
+        .menu-list(v-if="funData")
           ul.menu-list-item(v-for="(vo, i) in funData" :key="i")
             li
               a(@click="onClickMenuItem(vo)") {{vo.text}}
@@ -27,6 +27,10 @@
           ul
             li
               p.version ver : {{data.uiInfo.version}}
+        .menu-btm(v-else)
+          ul
+            li
+              p.version ver : 
 </template>
 
 <script>
