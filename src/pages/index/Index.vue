@@ -4,7 +4,7 @@
   .index-box(:style="bgclass")
     header.header.page-header#header-box
       .d-flex.align-items-center
-        .page-title(v-if="data.shopName") {{data.shopName}} {{data.business}}店
+        .page-title(v-if="data.shopName") {{data.shopName}} {{data.business}}
         .page-title(v-else) -
         .ml-auto
           button.btn.btn-primary(type="button", @click="onclickMenu")
@@ -23,7 +23,7 @@
             .follow-info-item
               span.num(v-if="data.attention") {{data.attention}}
               span.num(v-else)  0
-              p 被關注人數
+              p  {{$Lang('index-attention','被關注人數')}}
             .follow-info-item
               span.num(v-if="data.orderQuantity") {{data.orderQuantity}}
               span.num(v-else)  0
@@ -58,10 +58,10 @@
               //-     img(src="../../assets/img/businessCardItem-icon-time.png", alt)
               //-     p 預約時間
               li
-                a(v-if="collect === false" @click="onCollect")
+                a(v-if="isCollect === false" @click="onCollect")
                   img(:src="$UIIcon('icon-collect','businessCardItem-icon-heart-none.png')", alt)
                   p {{$Lang('index-icon-collect','按讚關注')}}
-                a(v-if="collect === true" @click="onCollect")
+                a(v-if="isCollect === true" @click="onCollect")
                   img(style="margin-left:8px;" :src="$UIIcon('icon-collect-select','businessCardItem-icon-heart.png')" , alt)
                   p {{$Lang('index-collect-select','已關注')}}
           .white-bg
@@ -70,11 +70,11 @@
               //- p {{data.describe}}
             ul.job-info
               li
-                span.job-title 簡介
+                span.job-title {{$Lang('bcard-brief','簡介')}}
                 span {{data.describe}}
               li
                 div(style="width:100%;display:flex;")
-                  .col-6(style="padding:0;") 服務時間
+                  .col-6(style="padding:0;") {{$Lang('bcard-times','服務時間')}}
                   .col-6.text-right(style="padding:0;")
                     p(v-for="(vo, i) in shopTimeView" :key="i") {{vo.week}} {{vo.time}}
               li(v-for="job in jobData" :key="job.id")
@@ -103,7 +103,7 @@
                       p {{res.info}}
                     .service-img
                       img(:src="res.image", alt)
-                  .price(v-if="res.content[0].time[0].price != undefined") 時薪價格 {{res.content[0].time[0].price}} 元 / 剩餘銷售數量 {{res.copies}}
+                  .price(v-if="res.content[0].time[0].price != undefined") {{$Lang('index-time-price','時薪費用')}} {{res.content[0].time[0].price}} {{$Lang('res-currency','元')}} / {{$Lang('res-time-num','可預約數量')}} {{res.copies}}
                   //- .price 剩餘銷售數量 {{res.copies}} / 已售出 {{res.sell}}
                   //- .service-info
                   //-   .service-txt

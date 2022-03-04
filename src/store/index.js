@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isCollect: false,
     data: {},
     res: [],
     good: {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setIsCollect (state, val) {
+      state.isCollect = val;
+    },
     setShopData (state, val) {
       state.data = val;
     },

@@ -2,10 +2,10 @@
 <template>
   <div class="professional-list-box">
     <BasePageBack  ref="BasePageBack" >
-      <div slot="page-title">預約時間</div>
+      <div slot="page-title">{{$Lang('res-time','預約時間')}}</div>
       <div slot="content">
         <ReservationItem v-if="res.length > 0" />
-        <h4 v-else class="text-center mt-5" >無預約項目</h4>
+        <h4 v-else class="text-center mt-5" >{{$Lang('no-res','無預約項目')}}</h4>
       </div>
     </BasePageBack>
   </div>

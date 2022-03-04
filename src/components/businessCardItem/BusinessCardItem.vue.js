@@ -167,10 +167,6 @@ export default {
     // 開啟聊天
     openChat () {
       device.openChat();
-    },
-    // 點擊收藏
-    onCollect () {
-      device.collect(this.data.isCollect);
     }
   }
 }

@@ -10,6 +10,7 @@ import AppBase from '../../lib/base/AppBase'
 import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import {getChineseWeek} from '../../lib/function';
+import { mapState } from 'vuex'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
@@ -20,7 +21,6 @@ export default {
   },
   data () {
     return {
-      collect: false,
       data: {},
       timeData: [],
       businesstime: [],
@@ -93,9 +93,6 @@ export default {
         return null;
       }
     },
-    ckeckCollect () {
-      return this.collect;
-    },
     jobData: {
       get () {
         if (typeof this.data.job === 'undefined') {
@@ -140,7 +137,8 @@ export default {
       }
       console.log('timeData', timeData)
       return timeData;
-    }
+    },
+    ...mapState(['isCollect'])
   },
   // 添加 註冊 消息 210809
   async created () {
@@ -177,11 +175,12 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      device.collect(this.collect);
-      this.collect = !this.collect;
+      device.collect(this.isCollect);
+      this.$store.commit('setIsCollect', this.isCollect = !this.isCollect);
     },
     // 接收消息 數據 210809
     async onMessage (msg) {
+      console.log(msg)
       try {
         switch (msg.type.toLowerCase()) {
           case 'init': {
@@ -191,7 +190,8 @@ export default {
             this.$store.commit('setShopData', {});
             this.data = jgdata.getShopInfo();
             this.$store.commit('setShopData', this.data);
-            // console.log('ShopData', this.data);
+            console.log('this.data.isCollect', this.data.isCollect);
+            this.isCollect = this.data.isCollect;
             // eslint-disable-next-line no-unused-vars
             let itemfun = this.data['itemFun'];
             // let templateData = data['templateData']; // 些模板的數據
