@@ -2,7 +2,7 @@
 <template>
   <div class="professional-list-box" :style="bgclass">
     <BasePageBack  ref="BasePageBack" >
-      <div slot="page-title">個人名片</div>
+      <div slot="page-title">{{$Lang('bcard-card','個人名片')}}</div>
       <div slot="content">
         <BusinessCardItem />
       </div>

@@ -8,25 +8,25 @@
       .store-service-content
         .store-service-head
           .store-service-title {{res[0].name}}
-          p(v-if="res[0].content[0].time[0].price != undefined") 時薪 {{res[0].content[0].time[0].price}} 元
+          p(v-if="res[0].content[0].time[0].price != undefined") {{$Lang('res-rate','時薪')}} {{res[0].content[0].time[0].price}} {{$Lang('res-currency','元')}}
         .store-service-txt
           | {{res[0].info}}
 
       .white-bg.price-box
         .white-bg-head
-          h2.title 此服務預約費用計算
+          h2.title {{$Lang('res-count-price','此服務預約費用計算')}}
         .price-list
           .price-item
             span.num(v-if="res[0].content[0].time[0].price != undefined") {{res[0].content[0].time[0].price}}
-            p 時薪費用
+            p {{$Lang('res-time-price','時薪費用')}}
           .price-item
             span.num {{res[0].copies}}
-            p 可預約數量
+            p {{$Lang('res-time-num','可預約數量')}}
           .price-item
             span.num(v-if="res[0].content[0].time[0].time != undefined") {{res[0].content[0].time[0].time}}
-            p 工作時間
+            p {{$Lang('res-time-slot','工作時間')}}
         .btn-box
-          router-link.btn(type="button" :to="{name: 'Reservation'}") 立即預約時間
+          router-link.btn(type="button" :to="{name: 'Reservation'}") {{$Lang('res-check','立即預約時間')}}
       //  end reservation-box 
   //  end page-body 
 </template>

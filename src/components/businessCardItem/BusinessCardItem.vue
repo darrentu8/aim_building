@@ -15,41 +15,41 @@
               img(:src="exchangecards.icon", alt)
               p {{exchangecards.text}}
         .white-bg-head
-          h2.title 個人介紹
+          h2.title {{$Lang('bcard-intro','個人介紹')}}
           p(v-if="data.content") {{data.content}}
-          p(v-else) 無
+          p(v-else) {{$Lang('no-data','暫無資料')}}
 
       .white-bg
         .white-bg-head
-          h2.title 職業內容介紹
+          h2.title {{$Lang('bcard-job','職業內容介紹')}}
         ul.job-info
           li
-            span.job-title 簡介
+            span.job-title {{$Lang('bcard-brief','簡介')}}
             span(v-if="data.describe") {{data.describe}}
-            p(v-else) 無
+            p(v-else) {{$Lang('no-data','暫無資料')}}
           li
             div(style="width:100%;display:flex;")
-              .col-6(style="padding:0;") 所有服務時間
+              .col-6(style="padding:0;") {{$Lang('bcard-all-times','所有服務時間')}}
               .col-6.text-right(v-if="shopTimeView" style="padding:0;")
                 p(v-for="(vo, i) in shopTimeView" :key="i") {{vo}}
               .col-6.text-right(v-else style="padding:0;")
-                p 暫無資料
+                p {{$Lang('no-data','暫無資料')}}
           li(v-if="jobData" v-for="job in jobData" :key="job.id")
             span.job-title {{job.title}}
             span {{job.content}}
           li(v-else)
-            span.job-title 暫無資料
+            span.job-title {{$Lang('no-data','暫無資料')}}
       .white-bg.friends-box
         .white-bg-head
-          h2.title 已結交朋友介紹
-          p(v-if="data.partnershop.length") 目前好友數 {{data.partnershop.length}} 人
-          p(v-else) 目前好友數 0 人
+          h2.title {{$Lang('bcard-myfriends','已結交朋友介紹')}}
+          p(v-if="data.partnershop.length") {{$Lang('bcard-myfriends','目前好友數')}} {{data.partnershop.length}}
+          p(v-else) {{$Lang('bcard-myfriends-num','目前好友數')}} 0
           ul.friends-list.d-flex.flex-wrap(v-if="data.partnershop")
             li(v-for="(partner,i) in data.partnershop" :key="partner.key")
               a(@click="openShop(partner.shopid)")
                 img(:src="partner.logo", alt)
           ul.friends-list.d-flex.flex-wrap(v-else)
-            li 無資料
+            li {{$Lang('no-data','暫無資料')}}
     //  end page-body 
 </template>
 

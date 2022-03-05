@@ -1,17 +1,15 @@
 
-// import BaseScroll from '../../components/basescroll/BaseScroll'
-// import Goods from '../../components/good/Goods'
 import Menu from '../../components/menu/Menu'
-// import Bottom from '../../components/bottom/Bottom'
-import {jglib, jgdata, device} from '../../lib/Index'
-// import StyHeader from '../../components/topskyheader/TopSkyHeader'
+import {jglib, jgdata, device, saveLocalJsonData} from '../../lib/Index'
 import BasePageBack from '../../components/basepageback/BasePageBack'
 import AppBase from '../../lib/base/AppBase'
 import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import {getChineseWeek} from '../../lib/function';
+// import { mapState } from 'vuex'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+import constant from '../../lib/constant';
 
 export default {
   name: 'Index',
@@ -20,7 +18,6 @@ export default {
   },
   data () {
     return {
-      collect: false,
       data: {},
       timeData: [],
       businesstime: [],
@@ -51,7 +48,9 @@ export default {
             }
           }
         ]
-      }
+      },
+
+      isCollect: false  // 220305
     }
   },
   components: {
@@ -93,9 +92,6 @@ export default {
         return null;
       }
     },
-    ckeckCollect () {
-      return this.collect;
-    },
     jobData: {
       get () {
         if (typeof this.data.job === 'undefined') {
@@ -110,7 +106,7 @@ export default {
     shopTimeView () {
       let timeData = [];
       let shopTime = JSON.parse(this.data.shopTime);
-      console.log('shopTime', shopTime)
+      // console.log('shopTime', shopTime)
       let now = new Date();
       let day = now.getDay();
       if (shopTime !== null) {
@@ -138,16 +134,19 @@ export default {
           }
         })
       }
-      console.log('timeData', timeData)
+      // console.log('timeData', timeData)
       return timeData;
     }
+    // ...mapState(['isCollect'])  // 220305 去掉 添加了,數據狀態不知原因無法同步
   },
   // 添加 註冊 消息 210809
   async created () {
     jglib.setOnMessage(this.onMessage.bind(this));
     if (this.data.shopid === null || this.data.shopid === undefined) {
-      this.data = jgdata.getShopData();
-      console.log(this.data)
+      // 初始數據 220305
+      this.initData();
+     // this.data = jgdata.getShopData();
+     // console.log(this.data)
     }
     this.$nextTick(() => {
       // console.log('in')
@@ -177,33 +176,49 @@ export default {
     },
     // 點擊收藏
     onCollect () {
-      device.collect(this.collect);
-      this.collect = !this.collect;
+      device.collect(this.isCollect);
+      if (this.isCollect) {
+        this.data.attention--;
+      } else {
+        this.data.attention++;
+      }
+      this.data.isCollect = !this.data.isCollect;
+      saveLocalJsonData(constant.SHOPDATA, this.data);
+      this.$store.commit('setIsCollect', this.isCollect = !this.isCollect);
+    },
+    // 初始數據或更新數據 220305
+    initData () {
+      this.$store.commit('setShopData', {});
+      this.data = jgdata.getShopInfo();
+      this.$store.commit('setShopData', this.data);
+      this.isCollect = this.data.isCollect;
+      // 收藏狀態 更新 220305
+      this.$store.commit('setIsCollect', this.isCollect);
+
+      // 商家的 google地圖 GPS 坐標
+      // this.data.mappoint;
+      // gps 地圖示例
+      /* mappoint={
+        lat: "24.9713322"
+        lng: "121.5326765"
+      } */
+
+      if (this.$refs.menu) {
+        this.$refs.menu.funlist(); // 更新 menu
+      }
     },
     // 接收消息 數據 210809
     async onMessage (msg) {
+      // console.log(msg)
       try {
         switch (msg.type.toLowerCase()) {
           case 'init': {
             // 這句要添加 不要刪除掉
             this.setPageConfig();
-            // 初始數據 數據更新
-            this.$store.commit('setShopData', {});
-            this.data = jgdata.getShopInfo();
-            this.$store.commit('setShopData', this.data);
-            // console.log('ShopData', this.data);
-            // eslint-disable-next-line no-unused-vars
-            let itemfun = this.data['itemFun'];
-            // let templateData = data['templateData']; // 些模板的數據
-            // // console.log(templateData);
-            // // 當前主頁數據
-            // this.pageData = templateData['page']; // 主機的數據
-            // // console.log(this.pageData);
-            // // 使用例子
-            // if (typeof this.pageData.browseImage !== 'undefined') {
-            //   this.items = this.pageData.browseImage;
-            // }
-            this.$refs.menu.funlist(); // 更新 menu
+            // 初始數據 或 數據更新
+            this.initData();
+
+            // console.log(this.$refs.menu);
 
             break;
           }
