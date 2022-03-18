@@ -40,17 +40,19 @@ export default {
       let timeData = [];
       let shopTime = this.data.shopTime;
       shopTime = JSON.parse(shopTime);
-      for (let i = 0; i < shopTime.length; i++) {
-        const item = shopTime[i];
-        if (item.state === 1) {
-          if (item.time === '00:00-00:00') {
-            timeData.push(
-              '星期' + getChineseWeek(i) + ' ' + '全日'
-            )
-          } else {
-            timeData.push(
-              '星期' + getChineseWeek(i) + ' ' + item.time
-            )
+      if (shopTime !== null) {
+        for (let i = 0; i < shopTime.length; i++) {
+          const item = shopTime[i];
+          if (item.state === 1) {
+            if (item.time === '00:00-00:00') {
+              timeData.push(
+                '星期' + getChineseWeek(i) + ' ' + '全日'
+              )
+            } else {
+              timeData.push(
+                '星期' + getChineseWeek(i) + ' ' + item.time
+              )
+            }
           }
         }
       }
@@ -84,19 +86,21 @@ export default {
       }
       try {
         shopTime = JSON.parse(shopTime);
-        for (let i = 0; i < shopTime.length; i++) {
-          const item = shopTime[i];
-          if (item.state === 1) {
-            if (item.time === '00:00-00:00') {
-              timeData.push({
-                content: '星期' + getChineseWeek(i) + ' ' + '全日',
-                align: 'left'
-              })
-            } else {
-              timeData.push({
-                content: '星期' + getChineseWeek(i) + ' ' + item.time,
-                align: 'left'
-              })
+        if (shopTime !== null) {
+          for (let i = 0; i < shopTime.length; i++) {
+            const item = shopTime[i];
+            if (item.state === 1) {
+              if (item.time === '00:00-00:00') {
+                timeData.push({
+                  content: '星期' + getChineseWeek(i) + ' ' + '全日',
+                  align: 'left'
+                })
+              } else {
+                timeData.push({
+                  content: '星期' + getChineseWeek(i) + ' ' + item.time,
+                  align: 'left'
+                })
+              }
             }
           }
         }

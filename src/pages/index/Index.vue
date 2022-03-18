@@ -89,7 +89,7 @@
               p {{data.address}} / {{$Lang('index-title-service-way','到府服務')}}
               .map-iframe
                 .map-cover
-                iframe( loading="lazy" :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyAOl7nkGhwOn0xQk3_6HuFY86gHgOlthDM&q='+ data.mappoint.lat + ',' + data.mappoint.lng +'&zoom=17'", style="border:0;", ref="iframe")
+                iframe( loading="lazy" :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyAOl7nkGhwOn0xQk3_6HuFY86gHgOlthDM&q='+ data.address +'&zoom=17'", style="border:0;", ref="iframe")
           .white-bg.service-box
             .white-bg-head
               h2.title {{$Lang('index-title-goods','服務內容(價格)')}}
