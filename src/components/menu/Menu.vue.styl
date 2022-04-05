@@ -3,7 +3,7 @@
     background-color:rgba(#ffefef, .5);
     height: 100%;
     width: 100%;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     z-index: 20;
@@ -12,7 +12,7 @@
     height: 100%;
     width:290px;
     max-width:100%;
-    position: fixed;
+    position: absolute;
     top: 0;
     z-index: 100;
     background-color: #ffffff;
@@ -54,9 +54,11 @@
         margin-bottom: 2.73vw;
         color: #eb7979;
         font-weight: bold;
+    &-content
+      height 100%
     &-list
+      overflow-y scroll
       height: 70vh;
-      overflow: auto;
       &-item
         margin: 10px 0 0 0;
         padding: 0;
