@@ -1,16 +1,20 @@
 
-import jglib from './JGLib';
-import device from './device'
-import jgdata from './JGData';
-import constant from './constant';
+import jglib from '../../JGlib/JGLib';
+import device from '../../JGlib/device'
+import jgdata from '../../JGlib/JGData';
+import constant from '../../JGlib/constant';
+import AppBase from '../../JGlib/base/AppBase.js'
+import net from '../../JGlib/net';
 import {
   getLocalJsonData,
   saveLocalJsonData,
   formatJSON,
   getChineseWeek,
   getDatefmt,
-  backPage
-} from './function'
+  shopOptionTime,
+  getShopTime,
+  moneyfmt
+} from '../../JGlib/function'
 
 export {
   jglib,
@@ -22,5 +26,9 @@ export {
   formatJSON,
   getChineseWeek,
   getDatefmt,
-  backPage
+  AppBase,
+  shopOptionTime,
+  getShopTime,
+  net,
+  moneyfmt
 }

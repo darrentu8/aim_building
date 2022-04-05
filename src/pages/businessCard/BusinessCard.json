@@ -1,6 +1,7 @@
 {
   "window": {
-    "barStyle": "default",
+    "barStyle1": "default",
+    "barStyle": "dark",
     "navigationBarBackgroundColor": "",
     "navigationBarTitleText": "個人名片",
     "navigationBarTextStyle": "white",

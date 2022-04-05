@@ -1,7 +1,6 @@
 
-import {device} from '../../lib/Index'
-import { mapState } from 'vuex'
-import {getChineseWeek} from '../../lib/function';
+import {device, getChineseWeek} from '../../lib/Index';
+import { mapState } from 'vuex';
 export default {
   name: 'Index',
   props: {
@@ -67,17 +66,17 @@ export default {
   },
   methods: {
     openShop (shopid) {
-      console.log('shopid', shopid);
+      // console.log('shopid', shopid);
       device._doSendMessage('openShop', {shopid: shopid});
     },
     scanQR () {
-      console.log('window.headers.shopid', window.headers.shopid)
+      // console.log('window.headers.shopid', window.headers.shopid)
       device._doSendMessage('scanBusinessCard', {shopid: window.headers.shopid});
     },
     // 明細時間
     showTimeList () {
       let timeData = [];
-      let shopTime = this.shopinfo.shopTime
+      let shopTime = this.shopinfo.shopTime;
       if (typeof shopTime === 'undefined') {
         return null
       }

@@ -1,5 +1,6 @@
 
 import Menu from '../../components/menu/Menu'
+import {device} from '../../lib/Index';
 export default {
   name: 'BasePageBack',
   props: {
@@ -49,7 +50,8 @@ export default {
       this.$refs.menu.openMenu();
     },
     back () {
-      this.$router.back();
+      device.backPage();
+      // this.$router.back();
     }
   }
 }

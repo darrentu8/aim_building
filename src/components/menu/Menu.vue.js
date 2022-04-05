@@ -104,109 +104,89 @@ export default {
       this.funData = rel;
     },
     onClickMenuItem (item) {
-      let page = null
-      this.visibilityMenu = false
+      let page = null;
+      this.visibilityMenu = false;
       // alert(item.parameter)
       switch (item.parameter) {
+        // 找聊天
+        case 'chat':
+          device.openChat();
+          break;
         case '/':
-          device.closeView()
-          break
-        // 回首頁
-        case 'index':
-          this.$router.push({
-            path: '/',
-            query: {title: item.text}
-          })
-          break;
-        // 預約
-        case 'scan':
-          this.$router.push({
-            name: 'Reservation'
-          })
-          break;
-        // 座位
-        case 'reservation':
-          device.openPage(item.parameter, item.text)
+          // device.closeView();
+          device.apletexit();
           break;
         // 換名片
         case 'exchangecards':
           this.$router.push({
             name: 'BusinessCard'
-          })
+          });
           break;
+        // 回首頁
+        case 'index':
+          device.aplethome();
+          /* this.$router.push({
+            path: '/',
+            query: {title: item.text}
+          }); */
+          break;
+        // 預約
+        case 'scan':
+          this.$router.push({
+            name: 'Reservation'
+          });
+          break;
+        // 座位
+        case 'reservation':
         // 夥伴們
+        // eslint-disable-next-line no-fallthrough
         case 'cook':
-          // page = 'WorkInfo'
-          device.openPage(item.parameter, item.text)
-          break
         // 辦公室
+        // eslint-disable-next-line no-fallthrough
         case 'storefront':
-          // page = 'ShopInfo'
-          device.openPage(item.parameter, item.text)
-          break
-        // 找聊天
-        case 'chat':
-          device.openChat();
-          break
         // 商品
+        // eslint-disable-next-line no-fallthrough
         case 'menubrowse' :
-          // this.$router.push({
-          //   path: 'MenuOnMonthItem',
-          //   query: {title: item.text}
-          // })
-          device.openPage(item.parameter, item.text)
-          break
         // 網購
+        // eslint-disable-next-line no-fallthrough
         case 'menublogs':
-          device.openPage(item.parameter, item.text)
-          break
         // GO網誌
+        // eslint-disable-next-line no-fallthrough
         case 'viewblogs':
-          device.openPage(item.parameter, item.text)
-          break
         // 合作夥伴
+        // eslint-disable-next-line no-fallthrough
         case 'teamwork':
-          device.openPage(item.parameter, item.text)
-          break
         // 儲值
+        // eslint-disable-next-line no-fallthrough
         case 'storedvalue':
-          device.openPage(item.parameter, item.text)
-          break
         // 福利券
+        // eslint-disable-next-line no-fallthrough
         case 'wealcard':
-          device.openPage(item.parameter, item.text)
-          break
         // 寄存物
+        // eslint-disable-next-line no-fallthrough
         case 'deposit':
-          device.openPage(item.parameter, item.text)
-          break
         // 支付
+        // eslint-disable-next-line no-fallthrough
         case 'paymoney':
-          device.openPage(item.parameter, item.text)
-          break
         // 十步設施
+        // eslint-disable-next-line no-fallthrough
         case 'facilities':
-          device.openPage(item.parameter, item.text)
-          break
         // 訂單
+        // eslint-disable-next-line no-fallthrough
         case 'order':
-          device.openPage(item.parameter, item.text)
-          break
         // 分享照片
+        // eslint-disable-next-line no-fallthrough
         case 'sharepicture':
-          device.openPage(item.parameter, item.text)
-          break
         // 留言
+        // eslint-disable-next-line no-fallthrough
         case 'leavemessage':
-          device.openPage(item.parameter, item.text)
-          break
         // 後臺管理
+        // eslint-disable-next-line no-fallthrough
         case 'bgmanage':
-          device.openPage(item.parameter, item.text)
-          return
-
+          device.openPage(item.parameter, item.text);
+          break;
         default:
-          return
+          break;
       }
 
       if (page === null) {
@@ -217,7 +197,7 @@ export default {
           // eslint-disable-next-line standard/object-curly-even-spacing
         query: {title: item.text} // JSON.stringify(item)
       }
-      )
+      ).catch()
     },
     getVerion () {
       const headers = window.headers;

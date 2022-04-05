@@ -1,6 +1,6 @@
 import BasePageBack from '../../components/basepageback/BasePageBack'
 import BusinessCardItem from '../../components/businessCardItem/BusinessCardItem.vue'
-import AppBase from '../../lib/base/AppBase'
+import {AppBase, jgdata} from '../../lib/Index'
 
 export default {
   name: 'BusinessCard',
@@ -18,8 +18,10 @@ export default {
     BusinessCardItem
   },
   methods: {
-    /* pageback () {
-      alert('pageback')
-    } */
+    initData () {
+      this.$store.commit('setShopData', {});
+      this.data = jgdata.getShopData();
+      this.$store.commit('setShopData', this.data);
+    }
   }
 }

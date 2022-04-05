@@ -5,8 +5,8 @@
 export default {
   SHOPDATA: 'SHOP-DATA',
   CARTDATA: 'CART-DATA',
-  SERVER: 'http://aimandofor.abc1235.pw',
-  // SERVER: 'http://192.168.0.115',
+  HEADERDATA: 'HEADER-DATA',
+  SERVER: 'http://aimandofor.tw',
   initData: 'init',
   collectShop: 'collectshop',
   getPhoto: 'getphoto',

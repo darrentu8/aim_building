@@ -1,10 +1,10 @@
 // eslint-disable-next-line vue/valid-v-else
 import Vue from 'vue';
 import Router from 'vue-router';
-import Index from '../pages/index/Index';
-import Reservation from '../pages/reservation/Reservation.vue';
-import StoreService from '../pages/storeService/StoreService.vue';
-import BusinessCard from '../pages/businessCard/BusinessCard.vue';
+const Reservation = () => import('../pages/reservation/Reservation.vue');
+const StoreService = () => import('../pages/storeService/StoreService.vue');
+const BusinessCard = () => import('../pages/businessCard/BusinessCard.vue');
+const Index = () => import('../pages/index/Index');
 Vue.use(Router);
 
 export default new Router({

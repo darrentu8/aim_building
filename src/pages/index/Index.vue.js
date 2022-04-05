@@ -1,15 +1,12 @@
 
 import Menu from '../../components/menu/Menu'
-import {jglib, jgdata, device, saveLocalJsonData} from '../../lib/Index'
+import {jgdata, device, getChineseWeek, AppBase} from '../../lib/Index'
 import BasePageBack from '../../components/basepageback/BasePageBack'
-import AppBase from '../../lib/base/AppBase'
-import VueSlickCarousel from 'vue-slick-carousel';
+// import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
-import {getChineseWeek} from '../../lib/function';
 // import { mapState } from 'vuex'
 // optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
-import constant from '../../lib/constant';
+// import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
 export default {
   name: 'Index',
@@ -19,15 +16,15 @@ export default {
   data () {
     return {
       data: {},
-      timeData: [],
-      businesstime: [],
+      /* timeData: [],
+      businesstime: [], */
       res: [],
       bgclass: {
         backgroundImage: 'url(' + require('@/assets/img/reservation-bg.png') + ')'
       },
-      shopinfo: {},
-      pageData: [],
-      settings: {
+      /* shopinfo: {},
+      pageData: [], */
+      /* settings: {
         dots: false,
         infinite: true,
         speed: 300,
@@ -48,19 +45,19 @@ export default {
             }
           }
         ]
-      },
+      }, */
 
       isCollect: false  // 220305
     }
   },
   components: {
     BasePageBack,
-    Menu,
-    VueSlickCarousel
+    Menu
+    /* VueSlickCarousel */
   },
   computed: {
     exchangecards () {
-      var data = this.data.itemFun;
+      const data = this.data.itemFun;
       if (data !== undefined) {
         for (let i = 0; i < data.length; i++) {
           if (data[i].parameter === 'exchangecards') {
@@ -71,7 +68,7 @@ export default {
       }
     },
     chat () {
-      var data = this.data.itemFun;
+      const data = this.data.itemFun;
       if (data !== undefined) {
         for (let i = 0; i < data.length; i++) {
           if (data[i].parameter === 'chat') {
@@ -82,7 +79,7 @@ export default {
       }
     },
     scan () {
-      var data = this.data.itemFun;
+      const data = this.data.itemFun;
       if (data !== undefined) {
         for (let i = 0; i < data.length; i++) {
           if (data[i].parameter === 'scan') {
@@ -134,19 +131,15 @@ export default {
           }
         })
       }
-      // console.log('timeData', timeData)
       return timeData;
     }
     // ...mapState(['isCollect'])  // 220305 去掉 添加了,數據狀態不知原因無法同步
   },
   // 添加 註冊 消息 210809
   async created () {
-    jglib.setOnMessage(this.onMessage.bind(this));
     if (this.data.shopid === null || this.data.shopid === undefined) {
       // 初始數據 220305
       this.initData();
-     // this.data = jgdata.getShopData();
-     // console.log(this.data)
     }
     this.$nextTick(() => {
       // console.log('in')
@@ -167,7 +160,6 @@ export default {
       this.$store.commit('setRes', res);
     },
     onclickMenu () {
-      // this.$refs.menu.funlist()
       this.$refs.menu.openMenu();
     },
     // 開啟聊天
@@ -177,19 +169,14 @@ export default {
     // 點擊收藏
     onCollect () {
       device.collect(this.isCollect);
-      if (this.isCollect) {
-        this.data.attention--;
-      } else {
-        this.data.attention++;
-      }
-      this.data.isCollect = !this.data.isCollect;
-      saveLocalJsonData(constant.SHOPDATA, this.data);
-      this.$store.commit('setIsCollect', this.isCollect = !this.isCollect);
+      // this.$store.commit('setIsCollect', this.isCollect = !this.isCollect);
     },
     // 初始數據或更新數據 220305
     initData () {
       this.$store.commit('setShopData', {});
-      this.data = jgdata.getShopInfo();
+     // this.data = jgdata.getShopInfo();
+      this.data = jgdata.getShopData();
+      // console.log(this.data);
       this.$store.commit('setShopData', this.data);
       this.isCollect = this.data.isCollect;
       // 收藏狀態 更新 220305
@@ -202,32 +189,8 @@ export default {
         lat: "24.9713322"
         lng: "121.5326765"
       } */
-
       if (this.$refs.menu) {
         this.$refs.menu.funlist(); // 更新 menu
-      }
-    },
-    // 接收消息 數據 210809
-    async onMessage (msg) {
-      // console.log(msg)
-      try {
-        switch (msg.type.toLowerCase()) {
-          case 'init': {
-            // 這句要添加 不要刪除掉
-            this.setPageConfig();
-            // 初始數據 或 數據更新
-            this.initData();
-
-            // console.log(this.$refs.menu);
-
-            break;
-          }
-          default:
-            break;
-        }
-        return false;
-      } catch (e) {
-        // alert("erro")
       }
     }
   }

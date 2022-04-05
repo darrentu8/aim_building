@@ -1,7 +1,8 @@
 {
-  "name": "profession-woman",
+  "name1": "profession-woman",
+  "name": "woman",
   "version": "1.1.0",
-  "description": "profession-woman",
+  "description": "woman",
   "author": "",
   "private": true,
   "scripts": {

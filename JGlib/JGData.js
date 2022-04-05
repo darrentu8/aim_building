@@ -5,6 +5,8 @@
 import {getLocalJsonData, saveLocalJsonData} from './function'
 import constant from './constant';
 import {postData} from './netFetch'
+// import device from './device'
+import net from './net'
 
 // eslint-disable-next-line no-unused-vars
 class JGData {
@@ -29,16 +31,13 @@ class JGData {
     }
     return this.shopData;
   }
-
   // aiman 信息
   getShopInfo () {
     this.getShopData();
     if (this.shopData === null) {
       return {}
     }
-    return this.shopData;
-    // console.log(this.shopData);
-    /* return {
+    return {
       shopid: this.shopData.shopid,
       shopName: this.shopData.shopName,
       logo: this.shopData.logo,
@@ -49,9 +48,8 @@ class JGData {
       browseImage: this.shopData.browseImage,
       city: this.shopData.chr_city,
       isCollect: this.shopData.isCollect,
-      phone: this.shopData.phone,
-      imagemp4: this.shopData.imagemp4
-    }; */
+      phone: this.shopData.phone
+    };
   }
   // 商品
   getGoods (callBack = null) {
@@ -69,16 +67,15 @@ class JGData {
     }
     return rel;
   }
-
   // 功能
   getFunList () {
+    this.shopData = null;
     this.getShopData();
     if (this.shopData === null) {
       return {}
     }
     return this.shopData.itemFun;
   }
-
   // blogs
   getBlogs (callBack = null) {
     this.getShopData();
@@ -90,7 +87,7 @@ class JGData {
     }
     return this.shopData.blog
   }
-
+  // work
   getWorkInfo () {
     this.getShopData();
     if (this.shopData === null) {
@@ -115,15 +112,18 @@ class JGData {
     saveLocalJsonData(constant.CARTDATA, null)
   }
   // 获取共享照片
-  async getsharePicture () {
-
-  }
-  async getDateServer (url, paramData = null) {
+  async getsharePicture () {}
+  // 获取数据
+  async getDataServer (url, paramData = null) {
     let data = await this.saveDataServer(url, paramData);
     return data;
   }
   // 保存數據
   async saveDataServer (url, paramData = null) {
+    if (!window.debug) {
+      let data = await net(url, paramData).catch();
+      return data;
+    }
     if (typeof window.headers === 'undefined' ||
       typeof window.headers.shopid === 'undefined' ||
       window.headers.shopid === '') {
@@ -136,13 +136,27 @@ class JGData {
         params.append(k, paramData[k]);
       }
     }
-   // let data = null;
     let data = await postData(url, params).catch();
-    // console.log(data)
     if (typeof data === 'undefined' || data === null) {
       return null;
     }
+    if (typeof data.data.data === 'undefined') {
+      if (typeof data.data !== 'undefined') {
+        return data.data;
+      }
+    }
     return data.data.data;
+  }
+  // 获取头部参数
+  getUserHeader(shopid) {
+    let data = getLocalJsonData(constant.HEADERDATA,shopid);
+    // console.log(data)
+    window.device.console(data)
+    if (data === null) {
+      return ;
+    }
+    data.shopid = shopid;
+    window.headers = data;
   }
 }
 

@@ -17,7 +17,11 @@ export function postFetch (url, params) {
     params = new URLSearchParams();
   }
   if (typeof (header) !== 'undefined') {
-    params.append('token', window.headers.msgkey);
+    if (typeof window.headers.token !== 'undefined') {
+      params.append('token', window.headers.token);
+    } else {
+      params.append('token', window.headers.msgkey);
+    }
     if (typeof header.userid !== 'undefined') {
       params.append('userid', header.userid);
     }
@@ -26,19 +30,15 @@ export function postFetch (url, params) {
     }
   }
 
-  // console.log(params.toString())
- // axios.defaults.headers.common['Authorization'] = window.headers.msgkey;
-  // axios.defaults.headers.
-  // return axios.post(url, params)
-  // headers = {headers: {'Authorization': window.headers.msgkey}}
   return axios.post(url, params, headers) // {headers: header}
 }
 
-export async function postData (url, params, ms = timeOut) {
+export async function postData (url, params=null, ms = timeOut) {
   return new Promise(function (resolve, reject) {
     // eslint-disable-next-line prefer-promise-reject-errors
-    setTimeout(function () { reject(null) }, ms)
-    postFetch(url, params).then((json) => {
+    const timeID = setTimeout(function () { reject(null) }, ms)
+    postFetch(url, params).then((json) => { 
+      timeID && clearTimeout(timeID)
       json = json.data
       if (json.erro) {
         resolve(null)
@@ -46,7 +46,6 @@ export async function postData (url, params, ms = timeOut) {
       }
       if (json.data.code === '-1') {
         // 登入處理
-        // alert('asdfasd')
         let json = {}
         json.type = 'login'
         json.msgkey = window.headers.msgkey;

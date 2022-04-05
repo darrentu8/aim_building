@@ -1,0 +1,7 @@
+{
+  "name": "jglib",
+  "version": "0.0.1",
+  "dependencies": {
+    "axios": "^0.26.0"
+  }
+}

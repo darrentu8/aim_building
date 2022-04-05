@@ -1,8 +1,8 @@
 {
   "window": {
-    "barStyle": "default",
-    "navigationBarBackgroundColor": "",
-    "navigationBarTitleText": "預約時間",
+    "barStyle1": "default dark",
+    "barStyle": "light",
+    "navigationBarBackgroundColor": "rgba(0,0,0,0)",
     "navigationBarTextStyle": "white",
     "barVisible": false
   }

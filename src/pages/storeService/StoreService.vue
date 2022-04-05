@@ -1,4 +1,3 @@
-// 部落格
 <template>
   <div class="store-service-box">
     <BasePageBack  ref="BasePageBack" >
@@ -15,17 +14,9 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
   import StoreService from './StoreService.vue.js';
   export default {
-    ...StoreService,
-    computed: {
-      ...mapState(['data', 'res'])
-    },
-    mounted () {
-    },
-    methods: {
-    }
+    ...StoreService
   }
 </script>
 

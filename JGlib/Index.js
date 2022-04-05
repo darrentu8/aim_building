@@ -1,24 +1,16 @@
 
-/* import jglib from './JGLib';
+import jglib from './JGLib';
 import device from './device'
 import jgdata from './JGData';
 import constant from './constant';
 import {
   getLocalJsonData,
   saveLocalJsonData,
-  formatJSON
-} from './function' */
-/*
-import {
-  jglib,
-  device,
-  jgdata,
-  constant,
-  getLocalJsonData,
-  saveLocalJsonData,
   formatJSON,
-  getChineseWeek
-} from '../../../api/src/lib/Index'
+  getChineseWeek,
+  getDatefmt
+  /*backPage*/
+} from './function'
 
 export {
   jglib,
@@ -28,5 +20,7 @@ export {
   getLocalJsonData,
   saveLocalJsonData,
   formatJSON,
-  getChineseWeek
-}*/
+  getChineseWeek,
+  getDatefmt
+  /*backPage*/
+}

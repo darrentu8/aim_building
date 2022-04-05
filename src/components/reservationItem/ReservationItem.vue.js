@@ -3,7 +3,7 @@ import { zh } from 'vuejs-datepicker/dist/locale'
 import moment from 'moment';
 import Vue from 'vue';
 import { Toast } from 'mint-ui';
-import device from '../../lib/device';
+import {device} from '../../lib/Index';
 import { mapState } from 'vuex';
 
 export default {
@@ -253,7 +253,7 @@ export default {
       params['puid'] = window.headers.shopid;
       params['selected'] = selectGoods;
       params['lens'] = lens;
-      console.log('params', params);
+      // console.log('params', params);
       device.goodsPost(params)
     },
     selectReservation (item, i) {
@@ -285,7 +285,7 @@ export default {
       }
     },
     formateDate (date) {
-      console.log(this.weekedShow)
+      // console.log(this.weekedShow)
       return moment(date).format('YYYY / MM / DD');
     },
     formateWeek (date) {

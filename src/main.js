@@ -8,29 +8,11 @@ import store from './store'
 import router from './router'
 import './assets/css/bootstrap.css'
 import './assets/css/icons.css'
+import {jglib, constant, device, moneyfmt} from './lib/Index';
+device.setRouter(router);
 
-Vue.filter('currency', function (value, currency, decimals = 0) {
-  const digitsRE = /(\d{3})(?=\d)/g
-  value = parseFloat(value)
-  if (!isFinite(value) || (!value && value !== 0)) { return '' }
-  currency = currency != null ? currency : '$'
-  decimals = decimals != null ? decimals : 2
-  const stringified = Math.abs(value).toFixed(decimals)
-  const _int = decimals
-    ? stringified.slice(0, -1 - decimals)
-    : stringified
-  const i = _int.length % 3
-  const head = i > 0
-    ? (_int.slice(0, i) + (_int.length > 3 ? ',' : ''))
-    : ''
-  const _float = decimals
-    ? stringified.slice(-1 - decimals)
-    : ''
-  const sign = value < 0 ? '-' : ''
-  return sign + currency + head +
-    _int.slice(i).replace(digitsRE, '$1,') +
-    _float
-})
+Vue.filter('currency', moneyfmt);
+
 // By default we import all the components.
 // Only reserve the components on demand and remove the rest.
 // Style is always required.
@@ -40,20 +22,17 @@ import {
   Scroll,
   Slide,
   Sticky,
-  ScrollNav,
-  ImagePreview
+  ScrollNav
+  /* ImagePreview */
 } from 'cube-ui'
 
-Vue.use(Button)
-Vue.use(ActionSheet)
-Vue.use(Scroll)
-Vue.use(Slide)
-Vue.use(Sticky)
-Vue.use(ScrollNav)
-Vue.use(ImagePreview)
-// eslint-disable-next-line import/no-duplicates
-/* import Cube from 'cube-ui';
-Vue.use(Cube) */
+Vue.use(Button);
+Vue.use(ActionSheet);
+Vue.use(Scroll);
+Vue.use(Slide);
+Vue.use(Sticky);
+Vue.use(ScrollNav);
+// Vue.use(ImagePreview);
 
 import {Range,
   Badge,
@@ -63,7 +42,6 @@ import {Range,
 Vue.component(Range.name, Range);
 Vue.component(Badge.name, Badge);
 Vue.component(Field.name, Field);
-import {jglib, constant} from './lib/Index'
 
 function ToastErro (notice) {
   if (notice === '') {
@@ -126,4 +104,4 @@ new Vue({
   store,
   template: '<App/>',
   components: { App }
-})
+});

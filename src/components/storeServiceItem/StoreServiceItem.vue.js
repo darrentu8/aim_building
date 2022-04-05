@@ -1,4 +1,3 @@
-// import { mapState } from 'vuex';
 import Datepicker from 'vuejs-datepicker';
 import { zh } from 'vuejs-datepicker/dist/locale'
 import moment from 'moment';
@@ -46,7 +45,6 @@ export default {
   },
   methods: {
     formateDate (date) {
-      console.log(this.weekedShow)
       return moment(date).format('YYYY / MM / DD');
     },
     formateWeek (date) {
