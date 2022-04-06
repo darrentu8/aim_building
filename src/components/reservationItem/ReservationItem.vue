@@ -3,12 +3,10 @@
   .reservation-item-box.page-box
     //  end page-head 
     .page-body
-      .calender-box
-        datepicker(:inline="true", :language="zh", required, :value="new Date()", :disabled-dates="disabledDates", v-model="dateSelect")
       .reservation-body(:style="bgclass")
         .white-bg.reservation-box
           .reservation-box-head
-            h2.title {{$Lang('res-choice','選擇服務項目')}}
+            h2.title {{$Lang('res-choice1','1.選擇服務項目')}}
             //- p 網拍、業配、外景拍攝、廣告
           .reservation-box-body.img-list-box
             .reservation-item.img-item(:class="{ 'active': res.active }" v-for="(res,i) in data.reservationService" :key="res.key" @click="selectReservation(res,i)")
@@ -17,10 +15,15 @@
               .info
                 .info-title {{res.name}}
                 .price {{$Lang('res-rate','時薪')}} {{res.content[0].time[0].price}} {{$Lang('res-currency','元')}}
+        .white-bg.reservation-box
+          .white-bg-head.reservation-box-head
+            h2.title.mt-3 {{$Lang('res-choice2','2.選擇服務日期')}}
+            .calender-box
+              datepicker(:inline="true", :language="zh", required, :value="new Date()", :disabled-dates="disabledDates", v-model="dateSelect")
         //  end reservation-box 
         .white-bg.reservation-box
           .white-bg-head.reservation-box-head
-            h2.title {{$Lang('res-available','目前可預約時段')}}
+            h2.title {{$Lang('res-available','3.目前可預約時段')}}
             p {{$Lang('res-available-choice','請選擇可預約時段')}}
           .reservation-box-body
             ul.reservation-date

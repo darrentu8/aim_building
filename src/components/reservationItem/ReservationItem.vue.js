@@ -12,7 +12,7 @@ export default {
       from: new Date(),
       to: new Date(),
       disabledDates: {
-        to: null,
+        to: new Date((new Date()).valueOf() - 1000 * 3600 * 24),
         from: null
       },
       disabled: true,
