@@ -205,7 +205,7 @@ class Device {
     const timeID = setTimeout(()=>{
       window.isnavigation = null;
       timeID && clearTimeout(timeID);
-    },2000);
+    },3000);
     return true;
   }
   // 离开页面

@@ -26,7 +26,7 @@
             span.num(v-if="res[0].content[0].time[0].time != undefined") {{res[0].content[0].time[0].time}}
             p {{$Lang('res-time-slot','工作時間')}}
         .btn-box
-          router-link.btn(type="button" :to="{name: 'Reservation'}") {{$Lang('res-check','立即預約時間')}}
+          router-link.btn(type="button" :to="{name: 'Reservation', query:{ key:res[0].key }}") {{$Lang('res-check','立即預約時間')}}
       //  end reservation-box 
   //  end page-body 
 </template>

@@ -85,8 +85,7 @@ export default class uiLang {
   }
   // 獲取語言
   getLang (name, def = '') {
-    // console.log(name,def);
-    if (this.lang === null) {
+    if (this.icon === null || typeof this.icon === 'undefined') {
       this._initLang();
     }
     if (this.lang === null) {
@@ -98,7 +97,7 @@ export default class uiLang {
     return this.lang[name] === '' ? def : this.lang[name];
   }
   getIcon (name, def = '') {
-    if (this.icon === null) {
+    if (this.icon === null || typeof this.icon === 'undefined') {
       this._initLang();
       if (this.icon === null) {
         return def

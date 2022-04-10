@@ -3,10 +3,11 @@ import { zh } from 'vuejs-datepicker/dist/locale'
 import moment from 'moment';
 import Vue from 'vue';
 import { Toast } from 'mint-ui';
-import {device} from '../../lib/Index';
 import { mapState } from 'vuex';
+import {AppBase, device} from '../../lib/Index'
 
 export default {
+  extends: AppBase,
   data () {
     return {
       from: new Date(),
@@ -63,13 +64,21 @@ export default {
       this.totalTime = totalTime;
       return totalTime;
     },
-    ...mapState(['data', 'res'])
+    ...mapState(['data', 'res', 'selectKey', 'selectI'])
   },
-  mounted () {
-    // this.data.reservationService.forEach((item) => {
-    //   item.active = false;
-    // })
-    // this.$store.commit('setRes', this.data.reservationService);
+  created () {
+    this.selectResIndex = this.selectI;
+    let i = this.selectI;
+    let SD = new Date(this.data.reservationService[i].content[0].sdate);
+    let ED = new Date(this.data.reservationService[i].content[0].edate);
+    this.disabledDates.to = SD;
+    this.disabledDates.from = ED;
+    if (this.dateSelect > this.disabledDates.to) {
+      this.dateSelect = this.disabledDates.to;
+    }
+    if (this.dateSelect < this.disabledDates.from) {
+      this.dateSelect = this.disabledDates.to;
+    }
   },
   methods: {
     // setRangeDate (SD, ED) {

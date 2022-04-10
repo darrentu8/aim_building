@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isCollect: false,
+    selectI: 0,
+    selectKey: null,
     data: {},
     res: [],
     good: {
@@ -27,6 +29,12 @@ export default new Vuex.Store({
     setRes (state, val) {
       state.res = [];
       state.res.push(val);
+    },
+    setResKey (state, val) {
+      state.selectKey = val;
+    },
+    setI (state, val) {
+      state.selectI = val;
     },
     sameRes (state, val) {
       state.res = val;

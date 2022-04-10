@@ -9,6 +9,7 @@ import uiLang from './uiLang'
 
 class JGLib {
   constructor () {
+    window.isLoadDataFinish = false;
     // this.shopData = null;
     this.onMessage = [];
     this.lang = null;
@@ -45,6 +46,7 @@ class JGLib {
     if (headers !== null) {
       window.headers = headers;
       window.debug = false; // 不是调试模式
+      window.isLoadDataFinish = true; // 数据初始完成
       if (typeof window.headers.debug !== 'undefined') {
         window.debug = window.headers.debug;
       }

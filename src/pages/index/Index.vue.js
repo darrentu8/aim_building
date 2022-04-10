@@ -46,7 +46,6 @@ export default {
           }
         ]
       }, */
-
       isCollect: false  // 220305
     }
   },
@@ -159,6 +158,9 @@ export default {
     setRes (res, i) {
       this.$store.commit('setRes', res);
     },
+    setResKey (res, i) {
+      this.$store.commit('setResKey', res);
+    },
     onclickMenu () {
       this.$refs.menu.openMenu();
     },
@@ -178,6 +180,7 @@ export default {
       this.data = jgdata.getShopData();
       // console.log(this.data);
       this.$store.commit('setShopData', this.data);
+      this.$store.commit('setResKey', null);
       this.isCollect = this.data.isCollect;
       // 收藏狀態 更新 220305
       this.$store.commit('setIsCollect', this.isCollect);

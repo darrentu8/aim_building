@@ -32,6 +32,7 @@ export default {
         if (res[i]['key'] === key) {
           this.res = res[i];
           this.$store.commit('setRes', res[i]);
+          this.$store.commit('setResKey', key);
           break;
         }
       }

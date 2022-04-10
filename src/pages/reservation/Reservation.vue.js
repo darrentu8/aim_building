@@ -30,9 +30,25 @@ export default {
     initData () {
       this.$store.commit('setShopData', {});
       this.data = jgdata.getShopData();
-      this.$store.commit('setShopData', this.data);
-      this.res = this.data.reservationService;
-      this.$store.commit('setRes', this.res);
+      let key = parseInt(this.$route.query.key || 0);
+      if (key) {
+        const selectResKey = key;
+        this.data.reservationService.forEach((item, i) => {
+          if (item.key === selectResKey) {
+            item.active = true;
+            this.$store.commit('setI', i);
+          } else {
+            item.active = false;
+          }
+        })
+        this.$store.commit('setShopData', this.data);
+        this.$store.commit('setRes', this.res);
+        this.res = this.data.reservationService;
+      } else {
+        this.$store.commit('setShopData', this.data);
+        this.$store.commit('setRes', this.res);
+        this.res = this.data.reservationService;
+      }
       // console.log(this.res)
     }
   }
