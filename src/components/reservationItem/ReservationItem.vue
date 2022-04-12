@@ -18,8 +18,9 @@
         .white-bg.reservation-box
           .white-bg-head.reservation-box-head
             h2.title.mt-3 {{$Lang('res-choice2','2.選擇服務日期')}}
-            .calender-box
-              datepicker(:inline="true", :language="zh", required, :value="new Date()", :disabled-dates="disabledDates", v-model="dateSelect")
+            .calender-box(v-if="!disabled")
+              datepicker(:disabled="disabled" :inline="true", :language="zh", required, :value="new Date()", :disabled-dates="disabledDates", v-model="dateSelect")
+            p.mt-5.text-center(v-else) 目前無日期可預約，請選擇其他服務項目
         //  end reservation-box 
         .white-bg.reservation-box
           .white-bg-head.reservation-box-head

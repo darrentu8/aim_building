@@ -16,7 +16,7 @@ export default {
         to: new Date((new Date()).valueOf() - 1000 * 3600 * 24),
         from: null
       },
-      disabled: true,
+      disabled: false,
       totalTime: 0,
       timeObj: '',
       totalPrice: 0,
@@ -67,100 +67,67 @@ export default {
     ...mapState(['data', 'res', 'selectKey', 'selectI'])
   },
   created () {
-    this.selectResIndex = this.selectI;
-    let i = this.selectI;
-    let SD = new Date(this.data.reservationService[i].content[0].sdate);
-    let ED = new Date(this.data.reservationService[i].content[0].edate);
-    this.disabledDates.to = SD;
-    this.disabledDates.from = ED;
-    if (this.dateSelect > this.disabledDates.to) {
-      this.dateSelect = this.disabledDates.to;
-    }
-    if (this.dateSelect < this.disabledDates.from) {
-      this.dateSelect = this.disabledDates.to;
-    }
+    this.checkDate();
   },
   methods: {
-    // setRangeDate (SD, ED) {
-    //   this.disabledDates.from = SD;
-    //   this.disabledDates.to = ED;
-    // },
-    // setData (goods) {
-    //   if (typeof goods.key === 'undefined') {
-    //     return;
-    //   }
-    //   this.cartData = jglib.getCartList();// getLocalJsonData(constant.CARTDATA)
-    //   this.remark = goods.selectRemark;
-    //   this.value = goods.badge > 0 ? goods.badge : 1;
-    //   this.goods = goods;
-    //   // console.log(goods); // this.cartData, goods, 'setData',
-    //   this.extend = {};
-    //   try {
-    //     this.extend = JSON.parse(goods.extend)
-    //   } catch (e) {
-    //   }
-    //   this.extend = this.extend === null ? {} : this.extend;
-    //   // 購物車屬性
-    //   const { selected } = this.cartData;
-    //   for (let i = 0; i < selected.length; i++) {
-    //     if (selected[i].key === goods.key) {
-    //       // 如果屬性改變 會有問題 200903
-    //       this.extend.attribute = selected[i].attribute
-    //     }
-    //   }
-    //   this.countprice();
-    // },
-    // async onAddCart () {
-    //   let goods = this.goods
-    //   goods.attribute = this.extend.attribute;
-    //   // goods.extend = null;
-    //   goods.selectRemark = this.remark;
-    //   goods.selectPrice = this.price;
-    //   let lens = this.cartData.lens || {maxPrice: 0, length: 0};
-    //   // lens = {maxPrice: 0, length: 0};
-    //   // console.log(lens,this.cartData.lens)
-    //   let num = typeof lens[goods.key] !== 'undefined' ? lens[goods.key] : 0;
-    //   // console.log(num)
-    //   lens[goods.key] = this.value;
-    //   const value = this.value - num;
-    //   lens['maxPrice'] = lens['maxPrice'] + parseFloat(this.price) * value;
-    //   lens['length'] = lens['length'] + value;
-    //   // lens['length'] = this.value - num;
-    //   let selected = this.cartData.selected || [];
-    //   // selected = [];
-    //   //  console.log('asdfsdf 111', this.cartData.selected)
-    //   let bol = false;
-    //   for (let i = 0; i < selected.length; i++) {
-    //     if (selected[i].key === goods.key) {
-    //       if (this.value === 0) {
-    //         selected.splice(i, 1)
-    //       } else {
-    //         selected[i] = goods;
-    //       }
-    //       bol = true;
-    //       break;
-    //     }
-    //   }
-    //   if (!bol && this.value > 0) {
-    //     selected.push(goods)
-    //   }
-
-    //   let cartItem = {
-    //     selected: selected, // goods,
-    //     lens: lens
-    //   }
-    //   // console.log('cartItem', cartItem)
-    //   this.goods.badge = this.value;
-    //   saveLocalJsonData(constant.CARTDATA, cartItem)
-    //   this.$emit('succeedCart', cartItem)
-    //   this.showAddcart = false;
-    // },
+    checkDate (index) {
+      if (index !== undefined) {
+        let i = index;
+        let SD = new Date(this.data.reservationService[i].content[0].sdate);
+        let ED = new Date(this.data.reservationService[i].content[0].edate);
+        if (SD === undefined || ED === undefined) {
+          return
+        }
+        this.disabledDates.to = SD;
+        let today = new Date();
+        // 結束日小於今天
+        if (ED < today) {
+          this.dateSelect = null;
+          this.disabled = true;
+          this.selectReservation();
+          return
+        }
+        this.disabledDates.to = new Date(today.setDate(today.getDate() -1));
+        this.disabledDates.from = ED;
+        this.dateSelect = new Date();
+        this.disabled = false;
+      } else {
+        this.selectResIndex = this.selectI ? this.selectI : 0;
+        let i = this.selectI ? this.selectI : 0;
+        let SD = new Date(this.data.reservationService[i].content[0].sdate);
+        let ED = new Date(this.data.reservationService[i].content[0].edate);
+        if (SD === undefined || ED === undefined) {
+          return
+        }
+        this.disabledDates.to = SD;
+        let today = new Date();
+        // 結束日小於今天
+        if (ED < today) {
+          this.dateSelect = null;
+          this.disabled = true;
+          this.selectReservation();
+          return
+        }
+        this.disabledDates.to = new Date(today.setDate(today.getDate() -1));
+        this.disabledDates.from = ED;
+        this.dateSelect = new Date();
+        this.disabled = false;
+      }
+    },
     reservat () {
       let selectRes = 0;
       let selectGoods = [];
       let selectTime = [];
       let ResObj = this.data.reservationService;
       let lens = {};
+      if (this.dateSelect === null) {
+        Toast({
+          message: '請選擇日期!',
+          position: 'middle',
+          duration: 5000
+        });
+        return false;
+      }
       // 轉換日期顯示
       let selectDate = this.dateSelect;
       let SYY = selectDate.getFullYear();
@@ -177,10 +144,18 @@ export default {
           break;
         }
       }
-      // console.log(selectItem);
+      console.log(selectItem);
       if (selectItem === null) {
         Toast({
           message: '請選擇服務項目!',
+          position: 'middle',
+          duration: 5000
+        });
+        return false;
+      }
+      if (!selectItem.copies) {
+        Toast({
+          message: '此項目已無數量可預約!',
           position: 'middle',
           duration: 5000
         });
@@ -250,7 +225,7 @@ export default {
       lens.maxPrice = this.totalPrice;
       if (this.totalPrice === 0 || selectRes === 0) {
         Toast({
-          message: '請選擇服務項目!',
+          message: '請選擇可預約時段!',
           position: 'middle',
           duration: 5000
         });
@@ -266,24 +241,26 @@ export default {
       device.goodsPost(params)
     },
     selectReservation (item, i) {
-      this.data.reservationService.forEach((item) => {
-        item.active = false;
-      })
-      this.selectResIndex = i;
-      if (item.active) {
-        Vue.set(item, 'active', false);
+      if (i !== undefined) {
+        this.data.reservationService.forEach((item) => {
+          item.active = false;
+        })
+        this.selectResIndex = i;
+        if (item.active) {
+          Vue.set(item, 'active', false);
+        } else {
+          Vue.set(item, 'active', true);
+        }
+        this.checkDate(i);
       } else {
-        Vue.set(item, 'active', true);
-      }
-      let SD = new Date(this.data.reservationService[i].content[0].sdate);
-      let ED = new Date(this.data.reservationService[i].content[0].edate);
-      this.disabledDates.to = SD;
-      this.disabledDates.from = ED;
-      if (this.dateSelect > this.disabledDates.to) {
-        this.dateSelect = this.disabledDates.to;
-      }
-      if (this.dateSelect < this.disabledDates.from) {
-        this.dateSelect = this.disabledDates.to;
+        this.data.reservationService.forEach((ele, i) => {
+          ele.active = false;
+          if (i === this.selectI) {
+            Vue.set(ele, 'active', true);
+          } else {
+            Vue.set(ele, 'active', false);
+          }
+        })
       }
     },
     selectTimes (item) {
