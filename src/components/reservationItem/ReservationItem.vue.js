@@ -14,7 +14,8 @@ export default {
       to: new Date(),
       disabledDates: {
         to: new Date((new Date()).valueOf() - 1000 * 3600 * 24),
-        from: null
+        from: null,
+        days: []
       },
       disabled: false,
       totalTime: 0,
@@ -67,52 +68,60 @@ export default {
     ...mapState(['data', 'res', 'selectKey', 'selectI'])
   },
   created () {
-    this.checkDate();
+    this.selectReservation(this.selectI);
+    this.checkDate(this.selectI);
   },
   methods: {
-    checkDate (index) {
-      if (index !== undefined) {
-        let i = index;
-        let SD = new Date(this.data.reservationService[i].content[0].sdate);
-        let ED = new Date(this.data.reservationService[i].content[0].edate);
-        if (SD === undefined || ED === undefined) {
-          return
+    selectReservation (i) {
+      this.data.reservationService.forEach((ele, i1) => {
+        if (i1 === i) {
+          ele.active = true;
+          this.$store.commit('setI', i);
+        } else {
+          ele.active = false;
         }
-        this.disabledDates.to = SD;
-        let today = new Date();
-        // 結束日小於今天
-        if (ED < today) {
-          this.dateSelect = null;
-          this.disabled = true;
-          this.selectReservation();
-          return
-        }
-        this.disabledDates.to = new Date(today.setDate(today.getDate() -1));
-        this.disabledDates.from = ED;
-        this.dateSelect = new Date();
-        this.disabled = false;
+      })
+    },
+    selectTimes (item) {
+      if (item.active) {
+        Vue.set(item, 'active', false);
       } else {
-        this.selectResIndex = this.selectI ? this.selectI : 0;
-        let i = this.selectI ? this.selectI : 0;
-        let SD = new Date(this.data.reservationService[i].content[0].sdate);
-        let ED = new Date(this.data.reservationService[i].content[0].edate);
-        if (SD === undefined || ED === undefined) {
-          return
-        }
-        this.disabledDates.to = SD;
-        let today = new Date();
-        // 結束日小於今天
-        if (ED < today) {
-          this.dateSelect = null;
-          this.disabled = true;
-          this.selectReservation();
-          return
-        }
-        this.disabledDates.to = new Date(today.setDate(today.getDate() -1));
-        this.disabledDates.from = ED;
-        this.dateSelect = new Date();
-        this.disabled = false;
+        Vue.set(item, 'active', true);
       }
+    },
+    checkDate (index) {
+      this.selectReservation(index || 0);
+      const i = this.selectResIndex = parseInt(index || 0);
+      let SD = new Date(this.data.reservationService[i].content[0].sdate);
+      let ED = new Date(this.data.reservationService[i].content[0].edate);
+      let WK = this.data.reservationService[i].content[0].week;
+      const weeks = [1, 2, 3, 4, 5, 6, 7];
+      if (SD === undefined || ED === undefined) {
+        return
+      }
+      this.disabledDates.to = SD;
+      let today = new Date();
+      // 結束日小於今天
+      if (ED < today) {
+        this.dateSelect = null;
+        this.disabled = true;
+        return
+      }
+      let WKN = WK.split('').map(Number);
+      let result = [];
+      result = weeks.filter(function (e) {
+        return WKN.indexOf(e) < 0;
+      });
+      result.forEach((ele, i) => {
+        if (ele === 7) {
+          result[i] = 0;
+        }
+      });
+      this.disabledDates.days = result;
+      this.disabledDates.to = new Date(today.setDate(today.getDate() - 1));
+      this.disabledDates.from = ED;
+      this.dateSelect = null;
+      this.disabled = false;
     },
     reservat () {
       let selectRes = 0;
@@ -239,36 +248,6 @@ export default {
       params['lens'] = lens;
       // console.log('params', params);
       device.goodsPost(params)
-    },
-    selectReservation (item, i) {
-      if (i !== undefined) {
-        this.data.reservationService.forEach((item) => {
-          item.active = false;
-        })
-        this.selectResIndex = i;
-        if (item.active) {
-          Vue.set(item, 'active', false);
-        } else {
-          Vue.set(item, 'active', true);
-        }
-        this.checkDate(i);
-      } else {
-        this.data.reservationService.forEach((ele, i) => {
-          ele.active = false;
-          if (i === this.selectI) {
-            Vue.set(ele, 'active', true);
-          } else {
-            Vue.set(ele, 'active', false);
-          }
-        })
-      }
-    },
-    selectTimes (item) {
-      if (item.active) {
-        Vue.set(item, 'active', false);
-      } else {
-        Vue.set(item, 'active', true);
-      }
     },
     formateDate (date) {
       // console.log(this.weekedShow)

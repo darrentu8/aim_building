@@ -9,7 +9,7 @@
             h2.title {{$Lang('res-choice1','1.選擇服務項目')}}
             //- p 網拍、業配、外景拍攝、廣告
           .reservation-box-body.img-list-box
-            .reservation-item.img-item(:class="{ 'active': res.active }" v-for="(res,i) in data.reservationService" :key="res.key" @click="selectReservation(res,i)")
+            .reservation-item.img-item(:class="{ 'active': res.active }" v-for="(res,i) in data.reservationService" :key="res.key" @click="selectReservation(i),checkDate(i)")
               .img
                 img(:src="res.image", alt)
               .info
