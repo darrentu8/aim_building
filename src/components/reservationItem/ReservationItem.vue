@@ -8,10 +8,10 @@
           .reservation-box-head
             h2.title {{$Lang('res-choice1','1.選擇服務項目')}}
             //- p 網拍、業配、外景拍攝、廣告
-          .reservation-box-body.img-list-box
-            .reservation-item.img-item(:class="{ 'active': res.active }" v-for="(res,i) in data.reservationService" :key="res.key" @click="selectReservation(i),checkDate(i)")
-              .img
-                img(:src="res.image", alt)
+          .reservation-item-box
+            .img-item(:class="{ 'active': res.active }" v-for="(res,i) in data.reservationService" :key="res.key" @click="selectReservation(i),checkDate(i)")
+              .img-box 
+                img.img(:src="res.image", alt)
               .info
                 .info-title {{res.name}}
                 .price {{$Lang('res-rate','時薪')}} {{res.content[0].time[0].price}} {{$Lang('res-currency','元')}}

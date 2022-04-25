@@ -102,7 +102,7 @@
                       h3.service-title {{res.name}}
                       p {{res.info}}
                     .service-img
-                      img(:src="res.image", alt)
+                      img.img(:src="res.image", alt)
                   .price(v-if="res.content[0].time[0].price != undefined") {{$Lang('index-time-price','時薪費用')}} {{res.content[0].time[0].price}} {{$Lang('res-currency','元')}} / {{$Lang('res-time-num','可預約數量')}} {{res.copies}}
                   //- .price 剩餘銷售數量 {{res.copies}} / 已售出 {{res.sell}}
                   //- .service-info

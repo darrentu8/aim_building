@@ -66,39 +66,7 @@ ul{
   margin-bottom: 3px;
   font-weight:bold;
 }
-.img-list-box{
-  display:flex;
-  flex-wrap:wrap;
-  width: 100%;
-}
-.img-list-box .img-item{
-  width: 50%;
-  display:flex;
-  align-items:center;
-  margin-bottom: 2vw;
-}
-.img-list-box .img{
-  position: relative;
-  width:61px;
-  height: 61px;
-  border:1px solid #979797;
-  border-radius:1.6vw;
-  overflow: hidden;
-  margin-right: 1.34vw;
-}
-.img-list-box .img img{
-  position:absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  object-fit: cover;
-  object-position:50% 50%;
-}
-.img-list-box .info-title{
-  color:#EB7979;
-  font-weight:bold;
-  margin-bottom: 5px;
-}  
+
 .store-service-box .basePageBack .sorollView{
   top: 0 !important; 
 }
