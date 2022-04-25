@@ -4,10 +4,9 @@ import moment from 'moment';
 import Vue from 'vue';
 import { Toast } from 'mint-ui';
 import { mapState } from 'vuex';
-import {AppBase, device} from '../../lib/Index'
+import {constant, device, jgdata, moneyfmt} from '../../lib/Index'
 
 export default {
-  extends: AppBase,
   data () {
     return {
       from: new Date(),
@@ -24,10 +23,10 @@ export default {
       selectResIndex: 0,
       timeList: [],
       reservationList: [
-        {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img1.png'), active: false},
+        /* {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img1.png'), active: false},
         {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img2.png'), active: false},
         {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img3.png'), active: false},
-        {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img4.png'), active: false}
+        {title: '網拍', id: '1', price: 1200, link: require('@/assets/img/reservation-img4.png'), active: false} */
       ],
       selectTime: [],
       zh: zh,
@@ -83,6 +82,20 @@ export default {
       })
     },
     selectTimes (item) {
+      // 增加 日期預約已滿 判別 220416
+      if (this.dateSelect === null) {
+        return;
+      }
+      if (item.number < 1) {
+        let msg = moment(this.dateSelect).format('YYYY-MM-DD');
+        msg = `日期：${msg} \n 時段：${item.time}/${moneyfmt(item.price)} \n 預約已滿！`;
+        Toast({
+          message: msg,
+          position: 'middle',
+          duration: 5000
+        });
+        return false;
+      }
       if (item.active) {
         Vue.set(item, 'active', false);
       } else {
@@ -138,11 +151,13 @@ export default {
         return false;
       }
       // 轉換日期顯示
-      let selectDate = this.dateSelect;
+      /* let selectDate = this.dateSelect;
       let SYY = selectDate.getFullYear();
       let SMM = selectDate.getMonth() + 1;
       let SDD = selectDate.getDate();
-      let SDate = SYY + '-' + SMM + '-' + SDD;
+      let SDate = SYY + '-' + SMM + '-' + SDD; */
+      // 時間格式統一 用 YYYY-MM-DD 格式  如: 2022-04-28
+      let SDate = moment(this.dateSelect).format('YYYY-MM-DD');
 
       let selectItem = null;
       // console.log(ResObj);
@@ -153,7 +168,7 @@ export default {
           break;
         }
       }
-      console.log(selectItem);
+      // console.log(selectItem);
       if (selectItem === null) {
         Toast({
           message: '請選擇服務項目!',
@@ -265,6 +280,28 @@ export default {
       };
       let weekNumber = moment(date).isoWeekday();
       return weeksObj[weekNumber];
+    },
+    // 增加選擇日期，讀取預約數量是否可用 220416
+    selectDate (date) {
+      date = moment(date).format('YYYY-MM-DD');
+      const url = `${constant.SERVER}/aimandofo/getreservationdata`;
+      let param = {};
+      param.date = date;
+      jgdata.getDataServer(url, param).then((data) => {
+        // 更新一下日期 可用數量
+        let resData = this.data.reservationService;
+        for (let i = 0; i < resData.length; i++) {
+          resData[i].content = [];
+          for (let n = 0; n < data.length; n++) {
+            if (resData[i].key === data[n].key) {
+              resData[i].content.push(data[n])
+            }
+          }
+        }
+        this.data.reservationService = resData;
+      }).catch(e => {
+        // 獲取數據錯誤
+      })
     }
   }
 }

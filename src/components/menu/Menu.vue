@@ -23,14 +23,18 @@
           ul.menu-list-item(v-for="(vo, i) in funData" :key="i")
             li
               a(@click="onClickMenuItem(vo)") {{vo.text}}
-        .menu-btm(v-if="data.uiInfo.version")
+        .menu-btm
           ul
             li
-              p.version ver : {{data.uiInfo.version}}
-        .menu-btm(v-else)
-          ul
-            li
-              p.version ver : 
+              p.version ver : {{getVerion()}}
+        //.menu-btm(v-if="data.uiInfo.version")
+        //  ul
+        //    li
+        //      p.version ver : {{data.uiInfo.version}}
+        //.menu-btm(v-else)
+        //  ul
+        //    li
+        //      p.version ver :
 </template>
 
 <script>

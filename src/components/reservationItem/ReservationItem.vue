@@ -1,7 +1,7 @@
  數據
 <template lang="pug">
   .reservation-item-box.page-box
-    //  end page-head 
+    //  end page-head
     .page-body
       .reservation-body(:style="bgclass")
         .white-bg.reservation-box
@@ -19,17 +19,17 @@
           .white-bg-head.reservation-box-head
             h2.title.mt-3 {{$Lang('res-choice2','2.選擇服務日期')}}
             .calender-box(v-if="!disabled")
-              datepicker(:disabled="disabled" :inline="true", :language="zh", required, :value="new Date()", :disabled-dates="disabledDates", v-model="dateSelect")
+              datepicker(:disabled="disabled" :inline="true", :language="zh", required, :value="new Date()", :disabled-dates="disabledDates", v-model="dateSelect",@selected="selectDate")
             p.mt-5.text-center(v-else) 目前無日期可預約，請選擇其他服務項目
-        //  end reservation-box 
+        //  end reservation-box
         .white-bg.reservation-box
           .white-bg-head.reservation-box-head
             h2.title {{$Lang('res-available','3.目前可預約時段')}}
             p {{$Lang('res-available-choice','請選擇可預約時段')}}
           .reservation-box-body
             ul.reservation-date
-              li(:class="{ 'active': timeSlot.active }" type="button" v-for="(timeSlot,i) in data.reservationService[this.selectResIndex].content[0].time" @click="selectTimes(timeSlot,i)") {{timeSlot.time}} / {{timeSlot.price}} {{$Lang('res-currency','元')}}
-        //  end reservation-box 
+              li(:class="{ 'active': timeSlot.active }" :style="{backgroundColor:timeSlot.number<1 ? '#0000008f' :''}" type="button" v-for="(timeSlot,i) in data.reservationService[this.selectResIndex].content[0].time" @click="selectTimes(timeSlot,i)") {{timeSlot.time}} / {{timeSlot.price}} {{$Lang('res-currency','元')}}
+        //  end reservation-box
         .white-bg.reservation-box.price-box
           .reservation-box-head
             h2.title {{$Lang('res-subtotal','總共預約費用')}}
@@ -45,8 +45,8 @@
               p {{$Lang('res-totals','合計金額')}}
           .btn-box
             button.btn(@click="reservat()") {{$Lang('res-total-submit','確定預約服務')}}
-        //  end reservation-box 
-    //  end page-body 
+        //  end reservation-box
+    //  end page-body
 </template>
 
 
