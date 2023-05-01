@@ -2,28 +2,27 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: "babel-eslint",
   parserOptions: {
-    sourceType: 'module'
+    sourceType: "module"
   },
   env: {
-    browser: true,
+    browser: true
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
+  extends: "standard",
   // required to lint *.vue files
-  plugins: [
-    'html',
-    'vue'
-  ],
+  plugins: ["html", "vue"],
   //  #去掉代码结尾的分号
 
   // add your custom rules here
   rules: {
     // allow async-await
-    'generator-star-spacing': 'off',
+    "generator-star-spacing": "off",
+    "space-before-function-paren": 0,
+    quotes: "off",
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'semi': 0
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    semi: 0
   }
-}
+};

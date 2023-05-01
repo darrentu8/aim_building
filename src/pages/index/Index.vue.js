@@ -1,26 +1,26 @@
-
-import Menu from '../../components/menu/Menu'
-import {jgdata, device, getChineseWeek, AppBase} from '../../lib/Index'
-import BasePageBack from '../../components/basepageback/BasePageBack'
+import Menu from "../../components/menu/Menu";
+import { jgdata, device, AppBase } from "../../lib/Index";
+import BasePageBack from "../../components/basepageback/BasePageBack";
 // import VueSlickCarousel from 'vue-slick-carousel';
-import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // import { mapState } from 'vuex'
 // optional style for arrows & dots
 // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
 export default {
-  name: 'Index',
+  name: "Index",
   extends: AppBase,
-  props: {
-  },
-  data () {
+  props: {},
+  data() {
     return {
       data: {},
       /* timeData: [],
       businesstime: [], */
       res: [],
       bgclass: {
-        backgroundImage: 'url(' + require('@/assets/img/reservation-bg.png') + ')'
+        backgroundImage:
+          "url(" + require("@/assets/pic/170914-3842-1-T0wUb.jpg") + ")",
+        boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.2)"
       },
       /* shopinfo: {},
       pageData: [], */
@@ -46,144 +46,67 @@ export default {
           }
         ]
       }, */
-      isCollect: false  // 220305
-    }
+      isCollect: false // 220305
+    };
   },
   components: {
     BasePageBack,
     Menu
     /* VueSlickCarousel */
   },
-  computed: {
-    exchangecards () {
-      const data = this.data.itemFun;
-      if (data !== undefined) {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].parameter === 'exchangecards') {
-            return data[i];
-          }
-        }
-        return null;
-      }
-    },
-    chat () {
-      const data = this.data.itemFun;
-      if (data !== undefined) {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].parameter === 'chat') {
-            return data[i];
-          }
-        }
-        return null;
-      }
-    },
-    scan () {
-      const data = this.data.itemFun;
-      if (data !== undefined) {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].parameter === 'scan') {
-            return data[i];
-          }
-        }
-        return null;
-      }
-    },
-    jobData: {
-      get () {
-        if (typeof this.data.job === 'undefined') {
-          return [];
-        }
-        return JSON.parse(this.data.job);
-      },
-      set (value) {
-        this.data.job = value;
-      }
-    },
-    shopTimeView () {
-      let timeData = [];
-      let shopTime = JSON.parse(this.data.shopTime);
-      // console.log('shopTime', shopTime)
-      let now = new Date();
-      let day = now.getDay();
-      if (shopTime !== null) {
-        shopTime.forEach((item, n) => {
-          // 顯示今明
-          if (n === day || n === day - 1) {
-            if (item.state === 1) {
-              if (item.time === '00:00-00:00') {
-                timeData.push({
-                  time: '全日',
-                  week: '星期' + getChineseWeek(n)
-                })
-              } else {
-                timeData.push({
-                  time: item.time,
-                  week: '星期' + getChineseWeek(n)
-                })
-              }
-            } else {
-              timeData.push({
-                time: '休假',
-                week: '星期' + getChineseWeek(n)
-              })
-            }
-          }
-        })
-      }
-      return timeData;
-    }
-    // ...mapState(['isCollect'])  // 220305 去掉 添加了,數據狀態不知原因無法同步
-  },
+  computed: {},
   // 添加 註冊 消息 210809
-  async created () {
+  async created() {
     if (this.data.shopid === null || this.data.shopid === undefined) {
       // 初始數據 220305
       this.initData();
     }
     this.$nextTick(() => {
       // console.log('in')
-      window.onscroll = function () {
-        let headerMain = document.getElementById('header-box');
+      window.onscroll = function() {
+        let headerMain = document.getElementById("header-box");
         if (window.pageYOffset >= 30) {
-          headerMain.classList.add('scroll-bg');
+          headerMain.classList.add("scroll-bg");
         } else {
-          headerMain.classList.remove('scroll-bg');
+          headerMain.classList.remove("scroll-bg");
         }
-      }
-    })
+      };
+    });
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    setRes (res, i) {
-      this.$store.commit('setRes', res);
+    to(val) {
+      this.$router.push(
+        {
+          name: val
+        },
+        "1000"
+      );
     },
-    setResKey (res, i) {
-      this.$store.commit('setResKey', res);
-    },
-    onclickMenu () {
+    onclickMenu() {
       this.$refs.menu.openMenu();
     },
     // 開啟聊天
-    openChat () {
+    openChat() {
       device.openChat();
     },
+    // 聯絡管理員
+    openManager() {
+      device.openPage("cook", "聯絡管理員");
+    },
     // 點擊收藏
-    onCollect () {
+    onCollect() {
       device.collect(this.isCollect);
       // this.$store.commit('setIsCollect', this.isCollect = !this.isCollect);
     },
     // 初始數據或更新數據 220305
-    initData () {
-      this.$store.commit('setShopData', {});
-     // this.data = jgdata.getShopInfo();
+    initData() {
+      this.$store.commit("setShopData", {});
+      // this.data = jgdata.getShopInfo();
       this.data = jgdata.getShopData();
       // console.log(this.data);
-      this.$store.commit('setShopData', this.data);
-      this.$store.commit('setResKey', null);
-      this.isCollect = this.data.isCollect;
-      // 收藏狀態 更新 220305
-      this.$store.commit('setIsCollect', this.isCollect);
+      this.$store.commit("setShopData", this.data);
+      this.$store.commit("setResKey", null);
 
       // 商家的 google地圖 GPS 坐標
       // this.data.mappoint;
@@ -197,4 +120,4 @@ export default {
       }
     }
   }
-}
+};

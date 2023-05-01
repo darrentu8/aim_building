@@ -1,90 +1,68 @@
 /* eslint-disable import/first */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
-import store from './store'
+import Vue from "vue";
+import App from "./App";
+import store from "./store";
 
-import router from './router'
-import './assets/css/bootstrap.css'
-import './assets/css/icons.css'
-import {jglib, constant, device, moneyfmt} from './lib/Index';
+import router from "./router";
+import "./assets/css/bootstrap.css";
+import "./assets/css/icons.css";
+import { jglib, constant, device, moneyfmt } from "./lib/Index";
 device.setRouter(router);
 
-Vue.filter('currency', moneyfmt);
+Vue.filter("currency", moneyfmt);
 
 // By default we import all the components.
 // Only reserve the components on demand and remove the rest.
 // Style is always required.
-import {
-  Button,
-  ActionSheet,
-  Scroll,
-  Slide,
-  Sticky,
-  ScrollNav
-  /* ImagePreview */
-} from 'cube-ui'
+import Cube from "cube-ui";
 
-Vue.use(Button);
-Vue.use(ActionSheet);
-Vue.use(Scroll);
-Vue.use(Slide);
-Vue.use(Sticky);
-Vue.use(ScrollNav);
-// Vue.use(ImagePreview);
+Vue.use(Cube);
 
-import {Range,
-  Badge,
-  Toast,
-  Field
-} from 'mint-ui'
+import { Range, Badge, Toast, Field } from "mint-ui";
 Vue.component(Range.name, Range);
 Vue.component(Badge.name, Badge);
 Vue.component(Field.name, Field);
 
-function ToastErro (notice) {
-  if (notice === '') {
-    return
+function ToastErro(notice) {
+  if (notice === "") {
+    return;
   }
   Toast({
     message: notice,
-    iconClass: 'glyphicon glyphicon-remove'
-  })
+    iconClass: "glyphicon glyphicon-remove"
+  });
 }
-function ToastSucceed (notice) {
-  if (notice === '') {
-    notice = '操作成功！'
+function ToastSucceed(notice) {
+  if (notice === "") {
+    notice = "操作成功！";
   }
   Toast({
     message: notice,
-    iconClass: 'glyphicon glyphicon-ok'
-  })
+    iconClass: "glyphicon glyphicon-ok"
+  });
 }
-function GetLang (name, def = '') {
+function GetLang(name, def = "") {
   return jglib.getLang(name, def);
 }
 /**
  * @return {string}
  */
-function GetImage (name, userid = 'admin',
-                  width = '200',
-                  height = '200') {
-  return `${constant.SERVER}/Aimandofo/getImage/filename/${name}/userid/${userid}/width/${width}/height/${height}`
+function GetImage(name, userid = "admin", width = "200", height = "200") {
+  return `${constant.SERVER}/Aimandofo/getImage/filename/${name}/userid/${userid}/width/${width}/height/${height}`;
 }
 
 /**
  * 获取自定义图标
  * @return {string}
  */
-function GetUIIcon (name, def = '',
-                    width = '100',
-                    height = '100') {
+function GetUIIcon(name, def = "", width = "100", height = "100") {
   let lname = jglib.getIcon(name);
-  if (lname === '') {
+  if (lname === "") {
     return require(`@/assets/img/${def}`);
   }
-  lname = GetImage(lname, 'admin', width, height);
+  lname = GetImage(lname, "admin", width, height);
   return lname;
 }
 // 错误提示
@@ -99,9 +77,9 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   store,
-  template: '<App/>',
+  template: "<App/>",
   components: { App }
 });
