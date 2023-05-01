@@ -6,7 +6,7 @@
     div(slot="page-title") 電梯施工開會總結
     div(slot="content")
       .col-12.mb-4.mx-auto.px-5
-        ul
+        ul.data
           li
             b 記錄人：林大俠
           li

@@ -73,7 +73,7 @@ a.btn {
     border-top: 2px solid #CDDCEA;
   }
 }
-ol,ul,dl {
+ol.data,ul.data,dl.data {
   list-style: none;
   & li {
     display: inline-block;
