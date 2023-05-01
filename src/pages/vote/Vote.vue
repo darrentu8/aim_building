@@ -33,7 +33,7 @@
             button.full-width.btn.btn-primary G
           .col-6.my-2
             button.full-width.btn.btn-primary H
-      .col-12.mb-4.mx-auto.text-center
+      .col-12.mb-4.mx-auto.text-center.pb-5
         .form-group
           label
             b 請寫下投票的原因

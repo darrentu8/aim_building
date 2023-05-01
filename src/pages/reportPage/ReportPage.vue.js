@@ -16,19 +16,7 @@ export default {
   data() {
     return {
       data: {},
-      settings: {
-        dots: true,
-        infinite: true,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        centerMode: true,
-        centerPadding: "20px",
-        autoplay: false,
-        autoplaySpeed: 2000,
-        pauseOnDotsHover: true,
-        pauseOnFocus: true,
-        pauseOnHover: true
-      },
+      settings: {},
       photoData: [
         {
           id: 1,
