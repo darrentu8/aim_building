@@ -12,6 +12,7 @@ export default {
   props: {},
   data() {
     return {
+      disabled: true,
       data: {},
       // 开始时间
       startTime: "",

@@ -17,7 +17,6 @@ Vue.filter("currency", moneyfmt);
 // Only reserve the components on demand and remove the rest.
 // Style is always required.
 import Cube from "cube-ui";
-
 Vue.use(Cube);
 
 import { Range, Badge, Toast, Field } from "mint-ui";
