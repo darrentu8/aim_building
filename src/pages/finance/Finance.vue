@@ -8,11 +8,11 @@
         <div class="col-12 mb-4 mx-auto text-center"><img class="head-icon mb-4" src="../../assets/pic/money.svg" /></div>
         <div class="row mb-4 mx-auto text-center select-date">
           <b>查詢從</b>
-          <cube-input class="theme-input col-3 p-0 mx-2 btn" v-on:focus="showMinPicker('startTime')" v-model="startTime"
-            placeholder="開始時間" :maxlength="30" action="javascript:;" />
+          <cube-input readonly class="theme-input col-3 p-0 mx-2 btn" v-on:focus="showMinPicker('startTime')"
+            v-model="startTime" placeholder="開始時間" :maxlength="30" action="javascript:;" />
           <b>至</b>
-          <cube-input class="theme-input col-3 p-0 mx-2 btn" v-on:focus="showMinPicker('endTime')" v-model="endTime"
-            placeholder="結束時間" :maxlength="30" action="javascript:;" />
+          <cube-input readonly class="theme-input col-3 p-0 mx-2 btn" v-on:focus="showMinPicker('endTime')"
+            v-model="endTime" placeholder="結束時間" :maxlength="30" action="javascript:;" />
           <b>的紀錄</b>
         </div>
         <div class="col-12 mb-4">

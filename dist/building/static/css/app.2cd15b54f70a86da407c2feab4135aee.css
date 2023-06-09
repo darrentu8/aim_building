@@ -700,6 +700,20 @@ body {
  .cube-picker-confirm {
 	 color: #7689ab !important;
 }
+ .btm-btn-primary.arrow {
+	 position: absolute;
+	 color: white;
+	 text-align: center;
+	 background-color: #7689ab;
+	 bottom: 0;
+	 left: 0;
+	 width: 100%;
+	 padding: 20px;
+	 z-index: 100;
+}
+ .btm-btn-primary.arrow a {
+	 width: 70px;
+}
  .btm-btn-primary {
 	 position: absolute;
 	 color: white;
@@ -756,7 +770,13 @@ body {
 	 font-size: 1rem;
 	 color: #000;
 	 text-align: center;
-	 padding: 5px 5px 2px 5px;
+	 padding: 2px 5px 2px 5px;
+}
+ .cube-input-field::-webkit-input-placeholder {
+  font-size: .8rem !important;
+}
+ .cube-input-field::placeholder {
+  font-size: .8rem !important;
 }
  .theme-input::-webkit-input-placeholder {
 	 color: white;
@@ -780,6 +800,20 @@ body {
 }
  .form-check-label {
 	 margin-top: 3px;
+}
+ .vote-info {
+	 padding: 10px 20px;
+	 border-radius: 15px;
+	 box-shadow: 2px 3px 10px #768aab 8f;
+   margin: 0 auto !important;
+}
+ .vote-info.primary {
+  background-color: #7689ab;
+  color: #fff;
+}
+ .vote-info.secondary {
+  background-color: #b7c2d0;
+  color: #000;
 }
  .info {
 	 padding: 10px 20px;
@@ -11466,6 +11500,20 @@ a.btn .icon-size {
 .cube-picker-confirm {
 	 color: #7689ab !important;
 }
+.btm-btn-primary.arrow {
+	 position: absolute;
+	 color: white;
+	 text-align: center;
+	 background-color: #7689ab;
+	 bottom: 0;
+	 left: 0;
+	 width: 100%;
+	 padding: 20px;
+	 z-index: 100;
+}
+.btm-btn-primary.arrow a {
+	 width: 70px;
+}
 .btm-btn-primary {
 	 position: absolute;
 	 color: white;
@@ -11522,7 +11570,13 @@ ol.data li::marker, ul.data li::marker, dl.data li::marker {
 	 font-size: 1rem;
 	 color: #000;
 	 text-align: center;
-	 padding: 5px 5px 2px 5px;
+	 padding: 2px 5px 2px 5px;
+}
+.cube-input-field::-webkit-input-placeholder {
+  font-size: .8rem !important;
+}
+.cube-input-field::placeholder {
+  font-size: .8rem !important;
 }
 .theme-input::-webkit-input-placeholder {
 	 color: white;
@@ -11546,6 +11600,20 @@ ol.data li::marker, ul.data li::marker, dl.data li::marker {
 }
 .form-check-label {
 	 margin-top: 3px;
+}
+.vote-info {
+	 padding: 10px 20px;
+	 border-radius: 15px;
+	 box-shadow: 2px 3px 10px #768aab 8f;
+   margin: 0 auto !important;
+}
+.vote-info.primary {
+  background-color: #7689ab;
+  color: #fff;
+}
+.vote-info.secondary {
+  background-color: #b7c2d0;
+  color: #000;
 }
 .info {
 	 padding: 10px 20px;

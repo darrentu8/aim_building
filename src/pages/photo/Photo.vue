@@ -8,9 +8,9 @@
         <div class="col-12 mb-4 mx-auto text-center"><img class="head-icon mb-1" src="../../assets/pic/photo-mic.svg" />
         </div>
         <div class="row mb-4 mx-auto text-center select-date"><b>查詢從</b>
-          <cube-input class="theme-input col-3 p-0 mx-2 btn" @focus="showMinPicker('startTime')" v-model="startTime"
-            placeholder="開始時間" :maxlength="30"></cube-input><b>至</b>
-          <cube-input class="theme-input col-3 p-0 mx-2 btn" @focus="showMinPicker('endTime')" v-model="endTime"
+          <cube-input readonly class="theme-input col-3 p-0 mx-2 btn" @focus="showMinPicker('startTime')"
+            v-model="startTime" placeholder="開始時間" :maxlength="30"></cube-input><b>至</b>
+          <cube-input readonly class="theme-input col-3 p-0 mx-2 btn" @focus="showMinPicker('endTime')" v-model="endTime"
             placeholder="結束時間" :maxlength="30"></cube-input><b>的紀錄</b>
           <p class="mt-2 text-primary">記錄由最新至最舊</p>
         </div>

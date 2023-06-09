@@ -127,7 +127,7 @@
         </div>
       </div>
     </BasePageBack>
-    <div class="btm-btn-primary"><a class="float-left btn text-white" href="#"><img class="icon-size"
+    <div class="btm-btn-primary arrow"><a class="float-left btn text-white" href="#"><img class="icon-size"
           src="../../assets/pic/back.png" /><span>定存</span></a><a class="float-right btn text-white"
         href="#"><span>收入</span><img class="icon-size" src="../../assets/pic/next.png" /></a></div>
   </div>
