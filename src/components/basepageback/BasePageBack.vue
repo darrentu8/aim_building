@@ -1,9 +1,9 @@
 <template>
   <div class="basePageBack" :class="type">
     <header class="header page-header" id="header-box">
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center mt-2">
         <div class="float-left">
-          <button type="button" class="btn btn-primary page-back-btn" @click="back">
+          <button type="button" class="btn btn-primary page-back-btn mt-2" @click="back">
             <slot name="back-btn"></slot>
             <img src="../../assets/pic/icon-back.png" />
           </button>
@@ -11,11 +11,11 @@
         <div class="page-title">
           <slot name="page-title"></slot>
         </div>
-        <!-- <div class="ml-auto">
+        <div class="ml-auto">
           <button type="button" class="btn btn-primary" @click="onclickMenu">
             <img src="../../assets/pic/icon-menu.png" class="menu-btn" />
           </button>
-        </div> -->
+        </div>
       </div>
     </header>
     <!-- end page-header -->

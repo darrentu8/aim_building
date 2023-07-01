@@ -1,44 +1,80 @@
 <template>
   <div class="menu-dialog">
-    <div class="menu-mask" v-show="visibilityMenu" @click="visibilityMenu = false">
-      <div class="menu" ref="menu" v-show="visibilityMenu">
-        <div class="menu-content" v-if="data">
-          <div class="menu-close" @click="closeMenu"><button class="btn btn-primary" type="button"><img
-                src="../../assets/img/icon-close.png" /></button></div>
-          <div class="menu-head">
-            <div class="info">
-              <div class="name" v-if="data.shopName &amp;&amp; data.business">{{ data.shopName }} {{ data.business }}
-              </div>
-              <div class="name" v-else> -</div>
-              <div class="user-count d-flex">
-                <p>{{ $Lang('index-attention', '被關注人數') }}<b v-if="data.attention"> {{ data.attention }}</b><b v-else>
-                    0</b></p>
-                <p>{{ $Lang('index-orderQuantity', '本月已預約人數') }}<b v-if="data.orderQuantity"> {{ data.orderQuantity
-                }}</b><b v-else> 0</b></p>
-              </div>
-            </div>
-          </div>
-          <div class="menu-list" v-if="funData">
-            <ul class="menu-list-item" v-for="(vo, i) in funData" :key="i">
-              <li><a @click="onClickMenuItem(vo)">{{ vo.text }}</a></li>
-            </ul>
-          </div>
-          <div class="menu-btm">
-            <ul>
-              <li>
-                <p class="version">ver : {{ getVerion() }}</p>
-              </li>
-            </ul>
-          </div>
-          <!--.menu-btm(v-if="data.uiInfo.version")-->
-          <!--  ul-->
-          <!--    li-->
-          <!--      p.version ver : {{data.uiInfo.version}}-->
-          <!--.menu-btm(v-else)-->
-          <!--  ul-->
-          <!--    li-->
-          <!--      p.version ver :-->
+    <div class="menu-mask" v-show="visibilityMenu" @click="visibilityMenu = false" />
+    <div class="menu" ref="menu" v-show="visibilityMenu">
+      <div class="menu-content">
+        <!-- <div @click="closeMenu" class="menu-close">
+          <button type="button" class="btn btn-primary">
+            <img src="../../assets/img/icon-close.png"/>
+          </button>
+        </div> -->
+        <div class="menu-list">
+          <!-- <div v-for="vo in funData"
+               class="menu-list-item"
+               @click="onClickMenuItem(vo)"
+          >
+            <li><button type="button" class="btn btn-primary">
+              {{vo.text}}
+            </button>
+            </li>
+          </div> -->
+          <ul class="menu-list-item" v-if="funData">
+            <li v-for="(vo, i) in funData" :key="i">
+              <a @click="onClickMenuItem(vo)">
+                {{ vo.text }}
+              </a>
+            </li>
+            <!-- <ul class="menu-list-item">
+            <li>
+              <a @click="onClickMenuItem(goMain)">
+                {{goMain.text}}
+              </a>
+            </li>
+            <li>
+              <router-link :to="{name: 'About'}">
+                門市
+              </router-link>
+            </li>
+            <li>
+              <a href="#">
+                使用心得
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                部落格
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                後台管理
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                我的訂單
+              </a>
+            </li>
+            <li>
+              <router-link :to="{name: 'MyCommit'}">
+                我的評論
+              </router-link>
+            </li>
+
+            <li>
+              <router-link :to="{name: 'BrowseRecord'}">
+                瀏覽紀錄
+              </router-link>
+            </li>
+            <li>
+              <a @click="onClickMenuItem(goHome)">
+                {{goHome.text}}
+              </a>
+            </li> -->
+          </ul>
         </div>
+
+
       </div>
     </div>
   </div>

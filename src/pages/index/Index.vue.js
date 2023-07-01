@@ -76,12 +76,9 @@ export default {
   mounted() {},
   methods: {
     to(val) {
-      this.$router.push(
-        {
-          name: val
-        },
-        "1000"
-      );
+      this.$router.push({
+        name: val
+      });
     },
     onclickMenu() {
       this.$refs.menu.openMenu();

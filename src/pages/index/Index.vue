@@ -1,6 +1,11 @@
 <template>
   <div class="index-box">
     <header class="header page-header" id="header-box" :style="bgclass">
+      <div class="top-box">
+        <button type="button" class="btn btn-primary mt-3" @click="onclickMenu">
+          <img src="../../assets/pic/icon-menu.png" class="menu-btn" />
+        </button>
+      </div>
       <div class="mx-auto text-center mt-5"><img class="logo" src="../../assets/pic/logo.svg" /></div>
       <div class="logo-line mt-4 pt-3 mx-5"></div>
       <div class="logo-title h5">恆順社區大樓</div>

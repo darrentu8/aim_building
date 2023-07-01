@@ -52,6 +52,10 @@
 	 width: auto;
 	 height: 16px;
 }
+.top-box {
+  display: flex;
+  justify-content: end;
+}
  .cube-picker-confirm {
 	 color: #7689ab !important;
 }
